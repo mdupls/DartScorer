@@ -1,0 +1,6 @@
+version: "Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1)"
+options: "01d0ea46f0caa979a8b986d25320c370"
+build_time: [542768885, 646755000]
+inputs:
+  "/Users/dupls/Projects/Dart Scorer/Dart Scorer/ViewController.swift": [542768883, 0]
+  "/Users/dupls/Projects/Dart Scorer/Dart Scorer/AppDelegate.swift": [537325316, 0]
