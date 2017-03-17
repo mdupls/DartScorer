@@ -1,9 +1,7 @@
-//
-//  x01.json
-//  Dart Scorer
-//
-//  Created by Michael Du Plessis on 2017-03-15.
-//  Copyright © 2017 Michael Du Plessis. All rights reserved.
-//
-
-import Foundation
+{
+    "name": "X01",
+    "board": {
+        "sections": [ 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1 ],
+        "bullseye": true
+    }
+}

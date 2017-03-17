@@ -7,3 +7,12 @@
 //
 
 import Foundation
+import CoreGraphics
+
+extension CGPoint {
+    
+    func distance(to: CGPoint) -> CGFloat {
+        return sqrt((x - to.x) * (x - to.x) + (y - to.y) * (y - to.y))
+    }
+    
+}

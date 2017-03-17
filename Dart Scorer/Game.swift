@@ -7,3 +7,13 @@
 //
 
 import Foundation
+
+protocol IGame {
+    
+    var currentPlayer: Player { get }
+    
+    func start()
+    
+    func score(player: Player, target: Target?)
+    
+}

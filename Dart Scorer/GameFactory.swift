@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+class GameFactory {
+    
+    init() {
+        
+    }
+    
+    func createGame(players: [Player]) -> IGame {
+        return X01Game(players: players, sections: 20)
+    }
+    
+}

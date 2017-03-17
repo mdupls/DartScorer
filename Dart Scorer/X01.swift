@@ -15,27 +15,27 @@ class X01Game {
     
     var goal: Int = 501
     
-    internal var turn: X01Turn?
+    internal var turn: Turn?
     
     private var _currentPlayer: Int = 0
     private var _finished: Bool = false
     
-    var stats: Stats {
-        let rank = rankPlayers()
-        
-        return Stats(rank: rank)
-    }
+//    var stats: Stats {
+//        let rank = rankPlayers()
+//        
+//        return Stats(rank: rank)
+//    }
     
     var currentPlayer: Player {
         return players[_currentPlayer]
     }
     
-    init(players: [Player]) {
+    init(players: [Player], sections: Int) {
         self.players = players
         
         var scores: [Score] = []
         for _ in 0 ..< players.count {
-            scores.append(Score())
+            scores.append(X01Game.createScore())
         }
         
         self.scores = scores
@@ -43,18 +43,24 @@ class X01Game {
     
     // MARK: Private
     
-    internal func rankPlayers() ->  {
-        
+//    internal func rankPlayers() ->  {
+//        
+//    }
+    
+    class func createScore() -> Score {
+        return Score(sections: 20)
     }
     
     internal func nextPlayer() {
         _currentPlayer = (_currentPlayer + 1) % players.count
         
-        newTurn()
+        createTurn()
     }
     
-    internal func newTurn() {
-        turn = X01Turn(player: currentPlayer)
+    internal func createTurn() {
+        turn = Turn(player: currentPlayer, score: X01Game.createScore(), turns: 3)
+        
+        print("\(currentPlayer.name)'s turn")
     }
     
     internal func getScore(player: Player) -> Score? {
@@ -67,13 +73,13 @@ class X01Game {
         return nil
     }
     
-    internal func checkScore(score: Score, turn: X01Turn) -> ScoreResult {
-        let possibleScore = score.score + turn.score
+    internal func checkScore(score: Score, turn: Turn) -> ScoreResult {
+        let points = score.sum() + turn.score.sum()
         
-        if possibleScore < goal {
-            return .OK
-        } else if possibleScore == goal {
+        if points == goal {
             return .Won
+        } else if points < goal {
+            return .OK
         } else {
             return .Bust
         }
@@ -81,6 +87,8 @@ class X01Game {
     
     internal func won(player: Player) {
         _finished = true
+        
+        print("\(player.name) won!")
     }
     
 }
@@ -88,29 +96,33 @@ class X01Game {
 extension X01Game: IGame {
     
     func start() {
-        newTurn()
+        createTurn()
     }
     
     func score(player: Player, target: Target?) {
         guard let turn = turn else { return }
         guard let score = getScore(player: player) else { return }
         
-        let controller = TurnController(turn: turn, turns: 3)
-        let points = controller.score(target: target)
-        
-        print("\(player.name) scored \(points) points.")
-        print("\(player)")
+        turn.hit(target: target)
         
         let result = checkScore(score: score, turn: turn)
         
         switch result {
         case .OK:
-            score.score(turn: turn)
-            nextPlayer()
+            print("\(player.name)'s score: \(score.sum() + turn.score.sum())")
+            
+            if turn.done {
+                score.add(score: turn.score)
+                
+                nextPlayer()
+            }
         case .Bust:
+            print("\(player.name) bust! Score: \(score.sum())")
             nextPlayer()
         case .Won:
-            score.score(turn: turn)
+            score.add(score: turn.score)
+            print("\(player.name)'s score: \(score.sum())")
+            
             won(player: player)
         }
     }
@@ -123,71 +135,19 @@ enum ScoreResult {
     case Won
 }
 
-internal class X01Turn {
-    
-    private let player: Player
-    private var _score: Int = 0
-    
-    var score: Int { return _score }
-    
-    init(player: Player) {
-        self.player = player
-    }
-    
-    func score(points: Int) -> Int {
-        _score += points
-        
-        return points
-    }
-    
-}
+private let slices = [25, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
-extension X01Turn: Turn {
+internal extension Score {
     
-    func score(target: Target?) -> Int {
-        let points = target?.score ?? 0
-        
-        return score(points: points)
-    }
-    
-}
-
-class X01Score {
-    
-    private var _score: Int = 0
-    
-    var score: Int {
-        return _score
-    }
-    
-    init() {
-        
-    }
-    
-    func score(targets: [Target]) {
-        
-    }
-    
-    func score(points: Int) {
-        _score += points
-        
-        print("\(_score)")
-    }
-    
-}
-
-extension X01Score: Score {
-    
-    func score(targets: [Target]) {
-        
-    }
-    
-}
-
-extension Score {
-    
-    func score(turn: X01Turn) {
-        score(points: turn.score)
+    func sum() -> Int {
+        var sum = 0
+        for value in score(forValues: slices) {
+            sum += value.value.totalValue
+        }
+        return sum
+//        return score(forValues: slices).reduce(0, { (result, item: (key, value)) -> Result in
+//            result = item.va
+//        })
     }
     
 }

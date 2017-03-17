@@ -7,3 +7,25 @@
 //
 
 import Foundation
+
+class Target: CustomStringConvertible {
+    
+    var enabled: Bool = false
+    
+    let value: Int
+    let section: Section
+    
+    var score: Int {
+        return value * section.rawValue
+    }
+    
+    var description: String {
+        return "\(value)x\(section.rawValue)=\(score)"
+    }
+    
+    init(value: Int, section: Section) {
+        self.value = value
+        self.section = section
+    }
+    
+}
