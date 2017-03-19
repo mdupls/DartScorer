@@ -14,7 +14,7 @@ class GameParser {
     private let _bullseye: Int = 25
     private let _slices: [Int] = [ 20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5 ]
     
-    private var json: [String : Any]?
+    private var _json: [String : Any]?
     
     init(name: String) {
         if let url = Bundle.main.url(forResource: name, withExtension: "json")
@@ -24,19 +24,27 @@ class GameParser {
                 
                 let json = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers)
 
-                self.json = json as? [String : Any]
+                self._json = json as? [String : Any]
             } catch {
                 
             }
         }
     }
     
+    var json: [String: Any]? {
+        return _json
+    }
+    
     private var _board: [String : Any]? {
-        return json?["board"] as? [String : Any]
+        return _json?["board"] as? [String : Any]
     }
     
     var targets: [Int] {
         return _board?["targets"] as? [Int] ?? []
+    }
+    
+    var sequentialTargets: [[Int]]? {
+        return _board?["targets"] as? [[Int]]
     }
     
     var slices: [Int] {
@@ -54,10 +62,20 @@ class GameParser {
     func model() -> BoardModel {
         let model = BoardModel(slices: slices, bullseye: bullseye)
         
-        for value in targets {
-            model.target(forValue: value, section: .Single)?.enabled = true
-            model.target(forValue: value, section: .Double)?.enabled = true
-            model.target(forValue: value, section: .Triple)?.enabled = true
+        if let targets = sequentialTargets {
+            if let firstTargets = targets.first {
+                for value in firstTargets {
+                    model.target(forValue: value, section: .Single)?.enabled = true
+                    model.target(forValue: value, section: .Double)?.enabled = true
+                    model.target(forValue: value, section: .Triple)?.enabled = true
+                }
+            }
+        } else {
+            for value in targets {
+                model.target(forValue: value, section: .Single)?.enabled = true
+                model.target(forValue: value, section: .Double)?.enabled = true
+                model.target(forValue: value, section: .Triple)?.enabled = true
+            }
         }
         
         model.targetForBullseye(at: .Single)?.enabled = hasBullseye

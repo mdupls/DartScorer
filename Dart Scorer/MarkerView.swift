@@ -16,6 +16,12 @@ class MarkerView: UIView {
         }
     }
     
+    var score: Score? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     var dataSource: MarkerViewDataSource? {
         didSet {
             setNeedsDisplay()
@@ -29,6 +35,7 @@ class MarkerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        guard let score = score else { return }
         guard let dataSource = dataSource else { return }
         guard let layout = layout else { return }
         
@@ -40,8 +47,11 @@ class MarkerView: UIView {
         
         for section in 0 ..< sections {
             let startAngle = layout.angle(forIndex: section)
+            var marks: Int = 0
+            if let value = dataSource.boardView(self, valueForSection: section) {
+                marks = score.score(forValue: value)?.totalHits ?? 0
+            }
             
-            let marks = 2
             let leadingSpaceSweep: CGFloat = 0.05
             let spaceSweep: CGFloat = 0.01
             let spacesSweep = spaceSweep * CGFloat(maxMarks - 1) + leadingSpaceSweep * 2
@@ -69,6 +79,8 @@ protocol MarkerViewDataSource {
     
     func numberOfSections(in markerView: MarkerView) -> Int
     
-    func markerView(_ markerView: MarkerView, hitsFor value: Int) -> Int
+    func boardView(_ markerView: MarkerView, valueForSection section: Int) -> Int?
+    
+    func bullsEyeValue(in markerView: MarkerView) -> Int?
     
 }

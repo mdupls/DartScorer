@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+private let BoardRatio: CGFloat = 0.9
 private let MarkerOuterRatio: CGFloat = 0.99
 private let MarkerInnerRatio: CGFloat = 0.97
 private let DoubleOuterRatio: CGFloat = 0.75
@@ -51,7 +52,7 @@ class BoardLayout {
     }
     
     func centerIn(frame: CGRect) -> CGRect {
-        let diameter = min(frame.width, frame.height)
+        let diameter = min(frame.width, frame.height) * BoardRatio
         let rect = CGRect(x: (frame.width - diameter) / 2, y: (frame.height - diameter) / 2, width: diameter, height: diameter)
         self.frame = rect
         return rect

@@ -10,17 +10,16 @@ import Foundation
 
 class Turn {
     
-    let score: Score
-    let player: Player
+    let player: GamePlayer
     let turns: Int
     
     private var _turnsTaken: Int = 0
     
     var done: Bool { return _turnsTaken >= turns }
+    var score: Score { return player.score }
     
-    init(player: Player, score: Score, turns: Int) {
+    init(player: GamePlayer, turns: Int) {
         self.player = player
-        self.score = score
         self.turns = turns
     }
     

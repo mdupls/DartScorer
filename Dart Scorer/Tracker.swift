@@ -23,15 +23,13 @@ class Tracker {
     }
     
     var totalValue: Int {
-        var totalValue = 0
-        for hit in hits {
-            totalValue += hit.rawValue * value
-        }
-        return totalValue
+        return totalHits * value
     }
     
     var totalHits: Int {
-        return hits.count
+        return hits.reduce(0) { (result, section) -> Int in
+            return result + section.rawValue
+        }
     }
     
     func hits(forSection _section: Section) -> Int {

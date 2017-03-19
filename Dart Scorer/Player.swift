@@ -42,3 +42,17 @@ extension Player: CustomStringConvertible {
     }
     
 }
+
+class GamePlayer {
+    
+    let player: Player
+    let score: Score
+    
+    var name: String { return player.name }
+    
+    init(player: Player, score: Score) {
+        self.player = player
+        self.score = score
+    }
+    
+}

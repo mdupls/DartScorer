@@ -22,4 +22,14 @@ extension UIColor {
         self.init(red:(hex >> 16) & 0xff, green:(hex >> 8) & 0xff, blue:hex & 0xff)
     }
     
+    static var metal: UIColor { return board }
+    static var number: UIColor { return UIColor(hex: 0xF0FBF0) }
+    static var board: UIColor { return UIColor(hex: 0x292821) }
+    static var blackSlice: UIColor { return UIColor(hex: 0x292821) }
+    static var whiteSlice: UIColor { return UIColor(hex: 0xF6E0A1) }
+    static var redSlice: UIColor { return UIColor(hex: 0xFF1857) }
+    static var greenSlice: UIColor { return UIColor(hex: 0x00984D) }
+    static var bullseye: UIColor { return UIColor(hex: 0x00984D) }
+    static var doubleBullseye: UIColor { return UIColor(hex: 0xFF1857) }
+    
 }

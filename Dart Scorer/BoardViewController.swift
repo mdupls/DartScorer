@@ -13,7 +13,7 @@ class BoardViewController: UIViewController {
     // MARK: Variables
     
     private var layout: BoardLayout?
-    private var game: Game?
+    private var game: CoreGame?
     
     // MARK: IBOutlet
     
@@ -23,14 +23,12 @@ class BoardViewController: UIViewController {
     // MARK: IBAction
     
     @IBAction func didTapBoard(gesture: UITapGestureRecognizer) {
-        if let target = layout?.target(forPoint: gesture.location(in: view)) {
-            if let game = game {
-                game.score(player: game.currentPlayer, target: target)
-            }
+        if let game = game, let target = layout?.target(forPoint: gesture.location(in: view)) {
+            game.score(target: target)
         }
     }
     
-    // MARK: Lifecylce
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +40,11 @@ class BoardViewController: UIViewController {
         players.append(player1)
         players.append(player2)
         
-        let game = GameFactory(players: players).createGame(name: "x01")
+        guard let game = GameFactory(players: players).createGame(name: "shanghai") else {
+            return
+        }
+        
+        game.add(observer: self)
         self.game = game
         
         let layout = BoardLayout(model: game.model)
@@ -51,9 +53,19 @@ class BoardViewController: UIViewController {
         boardView.dataSource = game.model
         
         markerView.layout = layout
-        markerView.dataSource = game
-        
-        game.start()
+        markerView.dataSource = game.model
+    }
+    
+}
+
+extension BoardViewController: GameObserver {
+    
+    func hit(target: Target?, score: Score) {
+        markerView?.score = score
+    }
+    
+    func nextRound() {
+        boardView?.setNeedsDisplay()
     }
     
 }

@@ -27,11 +27,11 @@ class BoardView: UIView {
     private var sliceColors: [[CGColor]] {
         return [
             [
-                UIColor(hex: 0x292821).cgColor,
-                UIColor(hex: 0xFF1857).cgColor
+                UIColor.blackSlice.cgColor,
+                UIColor.redSlice.cgColor
             ],[
-                UIColor(hex: 0xF6E0A1).cgColor,
-                UIColor(hex: 0x00984D).cgColor
+                UIColor.whiteSlice.cgColor,
+                UIColor.greenSlice.cgColor
             ]
         ]
     }
@@ -59,9 +59,7 @@ class BoardView: UIView {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
         ctx.addEllipse(in: rect)
-        ctx.setFillColor(UIColor(hex: 0x292821).cgColor)
-        ctx.setLineCap(.round)
-        ctx.setLineJoin(.round)
+        ctx.setFillColor(UIColor.board.cgColor)
         ctx.fillPath()
     }
     
@@ -108,11 +106,13 @@ class BoardView: UIView {
         path.addArc(center: center, radiusStart: radiusStart, radiusEnd: radiusEnd, angle: angle, sweep: sweep)
         
         ctx.addPath(path)
+        ctx.setLineWidth(1)
+        ctx.setStrokeColor(UIColor.metal.cgColor)
         ctx.setFillColor(color)
         ctx.setLineCap(.round)
         ctx.setLineJoin(.round)
         ctx.setAlpha(target.alpha)
-        ctx.fillPath()
+        ctx.drawPath(using: .fillStroke)
     }
     
     private func drawBullseye(rect: CGRect) {
@@ -120,16 +120,18 @@ class BoardView: UIView {
         guard let dataSource = dataSource else { return }
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
+        ctx.setStrokeColor(UIColor.metal.cgColor)
+        ctx.setLineCap(.round)
+        ctx.setLineJoin(.round)
+        
         // Single
         if let target = dataSource.boardView(self, bullsEyeTargetFor: .Single) {
             let bullseyeRect = CGRect(x: rect.midX - layout.bullseyeRadius, y: rect.midY - layout.bullseyeRadius, width: layout.bullseyeRadius * 2, height: layout.bullseyeRadius * 2)
             
             ctx.addEllipse(in: bullseyeRect)
-            ctx.setFillColor(UIColor(hex: 0x00984D).cgColor)
-            ctx.setLineCap(.round)
-            ctx.setLineJoin(.round)
+            ctx.setFillColor(UIColor.bullseye.cgColor)
             ctx.setAlpha(target.alpha)
-            ctx.fillPath()
+            ctx.drawPath(using: .fillStroke)
         }
         
         // Double
@@ -137,11 +139,9 @@ class BoardView: UIView {
             let bullseyeRect = CGRect(x: rect.midX - layout.doubleBullseyeRadius, y: rect.midY - layout.doubleBullseyeRadius, width: layout.doubleBullseyeRadius * 2, height: layout.doubleBullseyeRadius * 2)
             
             ctx.addEllipse(in: bullseyeRect)
-            ctx.setFillColor(UIColor(hex: 0xFF1857).cgColor)
-            ctx.setLineCap(.round)
-            ctx.setLineJoin(.round)
+            ctx.setFillColor(UIColor.doubleBullseye.cgColor)
             ctx.setAlpha(target.alpha)
-            ctx.fillPath()
+            ctx.drawPath(using: .fillStroke)
         }
     }
     
@@ -153,6 +153,7 @@ class BoardView: UIView {
         ctx.saveGState()
         ctx.translateBy(x: 0.0, y: frame.height)
         ctx.scaleBy(x: 1.0, y: -1.0)
+        ctx.setTextDrawingMode(.stroke)
         
         let x: CGFloat = rect.midX
         let y: CGFloat = rect.midY
@@ -161,16 +162,16 @@ class BoardView: UIView {
         let textHeight = (layout.radius - layout.doubleOuterRadius) * 2 / 3
         let font = "20".fontWith(height: textHeight, fontSize: 140)
         let points = pointsForLabels(sections: 20, x: x, y: y, radius: radius, offset: (CGFloat.pi / 2) * 3)
+        let attr = [ NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.number ]
         
         for (index, p) in points.enumerated() {
             if let target = dataSource.boardView(self, targetAt: index, for: .Single) {
                 let string = "\(target.value)"
-                let attr = [ NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor(hex: 0xF0FBF0) ]
                 let text = CFAttributedStringCreate(nil, string as CFString!, attr as CFDictionary)
                 let line = CTLineCreateWithAttributedString(text!)
                 let bounds = CTLineGetBoundsWithOptions(line, CTLineBoundsOptions.useOpticalBounds)
                 
-                ctx.setTextDrawingMode(.stroke)
+                ctx.setAlpha(target.alpha)
                 ctx.textPosition = CGPoint(x: p.x - bounds.midX, y: p.y - bounds.midY)
                 
                 CTLineDraw(line, ctx)
@@ -196,7 +197,7 @@ class BoardView: UIView {
 extension Target {
     
     var alpha: CGFloat {
-        return enabled ? 1 : 0.1
+        return enabled ? 1 : 0.05
     }
     
 }
