@@ -10,6 +10,7 @@ import Foundation
 
 class X01Game {
     
+    let model: BoardModel
     let players: [Player]
     let scores: [Score]
     
@@ -20,36 +21,23 @@ class X01Game {
     private var _currentPlayer: Int = 0
     private var _finished: Bool = false
     
-//    var stats: Stats {
-//        let rank = rankPlayers()
-//        
-//        return Stats(rank: rank)
-//    }
-    
     var currentPlayer: Player {
         return players[_currentPlayer]
     }
     
-    init(players: [Player], sections: Int) {
+    init(model: BoardModel, players: [Player]) {
+        self.model = model
         self.players = players
         
         var scores: [Score] = []
         for _ in 0 ..< players.count {
-            scores.append(X01Game.createScore())
+            scores.append(Score(values: model.values))
         }
         
         self.scores = scores
     }
     
     // MARK: Private
-    
-//    internal func rankPlayers() ->  {
-//        
-//    }
-    
-    class func createScore() -> Score {
-        return Score(sections: 20)
-    }
     
     internal func nextPlayer() {
         _currentPlayer = (_currentPlayer + 1) % players.count
@@ -58,7 +46,7 @@ class X01Game {
     }
     
     internal func createTurn() {
-        turn = Turn(player: currentPlayer, score: X01Game.createScore(), turns: 3)
+        turn = Turn(player: currentPlayer, score: Score(values: model.values), turns: 3)
         
         print("\(currentPlayer.name)'s turn")
     }
@@ -93,7 +81,7 @@ class X01Game {
     
 }
 
-extension X01Game: IGame {
+extension X01Game: Game {
     
     func start() {
         createTurn()
@@ -125,6 +113,18 @@ extension X01Game: IGame {
             
             won(player: player)
         }
+    }
+    
+}
+
+extension X01Game: MarkerViewDataSource {
+    
+    func numberOfSections(in markerView: MarkerView) -> Int {
+        return model.sectionCount
+    }
+    
+    func markerView(_ markerView: MarkerView, hitsFor value: Int) -> Int {
+        return 1
     }
     
 }

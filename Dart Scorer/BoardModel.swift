@@ -17,21 +17,22 @@ enum Section: Int {
 
 class BoardModel {
     
-    private let indexMap: [Int] = [
-        // Numbers for each section in the range [0, 2*PI)
-        20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5
-    ]
+    let values: [Int]
+    private let slices: [Int]
     
     var sectionCount: Int {
-        return indexMap.count
+        return _slices.count
     }
     
-    private var _bullseye: Target = Target(value: 25, section: .Single)
-    private var _doubleBullseye: Target = Target(value: 25, section: .Double)
+    private let _bullseye: Target
+    private let _doubleBullseye: Target
     private var _slices: [[Section : Target]] = []
     
-    init() {
-        for value in indexMap {
+    init(slices: [Int], bullseye: Int) {
+        self.slices = slices
+        self.values = [bullseye] + slices
+        
+        for value in slices {
             var slice: [Section : Target] = [:]
             slice[.Single] = Target(value: value, section: .Single)
             slice[.Double] = Target(value: value, section: .Double)
@@ -39,45 +40,23 @@ class BoardModel {
             
             _slices.append(slice)
         }
+        
+        _bullseye = Target(value: bullseye, section: .Single)
+        _doubleBullseye = Target(value: bullseye, section: .Double)
     }
     
-    var sweepAngle: CGFloat {
-        return (CGFloat.pi * 2) / CGFloat(sectionCount)
-    }
-    
-    func angle(forIndex index: Int) -> CGFloat {
-        let startAngle = (CGFloat.pi / 2) * 3 - sweepAngle / 2
-        
-        return (startAngle + (CGFloat(index) * sweepAngle)).truncatingRemainder(dividingBy: CGFloat.pi * 2)
-    }
-    
-    func slice(forAngle angle: CGFloat, radius: CGFloat) -> Target? {
-        let normalizedAngle = angle < 0 ? angle + CGFloat.pi : angle - CGFloat.pi
-        
-        var index = Int(ceil(abs(normalizedAngle) / (sweepAngle / 2)) / 2.0)
-        
-        if angle < 0 {
-            index = sectionCount - index
-            if index >= sectionCount {
-                index -= sectionCount
-            }
-        }
-        
-        return slice(forIndex: index)
-    }
-    
-    func slice(forIndex index: Int, section: Section = .Single) -> Target? {
+    func target(forIndex index: Int, section: Section = .Single) -> Target? {
         return _slices[index][section]
     }
     
-    func slice(forValue value: Int, section: Section = .Single) -> Target? {
-        if let index = indexMap.index(of: value) {
-            return slice(forIndex: index, section: section)
+    func target(forValue value: Int, section: Section = .Single) -> Target? {
+        if let index = slices.index(of: value) {
+            return target(forIndex: index, section: section)
         }
         return nil
     }
     
-    func bullseye(section: Section = .Single) -> Target? {
+    func targetForBullseye(at section: Section = .Single) -> Target? {
         switch section {
         case .Single:
             return _bullseye
@@ -86,6 +65,22 @@ class BoardModel {
         default:
             return nil
         }
+    }
+    
+}
+
+extension BoardModel: BoardViewDataSource {
+    
+    func numberOfSections(in boardView: BoardView) -> Int {
+        return sectionCount
+    }
+    
+    func boardView(_ boardView: BoardView, targetAt index: Int, for section: Section) -> Target? {
+        return target(forIndex: index, section: section)
+    }
+    
+    func boardView(_ boardView: BoardView, bullsEyeTargetFor section: Section) -> Target? {
+        return targetForBullseye(at: section)
     }
     
 }

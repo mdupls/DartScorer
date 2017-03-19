@@ -1,5 +1,5 @@
 //
-//  BoardLayout.swift
+//  Boardswift
 //  Dart Scorer
 //
 //  Created by Michael Du Plessis on 2017-03-14.
@@ -9,31 +9,36 @@
 import Foundation
 import UIKit
 
+private let MarkerOuterRatio: CGFloat = 0.99
+private let MarkerInnerRatio: CGFloat = 0.97
+private let DoubleOuterRatio: CGFloat = 0.75
+private let DoubleInnerRatio: CGFloat = 0.7153
+private let TripleOuterRatio: CGFloat = 0.4722
+private let TripleInnerRatio: CGFloat = 0.4375
+private let BullseyeRatio: CGFloat = 0.0694
+private let DoubleBullseyeRatio: CGFloat = 0.0278
+
 class BoardLayout {
     
-    private let DoubleOuterRatio: CGFloat = 0.75
-    private let DoubleInnerRatio: CGFloat = 0.7153
-    private let TripleOuterRatio: CGFloat = 0.4722
-    private let TripleInnerRatio: CGFloat = 0.4375
-    private let BullseyeRatio: CGFloat = 0.0694
-    private let DoubleBullseyeRatio: CGFloat = 0.0278
+    internal let model: BoardModel
     
-    var width: CGFloat = 0.0
-    var height: CGFloat = 0.0
-    
-    private var x: CGFloat { return (width - diameter) / 2 }
-    private var y: CGFloat { return (height - diameter) / 2 }
-    
-    internal var center: CGPoint { return CGPoint(x: x + radius, y: y + radius) }
+    private var frame: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
+    private var center: CGPoint { return CGPoint(x: frame.midX, y: frame.midY) }
     
     var diameter: CGFloat {
-        return min(width, height)
+        return min(frame.width, frame.height)
     }
     
     var radius: CGFloat {
         return diameter / 2
     }
     
+    var sweepAngle: CGFloat {
+        return (CGFloat.pi * 2) / CGFloat(model.sectionCount)
+    }
+    
+    internal var markerOuterRadius: CGFloat { return radius * MarkerOuterRatio }
+    internal var markerInnerRadius: CGFloat { return radius * MarkerInnerRatio }
     internal var doubleOuterRadius: CGFloat { return radius * DoubleOuterRatio }
     internal var doubleInnerRadius: CGFloat { return radius * DoubleInnerRatio }
     internal var tripleOuterRadius: CGFloat { return radius * TripleOuterRatio }
@@ -41,200 +46,81 @@ class BoardLayout {
     internal var bullseyeRadius: CGFloat { return radius * BullseyeRatio }
     internal var doubleBullseyeRadius: CGFloat { return radius * DoubleBullseyeRatio }
     
-    init() {
+    init(model: BoardModel) {
+        self.model = model
+    }
+    
+    func centerIn(frame: CGRect) -> CGRect {
+        let diameter = min(frame.width, frame.height)
+        let rect = CGRect(x: (frame.width - diameter) / 2, y: (frame.height - diameter) / 2, width: diameter, height: diameter)
+        self.frame = rect
+        return rect
+    }
+    
+    // MARK: Private
+    
+    internal func slice(forAngle angle: CGFloat, radius: CGFloat) -> Target? {
+        let normalizedAngle = angle < 0 ? angle + CGFloat.pi : angle - CGFloat.pi
         
-    }
-    
-}
-
-class BoardCoordinateSystem {
-    
-    private let layout: BoardLayout
-    
-    init(layout: BoardLayout) {
-        self.layout = layout
-    }
-    
-    func target(forPoint point: CGPoint, model: BoardModel) -> Target? {
-        if isDoubleBullseye(point: point) {
-            return model.bullseye(section: .Double)
-        } else if isBullseye(point: point) {
-            return model.bullseye(section: .Single)
+        var index = Int(ceil(abs(normalizedAngle) / (sweepAngle / 2)) / 2.0)
+        
+        if angle < 0 {
+            index = model.sectionCount - index
+            if index >= model.sectionCount {
+                index -= model.sectionCount
+            }
         }
         
-        return slice(point: point, model: model)
+        var section: Section
+        
+        if radius < tripleInnerRadius {
+            section = .Single
+        } else if radius < tripleOuterRadius {
+            section = .Triple
+        } else if radius < doubleInnerRadius {
+            section = .Single
+        } else if radius < doubleOuterRadius {
+            section = .Double
+        } else {
+            return nil
+        }
+        
+        return model.target(forIndex: index, section: section)
     }
     
-    private func isDoubleBullseye(point: CGPoint) -> Bool {
-        return point.distance(to: layout.center) <= layout.doubleBullseyeRadius
+    internal func isDoubleBullseye(point: CGPoint) -> Bool {
+        return point.distance(to: center) <= doubleBullseyeRadius
     }
     
-    private func isBullseye(point: CGPoint) -> Bool {
-        return point.distance(to: layout.center) <= layout.bullseyeRadius
+    internal func isBullseye(point: CGPoint) -> Bool {
+        return point.distance(to: center) <= bullseyeRadius
     }
     
-    private func slice(point: CGPoint, model: BoardModel) -> Target? {
-        let originPoint = CGPoint(x: point.x - layout.center.x, y: point.y - layout.center.y)
+    internal func slice(point: CGPoint) -> Target? {
+        let originPoint = CGPoint(x: point.x - center.x, y: point.y - center.y)
         let angle = atan2(originPoint.x, originPoint.y)
         
-        return model.slice(forAngle: angle, radius: point.distance(to: layout.center))
+        return slice(forAngle: angle, radius: point.distance(to: center))
     }
     
 }
 
 extension BoardLayout {
     
-    func number(startAngle: CGFloat, sweep: CGFloat, number: Int) -> UILabel {
-        let value = "\(number)"
-        let textHeight = (radius - doubleOuterRadius) * 2 / 3
-        let textWidth = textHeight * 1.4
+    func target(forPoint point: CGPoint) -> Target? {
+        if isDoubleBullseye(point: point) {
+            return model.targetForBullseye(at: .Double)
+        } else if isBullseye(point: point) {
+            return model.targetForBullseye(at: .Single)
+        }
         
-        let font = value.fontWith(height: textHeight, fontSize: 140)
-        
-        let label = UILabel(frame: CGRect(x: ceil(center.x - textWidth / 2), y: ceil(center.y - textHeight / 2), width: ceil(textWidth), height: ceil(textHeight)))
-        label.font = font
-        label.textAlignment = .center
-        label.baselineAdjustment = .alignCenters
-        label.text = value
-        
-        let angle = startAngle + sweep / 2
-        
-        let distance = radius - textHeight + (textHeight / 4)
-        let x1 = cos(angle) * distance
-        let y1 = sin(angle) * distance
-        
-//        let textAngle = angle < CGFloat.pi - 0.001 && angle > 0 ? angle - CGFloat.pi / 2 : angle + CGFloat.pi / 2
-        
-        var transform = label.layer.transform
-        transform = CATransform3DTranslate(transform, x1, y1, 0)
-//        transform = CATransform3DRotate(transform, textAngle, 0, 0, 1)
-        label.layer.transform = transform
-        
-        return label
+        return slice(point: point)
     }
     
-    func pie(startAngle: CGFloat, sweep: CGFloat) -> CAShapeLayer {
-        let x = (width - diameter) / 2
-        let y = (height - diameter) / 2
-        let center = CGPoint(x: x + radius, y: y + radius)
+    func angle(forIndex index: Int) -> CGFloat {
+        let startAngle = (CGFloat.pi / 2) * 3 - sweepAngle / 2
         
-        let path = CGMutablePath()
-        
-        // Inner
-        path.addArc(center: center, radiusStart: bullseyeRadius, radiusEnd: tripleInnerRadius, angle: startAngle, sweep: sweep)
-        
-        // Outer
-        path.addArc(center: center, radiusStart: tripleOuterRadius, radiusEnd: doubleInnerRadius, angle: startAngle, sweep: sweep)
-        
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.frame = CGRect(x: 0, y: 0,
-                                  width: width, height: height)
-        shapeLayer.path = path
-        shapeLayer.strokeColor = UIColor(hex: 0xF0FBF0).cgColor
-        shapeLayer.fillRule = kCAFillRuleEvenOdd
-        shapeLayer.contentsScale = UIScreen.main.scale
-        
-        return shapeLayer
-    }
-    
-    func triple(startAngle: CGFloat, sweep: CGFloat) -> CAShapeLayer {
-        let x = (width - diameter) / 2
-        let y = (height - diameter) / 2
-        let center = CGPoint(x: x + radius, y: y + radius)
-        
-        let path = CGMutablePath()
-        
-        path.addArc(center: center, radiusStart: tripleInnerRadius, radiusEnd: tripleOuterRadius, angle: startAngle, sweep: sweep)
-        
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.frame = CGRect(x: 0, y: 0,
-                                  width: width, height: height)
-        shapeLayer.path = path
-        shapeLayer.strokeColor = UIColor(hex: 0xF0FBF0).cgColor
-        shapeLayer.fillRule = kCAFillRuleEvenOdd
-        shapeLayer.contentsScale = UIScreen.main.scale
-        
-        return shapeLayer
-    }
-    
-    func double(startAngle: CGFloat, sweep: CGFloat) -> CAShapeLayer {
-        let x = (width - diameter) / 2
-        let y = (height - diameter) / 2
-        let center = CGPoint(x: x + radius, y: y + radius)
-        
-        let path = CGMutablePath()
-        
-        path.addArc(center: center, radiusStart: doubleInnerRadius, radiusEnd: doubleOuterRadius, angle: startAngle, sweep: sweep)
-        
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.frame = CGRect(x: 0, y: 0,
-                                  width: width, height: height)
-        shapeLayer.path = path
-        shapeLayer.strokeColor = UIColor(hex: 0xF0FBF0).cgColor
-        shapeLayer.fillRule = kCAFillRuleEvenOdd
-        shapeLayer.contentsScale = UIScreen.main.scale
-        
-        return shapeLayer
-    }
-    
-    func bullseye() -> CAShapeLayer {
-        let x = (width - diameter) / 2
-        let y = (height - diameter) / 2
-        let bullseyeRing = UIBezierPath(ovalIn: CGRect(x: x + radius - bullseyeRadius, y: y + radius - bullseyeRadius, width: bullseyeRadius * 2, height: bullseyeRadius * 2))
-        
-        let path = CGMutablePath()
-
-        path.addPath(bullseyeRing.cgPath)
-        
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.frame = CGRect(x: 0, y: 0,
-                                  width: width, height: height)
-        shapeLayer.path = path
-        shapeLayer.strokeColor = UIColor(hex: 0xF0FBF0).cgColor
-        shapeLayer.fillRule = kCAFillRuleEvenOdd
-        shapeLayer.contentsScale = UIScreen.main.scale
-        
-        return shapeLayer
-    }
-    
-    func doubleBullseye() -> CAShapeLayer {
-        let x = (width - diameter) / 2
-        let y = (height - diameter) / 2
-        let doubleBullseyeRing = UIBezierPath(ovalIn: CGRect(x: x + radius - doubleBullseyeRadius, y: y + radius - doubleBullseyeRadius, width: doubleBullseyeRadius * 2, height: doubleBullseyeRadius * 2))
-        
-        let path = CGMutablePath()
-        
-        path.addPath(doubleBullseyeRing.cgPath)
-        
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.frame = CGRect(x: 0, y: 0,
-                                  width: width, height: height)
-        shapeLayer.path = path
-        shapeLayer.strokeColor = UIColor(hex: 0xF0FBF0).cgColor
-        shapeLayer.fillRule = kCAFillRuleEvenOdd
-        shapeLayer.contentsScale = UIScreen.main.scale
-        
-        return shapeLayer
-    }
-    
-    func outer() -> CAShapeLayer {
-        let x = (width - diameter) / 2
-        let y = (height - diameter) / 2
-        let board = UIBezierPath(ovalIn: CGRect(x: x, y: y, width: diameter, height: diameter))
-        
-        let path = CGMutablePath()
-        
-        path.addPath(board.cgPath)
-        
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.frame = CGRect(x: 0, y: 0,
-                                  width: width, height: height)
-        shapeLayer.path = path
-        shapeLayer.strokeColor = UIColor(hex: 0xF0FBF0).cgColor
-        shapeLayer.fillRule = kCAFillRuleEvenOdd
-        shapeLayer.contentsScale = UIScreen.main.scale
-        
-        return shapeLayer
+        return (startAngle + (CGFloat(index) * sweepAngle)).truncatingRemainder(dividingBy: CGFloat.pi * 2)
     }
     
 }

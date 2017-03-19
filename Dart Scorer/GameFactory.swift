@@ -10,12 +10,17 @@ import Foundation
 
 class GameFactory {
     
-    init() {
-        
+    private let players: [Player]
+    
+    init(players: [Player]) {
+        self.players = players
     }
     
-    func createGame(players: [Player]) -> IGame {
-        return X01Game(players: players, sections: 20)
+    func createGame(name: String) -> Game {
+        let parser = GameParser(name: name)
+        let model = parser.model()
+        
+        return X01Game(model: model, players: players)
     }
     
 }

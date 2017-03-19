@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		195A3D331E7D703100CE1215 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195A3D321E7D703100CE1215 /* BoardView.swift */; };
+		195A3D351E7D8AE200CE1215 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195A3D341E7D8AE200CE1215 /* MarkerView.swift */; };
 		1972CA261E79B42400A257D9 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1972CA251E79B42400A257D9 /* String+Extensions.swift */; };
 		1972CA281E79B69300A257D9 /* BoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1972CA271E79B69300A257D9 /* BoardModel.swift */; };
 		1972CA2E1E79C02C00A257D9 /* cricket.json in Resources */ = {isa = PBXBuildFile; fileRef = 1972CA2D1E79C02C00A257D9 /* cricket.json */; };
@@ -57,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		195A3D321E7D703100CE1215 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
+		195A3D341E7D8AE200CE1215 /* MarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		1972CA251E79B42400A257D9 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		1972CA271E79B69300A257D9 /* BoardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardModel.swift; sourceTree = "<group>"; };
 		1972CA2D1E79C02C00A257D9 /* cricket.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cricket.json; sourceTree = "<group>"; };
@@ -144,7 +148,8 @@
 			children = (
 				19A3F2BB1E78C8CA00D660B5 /* BoardLayout.swift */,
 				1972CA271E79B69300A257D9 /* BoardModel.swift */,
-				19A3F2BF1E79AD4100D660B5 /* BoardViewController.swift */,
+				195A3D321E7D703100CE1215 /* BoardView.swift */,
+				195A3D341E7D8AE200CE1215 /* MarkerView.swift */,
 			);
 			name = Board;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 				1972CA3C1E7A1FD000A257D9 /* Board */,
 				1972CA411E7A1FEB00A257D9 /* Game */,
 				19F07DA11E246A0400C7AB32 /* AppDelegate.swift */,
+				19A3F2BF1E79AD4100D660B5 /* BoardViewController.swift */,
 				19F07DA31E246A0400C7AB32 /* ViewController.swift */,
 				1972CA331E79C09700A257D9 /* GameParser.swift */,
 				19F07DA51E246A0400C7AB32 /* Main.storyboard */,
@@ -383,6 +389,7 @@
 			files = (
 				19F07DA41E246A0400C7AB32 /* ViewController.swift in Sources */,
 				1979DF861E7B2A8C00A667FC /* Stats.swift in Sources */,
+				195A3D331E7D703100CE1215 /* BoardView.swift in Sources */,
 				19A3F2BC1E78C8CA00D660B5 /* BoardLayout.swift in Sources */,
 				1979DF881E7B313300A667FC /* Cricket.swift in Sources */,
 				19A3F2C21E79ADF200D660B5 /* CGMutablePath+Extensions.swift in Sources */,
@@ -396,6 +403,7 @@
 				1972CA3E1E7A1FDF00A257D9 /* Game.swift in Sources */,
 				1972CA3B1E79D72900A257D9 /* CGPoint+Extensions.swift in Sources */,
 				1972CA281E79B69300A257D9 /* BoardModel.swift in Sources */,
+				195A3D351E7D8AE200CE1215 /* MarkerView.swift in Sources */,
 				1979DF8A1E7B313F00A667FC /* Shanghai.swift in Sources */,
 				19F07DA21E246A0400C7AB32 /* AppDelegate.swift in Sources */,
 				1972CA451E7A243900A257D9 /* GameFactory.swift in Sources */,

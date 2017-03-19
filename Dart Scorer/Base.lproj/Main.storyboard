@@ -22,18 +22,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59z-qd-M7M">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="57" width="375" height="610"/>
                                 <connections>
                                     <segue destination="7uT-oi-NEs" kind="embed" id="V9L-Kb-FPB"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TsJ-RX-lTV">
+                                <rect key="frame" x="20" y="28" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="59z-qd-M7M" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="HEy-1R-qbA"/>
+                            <constraint firstItem="TsJ-RX-lTV" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="4wx-xf-9Hr"/>
                             <constraint firstAttribute="trailing" secondItem="59z-qd-M7M" secondAttribute="trailing" id="IJQ-o4-fWw"/>
                             <constraint firstItem="59z-qd-M7M" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qia-6I-kth"/>
+                            <constraint firstAttribute="trailing" secondItem="TsJ-RX-lTV" secondAttribute="trailing" constant="20" symbolic="YES" id="bQV-f9-18q"/>
+                            <constraint firstItem="59z-qd-M7M" firstAttribute="top" secondItem="TsJ-RX-lTV" secondAttribute="bottom" constant="8" id="h5f-fh-5Hf"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="59z-qd-M7M" secondAttribute="bottom" id="in9-lY-gm3"/>
+                            <constraint firstItem="TsJ-RX-lTV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="m7r-6V-zzK"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -50,13 +59,37 @@
                         <viewControllerLayoutGuide type="bottom" id="ILQ-My-coJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="web-7W-gN9">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="610"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ku-4f-ay4" customClass="BoardView" customModule="Dart_Scorer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="610"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Jv-DE-1Gy" customClass="MarkerView" customModule="Dart_Scorer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="610"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ILQ-My-coJ" firstAttribute="top" secondItem="8Ku-4f-ay4" secondAttribute="bottom" id="1LC-uv-qQD"/>
+                            <constraint firstItem="ILQ-My-coJ" firstAttribute="top" secondItem="4Jv-DE-1Gy" secondAttribute="bottom" id="2S9-s3-grs"/>
+                            <constraint firstItem="8Ku-4f-ay4" firstAttribute="leading" secondItem="web-7W-gN9" secondAttribute="leading" id="C2t-gh-BgU"/>
+                            <constraint firstItem="4Jv-DE-1Gy" firstAttribute="leading" secondItem="web-7W-gN9" secondAttribute="leading" id="UWS-CZ-zPt"/>
+                            <constraint firstItem="4Jv-DE-1Gy" firstAttribute="top" secondItem="TzG-F2-E6S" secondAttribute="bottom" id="eU2-SI-9qF"/>
+                            <constraint firstAttribute="trailing" secondItem="8Ku-4f-ay4" secondAttribute="trailing" id="erj-o9-ylY"/>
+                            <constraint firstItem="8Ku-4f-ay4" firstAttribute="top" secondItem="TzG-F2-E6S" secondAttribute="bottom" id="iRa-eB-LR6"/>
+                            <constraint firstAttribute="trailing" secondItem="4Jv-DE-1Gy" secondAttribute="trailing" id="o6H-W9-Znz"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="dul-IV-tAp" appends="YES" id="ohE-Zb-DRt"/>
                         </connections>
                     </view>
+                    <connections>
+                        <outlet property="boardView" destination="8Ku-4f-ay4" id="vlo-ez-MM3"/>
+                        <outlet property="markerView" destination="4Jv-DE-1Gy" id="f4T-q3-dk7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Zp-WI-Nmz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="dul-IV-tAp">
@@ -66,7 +99,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="492" y="116"/>
+            <point key="canvasLocation" x="492" y="115.14242878560721"/>
         </scene>
     </scenes>
 </document>

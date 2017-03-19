@@ -11,10 +11,8 @@ import CoreGraphics
 
 class GameParser {
     
-    private let indexMap: [Int] = [
-        // Numbers for each section in the range [0, 2*PI)
-        6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5, 20, 1, 18, 4, 13
-    ]
+    private let _bullseye: Int = 25
+    private let _slices: [Int] = [ 20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5 ]
     
     private var json: [String : Any]?
     
@@ -37,23 +35,35 @@ class GameParser {
         return json?["board"] as? [String : Any]
     }
     
-    var sections: [Int] {
-        return _board?["sections"] as? [Int] ?? []
+    var targets: [Int] {
+        return _board?["targets"] as? [Int] ?? []
     }
     
-    var bullseye: Bool {
+    var slices: [Int] {
+        return _board?["slices"] as? [Int] ?? _slices
+    }
+    
+    var hasBullseye: Bool {
         return _board?["bullseye"] as? Bool ?? false
     }
     
-    func setup(model: BoardModel) {
-        for section in sections {
-            model.slice(forValue: section, section: .Single)?.enabled = true
-            model.slice(forValue: section, section: .Double)?.enabled = true
-            model.slice(forValue: section, section: .Triple)?.enabled = true
+    var bullseye: Int {
+        return _board?["bullseye"] as? Int ?? _bullseye
+    }
+    
+    func model() -> BoardModel {
+        let model = BoardModel(slices: slices, bullseye: bullseye)
+        
+        for value in targets {
+            model.target(forValue: value, section: .Single)?.enabled = true
+            model.target(forValue: value, section: .Double)?.enabled = true
+            model.target(forValue: value, section: .Triple)?.enabled = true
         }
         
-        model.bullseye(section: .Single)?.enabled = bullseye
-        model.bullseye(section: .Double)?.enabled = bullseye
+        model.targetForBullseye(at: .Single)?.enabled = hasBullseye
+        model.targetForBullseye(at: .Double)?.enabled = hasBullseye
+        
+        return model
     }
     
 }

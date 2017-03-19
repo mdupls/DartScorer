@@ -10,12 +10,10 @@ import Foundation
 
 class Score {
     
-    internal var _scores: [Int: Tracker] = [
-        25: Tracker(value: 25)
-    ]
+    internal var _scores: [Int: Tracker] = [:]
     
-    init(sections: Int) {
-        for value in 1...sections {
+    init(values: [Int]) {
+        for value in values {
             _scores[value] = Tracker(value: value)
         }
     }
@@ -31,6 +29,11 @@ class Score {
     }
     
     func hit(target: Target) {
+        guard target.enabled else {
+            print("--> Missed on \(target.value) (x\(target.section.rawValue)) for 0 points")
+            return
+        }
+        
         _scores[target.value]?.hit(section: target.section)
         
         print("--> \(target.value) (x\(target.section.rawValue)) hit for \(target.score) points")

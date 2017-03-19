@@ -8,7 +8,9 @@
 
 import Foundation
 
-protocol IGame {
+protocol Game: MarkerViewDataSource {
+    
+    var model: BoardModel { get }
     
     var currentPlayer: Player { get }
     
