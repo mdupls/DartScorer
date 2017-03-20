@@ -98,19 +98,3 @@ extension BoardModel: BoardViewDataSource {
     }
     
 }
-
-extension BoardModel: MarkerViewDataSource {
-    
-    func numberOfSections(in markerView: MarkerView) -> Int {
-        return sectionCount
-    }
-    
-    func boardView(_ markerView: MarkerView, valueForSection section: Int) -> Int? {
-        return target(forIndex: section)?.value
-    }
-    
-    func bullsEyeValue(in markerView: MarkerView) -> Int? {
-        return targetForBullseye()?.value
-    }
-    
-}

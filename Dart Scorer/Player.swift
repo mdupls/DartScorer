@@ -48,7 +48,14 @@ class GamePlayer {
     let player: Player
     let score: Score
     
+    var intermediateScore: Score {
+        get { return _intermediateScore ?? score }
+        set { _intermediateScore = newValue }
+    }
+    
     var name: String { return player.name }
+    
+    private var _intermediateScore: Score?
     
     init(player: Player, score: Score) {
         self.player = player

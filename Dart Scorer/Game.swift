@@ -13,6 +13,7 @@ class CoreGame {
     let game: Game
     let model: BoardModel
     let players: [GamePlayer]
+    let throwsPerTurn: Int = 3
     
     private let config: ConfigParser
     
@@ -50,7 +51,7 @@ class CoreGame {
     }
     
     func createTurn() {
-        turn = Turn(player: GamePlayer(player: currentPlayer.player, score: Score(values: model.values)), turns: 3)
+        turn = Turn(player: GamePlayer(player: currentPlayer.player, score: Score(values: model.values)), turns: throwsPerTurn)
         
         print("\(currentPlayer.player.name)'s turn")
     }
@@ -102,8 +103,10 @@ class CoreGame {
         
         let ret = game.score(accumulation: currentPlayer.score, turn: turn, target: target)
         
+        currentPlayer.intermediateScore = ret.score
+        
         // Notify observers.
-        observers.forEach { $0.hit(target: target, score: ret.score) }
+        observers.forEach { $0.hit(target: target, player: currentPlayer) }
         
         switch ret.result {
         case .OK:
@@ -127,6 +130,30 @@ class CoreGame {
         if let index = observers.index(where: { $0 === observer }) {
             observers.remove(at: index)
         }
+    }
+    
+}
+
+extension CoreGame: MarkerViewDataSource {
+    
+    func numberOfSections(in markerView: MarkerView) -> Int {
+        return model.sectionCount
+    }
+    
+    func boardView(_ markerView: MarkerView, maxMarksForSection section: Int) -> Int {
+        return throwsPerTurn
+    }
+    
+    func boardView(_ markerView: MarkerView, hitsForSection section: Int) -> Int {
+        var marks: Int?
+        if let value = model.target(forIndex: section)?.value {
+            marks = currentPlayer.intermediateScore.score(forValue: value)?.totalHits
+        }
+        return marks ?? 0
+    }
+    
+    func bullsEyeMarks(in markerView: MarkerView) -> Int {
+        return model.targetForBullseye()?.value ?? 0
     }
     
 }
@@ -179,7 +206,7 @@ protocol Game {
 
 protocol GameObserver: class {
     
-    func hit(target: Target?, score: Score)
+    func hit(target: Target?, player: GamePlayer)
     
     func nextRound()
     

@@ -32,4 +32,7 @@ extension UIColor {
     static var bullseye: UIColor { return UIColor(hex: 0x00984D) }
     static var doubleBullseye: UIColor { return UIColor(hex: 0xFF1857) }
     
+    static var open: UIColor { return UIColor(hex: 0x47CE5E) }
+    static var hit: UIColor { return UIColor.orange }
+    
 }

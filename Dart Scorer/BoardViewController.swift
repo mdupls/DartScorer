@@ -53,15 +53,15 @@ class BoardViewController: UIViewController {
         boardView.dataSource = game.model
         
         markerView.layout = layout
-        markerView.dataSource = game.model
+        markerView.dataSource = game
     }
     
 }
 
 extension BoardViewController: GameObserver {
     
-    func hit(target: Target?, score: Score) {
-        markerView?.score = score
+    func hit(target: Target?, player: GamePlayer) {
+        markerView?.setNeedsDisplay()
     }
     
     func nextRound() {
