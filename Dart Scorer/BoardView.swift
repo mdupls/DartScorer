@@ -51,6 +51,16 @@ class BoardView: UIView {
         drawSlices(rect: frame)
         drawBullseye(rect: frame)
         drawNumbers(rect: frame)
+        
+        print("drawing")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        event?.allTouches?.first
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
     }
     
     // MARK: Private
@@ -84,7 +94,7 @@ class BoardView: UIView {
         
         // Single
         if let target = dataSource.boardView(self, targetAt: section, for: .Single) {
-            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.doubleBullseyeRadius, radiusEnd: layout.tripleInnerRadius, target: target, color: colors[0])
+            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.bullseyeRadius, radiusEnd: layout.tripleInnerRadius, target: target, color: colors[0])
             drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.tripleOuterRadius, radiusEnd: layout.doubleInnerRadius, target: target, color: colors[0])
         }
         
@@ -153,7 +163,7 @@ class BoardView: UIView {
         ctx.saveGState()
         ctx.translateBy(x: 0.0, y: frame.height)
         ctx.scaleBy(x: 1.0, y: -1.0)
-        ctx.setTextDrawingMode(.stroke)
+        ctx.setTextDrawingMode(.fillStroke)
         
         let x: CGFloat = rect.midX
         let y: CGFloat = rect.midY

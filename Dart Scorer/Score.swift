@@ -10,15 +10,16 @@ import Foundation
 
 class Score {
     
-    private var _values: [Int]
     private var _scores: [Int: Tracker] = [:]
     
-    init(values: [Int]) {
-        _values = values
-        
-        for value in values {
-            _scores[value] = Tracker(value: value)
+    var hits: Int {
+        return _scores.reduce(0) { (result, item: (key: Int, value: Tracker)) -> Int in
+            return result + item.value.hits
         }
+    }
+    
+    init() {
+        
     }
     
     func score(forValue value: Int) -> Tracker? {
@@ -43,30 +44,36 @@ class Score {
             return
         }
         
-        _scores[target.value]?.hit(section: target.section)
+        score(forTarget: target).hit(section: target.section)
         
         print("--> \(target.value) (x\(target.section.rawValue)) hit for \(target.score) points")
     }
     
     func add(score: Score) {
         score._scores.forEach { key, value in
-            _scores[key]?.merge(tracker: value)
+            _score(forValue: key).merge(tracker: value)
         }
     }
     
-    func copy(with zone: NSZone? = nil) -> Any {
-        return Score(values: _values)
+    // MARK: Private
+    
+    private func score(forTarget target: Target) -> Tracker {
+        return _score(forValue: target.value)
+    }
+    
+    private func _score(forValue value: Int) -> Tracker {
+        if let tracker = _scores[value] {
+            return tracker
+        }
+        
+        let tracker = Tracker(value: value)
+        _scores[value] = tracker
+        return tracker
     }
     
 }
 
 extension Score {
-    
-    static func + (left: Score, right: Score) -> Score {
-        let score = left.copy() as! Score
-        score.add(score: right)
-        return score
-    }
         
     func sum(model: BoardModel) -> Int {
         return score(forValues: model.values).reduce(0, { (result, tracker) -> Int in

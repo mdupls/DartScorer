@@ -12,28 +12,36 @@ class Tracker {
     
     let value: Int
     
-    internal var hits: [Section] = []
+    internal var _hits: [Section] = []
     
     init(value: Int) {
         self.value = value
     }
     
     func hit(section: Section) {
-        hits.append(section)
+        _hits.append(section)
+        
+        print("\(value) has \(_hits.count) hits")
     }
     
+    /// - returns: The total value of all hits of this value
     var totalValue: Int {
         return totalHits * value
     }
     
+    /// - returns: The number of times this value has been hit (ie. hit(section:) calls)
     var totalHits: Int {
-        return hits.reduce(0) { (result, section) -> Int in
+        return _hits.reduce(0) { (result, section) -> Int in
             return result + section.rawValue
         }
     }
     
+    var hits: Int {
+        return _hits.count
+    }
+    
     func hits(forSection _section: Section) -> Int {
-        return hits.reduce(0) { (result, section) -> Int in
+        return _hits.reduce(0) { (result, section) -> Int in
             if section == _section {
                 return result + 1
             }
@@ -57,7 +65,7 @@ extension Tracker {
             return
         }
         
-        hits.append(contentsOf: tracker.hits)
+        _hits.append(contentsOf: tracker._hits)
     }
     
 }

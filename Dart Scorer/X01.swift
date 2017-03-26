@@ -11,15 +11,15 @@ import Foundation
 class X01Game {
     
     let model: BoardModel
+    let config: Config
     
     var goal: Int = 501
     
-    private let config: ConfigParser
     private var _finished: Bool = false
     
-    init(model: BoardModel, config: [String: Any]?) {
+    init(model: BoardModel, config: Config) {
         self.model = model
-        self.config = ConfigParser(json: config)
+        self.config = config
     }
     
     // MARK: Private
@@ -40,45 +40,22 @@ class X01Game {
 
 extension X01Game: Game {
     
-    func score(accumulation score: Score, turn: Turn, target: Target?) -> (score: Score, result: ScoreResult) {
-        turn.hit(target: target)
+    func score(player: GamePlayer, target: Target?, round: Int) -> ScoreResult {
+        let score = player.scores[round]!
         
-        let possibleScore = score + turn.score
-        let result = check(score: possibleScore)
-        var resultScore: Score
-        
-        switch result {
-        case .OK:
-            if turn.done {
-                score.add(score: turn.score)
-                resultScore = score
-            } else {
-                resultScore = possibleScore
-            }
-        case .Bust:
-            resultScore = score
-        case .Won:
-            score.add(score: turn.score)
-            resultScore = score
+        if let target = target, score.hits < config.throwsPerTurn {
+            score.hit(target: target)
         }
         
-        print("\(turn.player.name)'s score: \(resultScore.sum(model: model))")
+        let totalScore = player.score
         
-        return (score: resultScore, result: result)
+        print("\(player.name)'s score: \(totalScore.sum(model: model))")
+        
+        return check(score: totalScore)
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players
-    }
-    
-}
-
-private class ConfigParser {
-    
-    private let _json: [String: Any]?
-    
-    init(json: [String: Any]?) {
-        self._json = json
     }
     
 }

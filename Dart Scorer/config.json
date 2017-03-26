@@ -1,7 +1,16 @@
 {
     "games": [
-              "cricket.json",
-              "x01.json",
-              "shanghai.json"
-              ]
+        {
+            "name": "Cricket",
+            "config": "cricket.json"
+        },
+        {
+            "name": "X01",
+            "config": "x01.json"
+        },
+        {
+            "name": "Shanghai",
+            "config": "shanghai.json"
+        }
+    ]
 }

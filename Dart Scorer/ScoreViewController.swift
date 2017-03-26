@@ -1,14 +1,14 @@
 //
-//  ViewController.swift
+//  ScoreViewController.swift
 //  Dart Scorer
 //
-//  Created by Michael Du Plessis on 2017-03-23.
+//  Created by Michael Du Plessis on 2017-03-19.
 //  Copyright © 2017 Michael Du Plessis. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class ScoreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

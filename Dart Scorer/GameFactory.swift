@@ -16,28 +16,58 @@ class GameFactory {
         self.players = players
     }
     
-    func createGame(name: String) -> CoreGame? {
-        let parser = GameParser(name: name)
+    func createGame(config: String) -> CoreGame? {
+        let parser = GameParser(config: config)
         let model = parser.model()
         var game: Game?
         
+        let config = Config(json: parser.json)
+        
         // TODO: Swift 3 reflection APIs seem to be lacking. For now, just hard-code a mapping.
-        switch name {
-        case "cricket":
-            game = CricketGame(model: model, config: parser.json)
-        case "x01":
-            game = X01Game(model: model, config: parser.json)
-        case "shanghai":
-            game = ShanghaiGame(model: model, config: parser.json)
+        switch parser.name {
+        case "Cricket":
+            game = CricketGame(model: model, config: config)
+        case "X01":
+            game = X01Game(model: model, config: config)
+        case "Shanghai":
+            game = ShanghaiGame(model: model, config: config)
         default:
             game = nil
         }
         
         if let game = game {
-            return CoreGame(game: game, model: model, players: players, config: parser.json)
+            return CoreGame(game: game, model: model, players: players, config: config)
         }
         
         return nil
+    }
+    
+}
+
+class Config {
+    
+    let json: [String: Any]?
+    
+    init(json: [String: Any]?) {
+        self.json = json
+    }
+    
+    var rounds: Int {
+        return sequentialTargets?.count ?? 0
+    }
+    
+    var throwsPerTurn: Int {
+        return 3
+    }
+    
+    // MARK: Private
+    
+    private var sequentialTargets: [[Int]]? {
+        return board?["targets"] as? [[Int]]
+    }
+    
+    private var board: [String : Any]? {
+        return json?["board"] as? [String : Any]
     }
     
 }

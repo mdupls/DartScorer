@@ -46,20 +46,23 @@ extension Player: CustomStringConvertible {
 class GamePlayer {
     
     let player: Player
-    let score: Score
     
-    var intermediateScore: Score {
-        get { return _intermediateScore ?? score }
-        set { _intermediateScore = newValue }
+    var scores: [Int: Score] = [:] // Each round has a score
+    
+    var score: Score {
+        let score = Score()
+        
+        return scores.reduce(score, { (result, item: (key: Int, value: Score)) -> Score in
+            result.add(score: item.value)
+            
+            return result
+        })
     }
     
     var name: String { return player.name }
     
-    private var _intermediateScore: Score?
-    
-    init(player: Player, score: Score) {
+    init(player: Player) {
         self.player = player
-        self.score = score
     }
     
 }

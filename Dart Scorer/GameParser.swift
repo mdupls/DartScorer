@@ -16,9 +16,17 @@ class GameParser {
     
     private var _json: [String : Any]?
     
-    init(name: String) {
-        if let url = Bundle.main.url(forResource: name, withExtension: "json")
-        {
+    init(config: String) {
+        let components = config.components(separatedBy: ".")
+        
+        guard components.count > 0 else {
+            return
+        }
+        
+        let name = components[0]
+        let type = components.count > 1 ? components[1] : ""
+        
+        if let url = Bundle.main.url(forResource: name, withExtension: type) {
             do {
                 let data = try Data(contentsOf: url)
                 
@@ -35,8 +43,8 @@ class GameParser {
         return _json
     }
     
-    private var _board: [String : Any]? {
-        return _json?["board"] as? [String : Any]
+    var name: String {
+        return _json?["name"] as? String ?? ""
     }
     
     var targets: [Int] {
@@ -82,6 +90,12 @@ class GameParser {
         model.targetForBullseye(at: .Double)?.enabled = hasBullseye
         
         return model
+    }
+    
+    // MARK: Private
+    
+    private var _board: [String : Any]? {
+        return _json?["board"] as? [String : Any]
     }
     
 }

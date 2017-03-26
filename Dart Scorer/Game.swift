@@ -15,74 +15,32 @@ class CoreGame {
     let players: [GamePlayer]
     let throwsPerTurn: Int = 3
     
-    private let config: ConfigParser
+    private let config: CoreConfig
     
-    private var _round: Int = 0
     private var _finished: Bool = false
-    
-    internal var _currentPlayer: Int = 0
-    internal var turn: Turn?
     internal var observers: [GameObserver] = []
-    
-    var round: Int {
-        return _round
-    }
     
     var rounds: Int {
         return config.rounds
     }
     
-    var currentPlayer: GamePlayer {
-        return players[_currentPlayer]
-    }
-    
-    init(game: Game, model: BoardModel, players: [Player], config: [String: Any]?) {
+    init(game: Game, model: BoardModel, players: [Player], config: Config) {
         self.game = game
         self.model = model
-        self.config = ConfigParser(json: config)
+        self.config = CoreConfig(config: config)
         
-        var gamePlayers: [GamePlayer] = []
-        for player in players {
-            gamePlayers.append(GamePlayer(player: player, score: Score(values: model.values)))
+        self.players = players.map {
+            return GamePlayer(player: $0)
         }
-        self.players = gamePlayers
-        
-        createTurn()
     }
     
-    func createTurn() {
-        turn = Turn(player: GamePlayer(player: currentPlayer.player, score: Score(values: model.values)), turns: throwsPerTurn)
+    func select(round: Int) -> Int {
+        let round = max(0, min(round, rounds - 1))
         
-        print("\(currentPlayer.player.name)'s turn")
-    }
-    
-    func nextRound() -> Bool {
-        if _round < rounds - 1 {
-            _round += 1
-            
-            // Player 1 is up.
-            _currentPlayer = 0
-            
-            model.enable(targetsWithValues: config.targetsFor(round: round))
-            
-            // Notify observers.
-            observers.forEach { $0.nextRound() }
-            return true
-        } else {
-            _finished = true
-        }
-        return false
-    }
-    
-    func nextPlayer() -> Bool {
-        if _currentPlayer < players.count - 1 {
-            _currentPlayer += 1
-            
-            // Create a new turn.
-            createTurn()
-            return true
-        }
-        return false
+        // Tell the model to use the enabled targets for the round.
+        model.enable(targetsWithValues: config.targetsFor(round: round))
+        
+        return round
     }
     
     func winner() -> GamePlayer? {
@@ -97,24 +55,27 @@ class CoreGame {
         print("\(player.player.name) won!")
     }
     
-    func score(target: Target?) {
-        guard !_finished else { return }
-        guard let turn = turn, !turn.done else { return }
+    func score(player: GamePlayer, target: Target?, round: Int) {
+        var score: Score
+        if let _score = player.scores[round] {
+            score = _score
+        } else {
+            score = Score()
+            player.scores[round] = score
+        }
         
-        let ret = game.score(accumulation: currentPlayer.score, turn: turn, target: target)
-        
-        currentPlayer.intermediateScore = ret.score
+        let result = game.score(player: player, target: target, round: round)
         
         // Notify observers.
-        observers.forEach { $0.hit(target: target, player: currentPlayer) }
+        observers.forEach { $0.hit(target: target, player: player) }
         
-        switch ret.result {
+        switch result {
         case .OK:
             Void()
         case .Bust:
             Void()
         case .Won:
-            won(player: turn.player)
+            won(player: player)
         }
     }
     
@@ -134,40 +95,20 @@ class CoreGame {
     
 }
 
-extension CoreGame: MarkerViewDataSource {
+private class CoreConfig {
     
-    func numberOfSections(in markerView: MarkerView) -> Int {
-        return model.sectionCount
-    }
+    private let config: Config
     
-    func boardView(_ markerView: MarkerView, maxMarksForSection section: Int) -> Int {
-        return throwsPerTurn
-    }
-    
-    func boardView(_ markerView: MarkerView, hitsForSection section: Int) -> Int {
-        var marks: Int?
-        if let value = model.target(forIndex: section)?.value {
-            marks = currentPlayer.intermediateScore.score(forValue: value)?.totalHits
-        }
-        return marks ?? 0
-    }
-    
-    func bullsEyeMarks(in markerView: MarkerView) -> Int {
-        return model.targetForBullseye()?.value ?? 0
-    }
-    
-}
-
-private class ConfigParser {
-    
-    private let _json: [String: Any]?
-    
-    init(json: [String: Any]?) {
-        self._json = json
+    init(config: Config) {
+        self.config = config
     }
     
     var rounds: Int {
-        return sequentialTargets?.count ?? 0
+        return config.rounds
+    }
+    
+    var throwsPerTurn: Int {
+        return config.throwsPerTurn
     }
     
     func targetsFor(round: Int) -> [Int] {
@@ -189,7 +130,7 @@ private class ConfigParser {
     }
     
     private var _board: [String : Any]? {
-        return _json?["board"] as? [String : Any]
+        return config.json?["board"] as? [String : Any]
     }
     
 }
@@ -198,7 +139,7 @@ protocol Game {
     
     var model: BoardModel { get }
     
-    func score(accumulation score: Score, turn: Turn, target: Target?) -> (score: Score, result: ScoreResult)
+    func score(player: GamePlayer, target: Target?, round: Int) -> ScoreResult
     
     func rank(players: [GamePlayer]) -> [GamePlayer]
     
@@ -207,7 +148,5 @@ protocol Game {
 protocol GameObserver: class {
     
     func hit(target: Target?, player: GamePlayer)
-    
-    func nextRound()
     
 }
