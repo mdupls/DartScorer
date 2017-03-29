@@ -13,7 +13,7 @@ class CricketGame {
     let config: Config
     let targets: [Int: Bool]
         
-    init(model: BoardModel, config: Config) {
+    init(config: Config) {
         self.config = config
         
         var targets: [Int: Bool] = [:]
@@ -25,7 +25,7 @@ class CricketGame {
     
     func hasWon(player: GamePlayer) -> ScoreResult? {
         for value in config.targets {
-            if (player.score.score(forValue: value)?.totalHits ?? 0) < 3 {
+            if player.score.totalHits(for: value) < 3 {
                 return nil
             }
         }
@@ -82,9 +82,7 @@ fileprivate extension Target {
     
     func isClosed(in game: CoreGame) -> Bool {
         for player in game.players {
-            let hits = player.score.score(forValue: value)?.totalHits ?? 0
-            
-            if hits < 3 {
+            if player.score.totalHits(for: value) < 3 {
                 return false
             }
         }
@@ -92,10 +90,7 @@ fileprivate extension Target {
     }
     
     func isOpen(for player: GamePlayer) -> Bool {
-        if let totalHits = player.score.score(forValue: value)?.totalHits {
-            return totalHits >= 3
-        }
-        return false
+        return player.score.totalHits(for: value) >= 3
     }
     
     func result(in game: CoreGame) -> ScoreResult? {

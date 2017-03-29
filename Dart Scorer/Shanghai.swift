@@ -10,12 +10,10 @@ import Foundation
 
 class ShanghaiGame {
     
-    let model: BoardModel
     let config: Config
     let targets: [[Int: Bool]]
     
-    init(model: BoardModel, config: Config) {
-        self.model = model
+    init(config: Config) {
         self.config = config
         
         var targets: [[Int: Bool]] = []
@@ -54,7 +52,7 @@ extension ShanghaiGame: Game {
         
         let totalScore = player.score
         
-        print("\(player.name)'s score: \(totalScore.sum(model: model))")
+        print("\(player.name)'s score: \(totalScore.sum())")
         
         return check(score: totalScore)
     }
@@ -69,7 +67,7 @@ extension ShanghaiGame: Game {
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players.sorted(by: { (player1, player2) -> Bool in
-            return player1.score.sum(model: model) > player2.score.sum(model: model)
+            return player1.score.sum() > player2.score.sum()
         })
     }
     

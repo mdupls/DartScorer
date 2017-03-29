@@ -26,11 +26,11 @@ class GameFactory {
         // TODO: Swift 3 reflection APIs seem to be lacking. For now, just hard-code a mapping.
         switch parser.name {
         case "Cricket":
-            game = CricketGame(model: model, config: config)
+            game = CricketGame(config: config)
         case "X01":
-            game = X01Game(model: model, config: config, goal: 501)
+            game = X01Game(config: config, goal: 501)
         case "Shanghai":
-            game = ShanghaiGame(model: model, config: config)
+            game = ShanghaiGame(config: config)
         default:
             game = nil
         }

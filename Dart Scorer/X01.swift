@@ -10,15 +10,13 @@ import Foundation
 
 class X01Game {
     
-    let model: BoardModel
     let config: Config
     let goal: Int
     let targets: [Int: Bool]
     
     private var _finished: Bool = false
     
-    init(model: BoardModel, config: Config, goal: Int) {
-        self.model = model
+    init(config: Config, goal: Int) {
         self.config = config
         self.goal = goal
         
@@ -32,7 +30,7 @@ class X01Game {
     // MARK: Private
     
     func check(score: Score) -> ScoreResult {
-        let points = score.sum(model: model)
+        let points = score.sum()
         
         if points == goal {
             return .won
@@ -60,7 +58,7 @@ extension X01Game: Game {
         
         let totalScore = player.score
         
-        print("\(player.name)'s score: \(totalScore.sum(model: model))")
+        print("\(player.name)'s score: \(totalScore.sum())")
         
         return check(score: totalScore)
     }

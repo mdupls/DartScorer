@@ -18,11 +18,15 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
             update()
         }
     }
-    var scores: [Tracker]?
+    var targets: [Target]?
     var collectionViewTraitCollection: UITraitCollection?
     
     var count: Int {
-        return scores?.count ?? 0
+        var count: Int?
+        if let round = round {
+            count = player?.scores[round]?.hits
+        }
+        return count ?? 0
     }
     
     // MARK: Events
@@ -90,7 +94,7 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     private func update() {
         guard let round = round else { return }
         
-        scores = player?.scores[round]?.scores
+        targets = player?.scores[round]?.targets
         
         collectionView?.reloadData()
         collectionView?.collectionViewLayout.invalidateLayout()
@@ -98,8 +102,10 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     
     private func populate(cell: ScoreCellView?, indexPath: IndexPath) {
         guard let cell = cell else { return }
+        guard let targets = targets else { return }
         
-        cell.valueLabel.text = "\(scores?[indexPath.row].totalValue ?? 0)"
+        cell.valueLabel.text = "\(targets[indexPath.row].value)"
+        cell.multiplierLabel.text = "x\(targets[indexPath.row].section.rawValue)"
     }
     
     private func size() -> CGSize {
@@ -145,6 +151,7 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
 class ScoreCellView: UICollectionViewCell {
     
     @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var multiplierLabel: UILabel!
     
 }
 

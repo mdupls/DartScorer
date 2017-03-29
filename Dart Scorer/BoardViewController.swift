@@ -117,7 +117,7 @@ extension BoardViewController: MarkerViewDataSource {
     func boardView(_ markerView: MarkerView, hitsForSection section: Int) -> Int {
         var marks: Int?
         if let value = game?.model.target(forIndex: section)?.value {
-            marks = player?.score.score(forValue: value)?.totalHits
+            marks = player?.score.totalHits(for: value)
         }
         return marks ?? 0
     }

@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,7 +15,7 @@
         <scene sceneID="uWy-2c-3FK">
             <objects>
                 <collectionViewController id="ltT-G1-xp6" customClass="RoundViewController" customModule="Dart_Scorer" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="NRw-BP-Bwe">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="NRw-BP-Bwe">
                         <rect key="frame" x="0.0" y="0.0" width="251" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -32,22 +33,32 @@
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Icu-mD-sDX">
-                                            <rect key="frame" x="8" y="8" width="134" height="134"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Icu-mD-sDX">
+                                            <rect key="frame" x="8" y="8" width="134" height="105"/>
+                                            <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="100"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVg-Ir-pNm">
+                                            <rect key="frame" x="8" y="121" width="134" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </view>
-                                <color key="backgroundColor" red="1" green="0.31975566659999999" blue="0.24064304110000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottomMargin" secondItem="Icu-mD-sDX" secondAttribute="bottom" id="OOR-7x-mqB"/>
+                                    <constraint firstItem="Icu-mD-sDX" firstAttribute="height" secondItem="MnM-GM-gaY" secondAttribute="height" multiplier="0.7" id="6ZA-mu-f8n"/>
+                                    <constraint firstItem="DVg-Ir-pNm" firstAttribute="top" secondItem="Icu-mD-sDX" secondAttribute="bottom" constant="8" id="CSK-X7-J1F"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="DVg-Ir-pNm" secondAttribute="bottom" id="SvB-Ev-vna"/>
                                     <constraint firstItem="Icu-mD-sDX" firstAttribute="leading" secondItem="MnM-GM-gaY" secondAttribute="leadingMargin" id="cfo-kp-xnD"/>
                                     <constraint firstItem="Icu-mD-sDX" firstAttribute="top" secondItem="MnM-GM-gaY" secondAttribute="topMargin" id="ijW-i0-IGW"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="Icu-mD-sDX" secondAttribute="trailing" id="jaQ-EE-p0x"/>
+                                    <constraint firstItem="DVg-Ir-pNm" firstAttribute="leading" secondItem="MnM-GM-gaY" secondAttribute="leadingMargin" id="kTx-om-TNc"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="DVg-Ir-pNm" secondAttribute="trailing" id="rYa-af-N0U"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="multiplierLabel" destination="DVg-Ir-pNm" id="AI0-hH-B3a"/>
                                     <outlet property="valueLabel" destination="Icu-mD-sDX" id="jg4-zu-OCT"/>
                                 </connections>
                             </collectionViewCell>
@@ -65,7 +76,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lpi-p2-O3e" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1149" y="-348"/>
+            <point key="canvasLocation" x="1148" y="-348.12593703148428"/>
         </scene>
     </scenes>
 </document>

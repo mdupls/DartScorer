@@ -10,75 +10,43 @@ import Foundation
 
 class Score {
     
-    private var _scores: [Int: Tracker] = [:]
+    var targets: [Target] = []
     
     var hits: Int {
-        return _scores.reduce(0) { (result, item: (key: Int, value: Tracker)) -> Int in
-            return result + item.value.hits
-        }
-    }
-    
-    var scores: [Tracker] {
-        return _scores.map({ (item: (key: Int, value: Tracker)) -> Tracker in
-            return item.value
-        })
+        return targets.count
     }
     
     init() {
         
     }
     
-    func score(forValue value: Int) -> Tracker? {
-        return _scores[value]
-    }
-    
-    func score(forValues values: [Int]) -> [Tracker] {
-        var scores: [Tracker] = []
-        
-        for value in values {
-            if let tracker = score(forValue: value) {
-                scores.append(tracker)
-            }
-        }
-        
-        return scores
-    }
-    
     func hit(target: Target) {
-        score(forTarget: target).hit(section: target.section)
+        targets.append(target)
         
         print("--> \(target.value) (x\(target.section.rawValue)) hit for \(target.score) points")
     }
     
+    func totalHits(for value: Int) -> Int {
+        var hits = 0
+        for target in targets {
+            if target.value == value {
+                hits += target.section.rawValue
+            }
+        }
+        return hits
+    }
+    
     func add(score: Score) {
-        score._scores.forEach { key, value in
-            _score(forValue: key).merge(tracker: value)
-        }
-    }
-    
-    // MARK: Private
-    
-    private func score(forTarget target: Target) -> Tracker {
-        return _score(forValue: target.value)
-    }
-    
-    private func _score(forValue value: Int) -> Tracker {
-        if let tracker = _scores[value] {
-            return tracker
-        }
-        
-        let tracker = Tracker(value: value)
-        _scores[value] = tracker
-        return tracker
+        targets.append(contentsOf: score.targets)
     }
     
 }
 
 extension Score {
         
-    func sum(model: BoardModel) -> Int {
-        return score(forValues: model.values).reduce(0, { (result, tracker) -> Int in
-            return result + tracker.totalValue
+    func sum() -> Int {
+        return targets.reduce(0, { (result, target) -> Int in
+            return result + target.score
         })
     }
     

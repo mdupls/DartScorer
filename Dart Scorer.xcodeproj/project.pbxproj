@@ -29,7 +29,6 @@
 		1979DF861E7B2A8C00A667FC /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF851E7B2A8C00A667FC /* Stats.swift */; };
 		1979DF881E7B313300A667FC /* Cricket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF871E7B313300A667FC /* Cricket.swift */; };
 		1979DF8A1E7B313F00A667FC /* Shanghai.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF891E7B313F00A667FC /* Shanghai.swift */; };
-		1979DF8C1E7B319700A667FC /* Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF8B1E7B319700A667FC /* Tracker.swift */; };
 		1979DF8E1E7B31DE00A667FC /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF8D1E7B31DE00A667FC /* Target.swift */; };
 		19920FF31E802C5A00E2381C /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19920FF21E802C5A00E2381C /* PlayerViewController.swift */; };
 		19A3F2BC1E78C8CA00D660B5 /* BoardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3F2BB1E78C8CA00D660B5 /* BoardLayout.swift */; };
@@ -91,7 +90,6 @@
 		1979DF851E7B2A8C00A667FC /* Stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		1979DF871E7B313300A667FC /* Cricket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cricket.swift; sourceTree = "<group>"; };
 		1979DF891E7B313F00A667FC /* Shanghai.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shanghai.swift; sourceTree = "<group>"; };
-		1979DF8B1E7B319700A667FC /* Tracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tracker.swift; sourceTree = "<group>"; };
 		1979DF8D1E7B31DE00A667FC /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		19920FF21E802C5A00E2381C /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		19A3F2BB1E78C8CA00D660B5 /* BoardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardLayout.swift; sourceTree = "<group>"; };
@@ -184,7 +182,6 @@
 				1972CA441E7A243900A257D9 /* GameFactory.swift */,
 				1979DF851E7B2A8C00A667FC /* Stats.swift */,
 				1972CA3F1E7A1FE500A257D9 /* Player.swift */,
-				1979DF8B1E7B319700A667FC /* Tracker.swift */,
 				1979DF8D1E7B31DE00A667FC /* Target.swift */,
 				1972CA421E7A216200A257D9 /* Score.swift */,
 				19F470901E80ADCB00582352 /* Round.swift */,
@@ -436,7 +433,6 @@
 				1979DF8E1E7B31DE00A667FC /* Target.swift in Sources */,
 				1972CA431E7A216200A257D9 /* Score.swift in Sources */,
 				19B18AB51E84A36300923D8A /* GameChooserViewController.swift in Sources */,
-				1979DF8C1E7B319700A667FC /* Tracker.swift in Sources */,
 				1972CA3E1E7A1FDF00A257D9 /* Game.swift in Sources */,
 				19B18AB71E84A37000923D8A /* ViewController.swift in Sources */,
 				1972CA3B1E79D72900A257D9 /* CGPoint+Extensions.swift in Sources */,
