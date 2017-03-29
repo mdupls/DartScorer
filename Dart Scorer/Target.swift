@@ -10,8 +10,6 @@ import Foundation
 
 class Target: CustomStringConvertible {
     
-    var enabled: Bool = false
-    
     let value: Int
     let section: Section
     
@@ -28,4 +26,10 @@ class Target: CustomStringConvertible {
         self.section = section
     }
     
+}
+
+enum TargetState {
+    case initial
+    case open
+    case closed
 }

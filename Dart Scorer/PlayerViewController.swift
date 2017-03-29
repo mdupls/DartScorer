@@ -12,13 +12,15 @@ class PlayerViewController: UIViewController {
     
     var player: GamePlayer?
     var game: CoreGame?
-    var round: Int? {
+    var round: Int = 0 {
         didSet {
             boardViewController?.round = round
+            roundViewController?.round = round
         }
     }
     
     weak var boardViewController: BoardViewController?
+    weak var roundViewController: RoundViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,10 @@ class PlayerViewController: UIViewController {
             boardViewController?.player = player
             boardViewController?.game = game
             boardViewController?.round = round
+        } else if segue.identifier == "round" {
+            roundViewController = segue.destination as? RoundViewController
+            roundViewController?.player = player
+            roundViewController?.round = round
         }
     }
     

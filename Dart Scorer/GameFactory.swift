@@ -28,7 +28,7 @@ class GameFactory {
         case "Cricket":
             game = CricketGame(model: model, config: config)
         case "X01":
-            game = X01Game(model: model, config: config)
+            game = X01Game(model: model, config: config, goal: 501)
         case "Shanghai":
             game = ShanghaiGame(model: model, config: config)
         default:
@@ -52,19 +52,31 @@ class Config {
         self.json = json
     }
     
-    var rounds: Int {
-        return sequentialTargets?.count ?? 0
+    var rounds: Int? {
+        return sequentialTargets?.count
     }
     
     var throwsPerTurn: Int {
         return 3
     }
     
-    // MARK: Private
+    var targets: [Int] {
+        return board?["targets"] as? [Int] ?? []
+    }
     
-    private var sequentialTargets: [[Int]]? {
+    var sequentialTargets: [[Int]]? {
         return board?["targets"] as? [[Int]]
     }
+    
+    func targetsFor(round: Int) -> [Int] {
+        var roundTargets: [Int]?
+        if let targets = sequentialTargets, round < targets.count {
+            roundTargets = targets[round]
+        }
+        return roundTargets ?? targets
+    }
+    
+    // MARK: Private
     
     private var board: [String : Any]? {
         return json?["board"] as? [String : Any]

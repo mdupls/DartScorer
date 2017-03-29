@@ -18,9 +18,8 @@ class CoreGame {
     private let config: CoreConfig
     
     private var _finished: Bool = false
-    internal var observers: [GameObserver] = []
     
-    var rounds: Int {
+    var rounds: Int? {
         return config.rounds
     }
     
@@ -35,12 +34,19 @@ class CoreGame {
     }
     
     func select(round: Int) -> Int {
-        let round = max(0, min(round, rounds - 1))
+        var boundedRound = max(0, round)
+        
+        if let rounds = rounds {
+            boundedRound = min(boundedRound, rounds - 1)
+        }
         
         // Tell the model to use the enabled targets for the round.
-        model.enable(targetsWithValues: config.targetsFor(round: round))
+//        model.enable(targetsWithValues: game.targets(for: boundedRound))
         
-        return round
+        // Notify of round change.
+        NotificationCenter.default.post(name: Notification.Name("RoundChange"), object: self, userInfo: nil)
+        
+        return boundedRound
     }
     
     func winner() -> GamePlayer? {
@@ -53,9 +59,13 @@ class CoreGame {
         _finished = true
         
         print("\(player.player.name) won!")
+        
+        NotificationCenter.default.post(name: Notification.Name("GameFinished"), object: player, userInfo: nil)
     }
     
     func score(player: GamePlayer, target: Target?, round: Int) {
+        guard !_finished else { return }
+        
         var score: Score
         if let _score = player.scores[round] {
             score = _score
@@ -64,33 +74,27 @@ class CoreGame {
             player.scores[round] = score
         }
         
-        let result = game.score(player: player, target: target, round: round)
+        let result = game.game(self, hit: target, player: player, round: round)
         
-        // Notify observers.
-        observers.forEach { $0.hit(target: target, player: player) }
+        // Notify.
+        NotificationCenter.default.post(name: Notification.Name("TargetHit"), object: player, userInfo: ["score": score])
         
         switch result {
-        case .OK:
+        case .ok:
             Void()
-        case .Bust:
-            Void()
-        case .Won:
+        case .open:
+            NotificationCenter.default.post(name: Notification.Name("TargetOpen"), object: player, userInfo: nil)
+        case .close:
+            NotificationCenter.default.post(name: Notification.Name("TargetClose"), object: player, userInfo: nil)
+        case .bust:
+            player.scores.removeValue(forKey: round)
+        case .won:
             won(player: player)
         }
     }
     
     func score(forPlayerAt index: Int) -> Score? {
         return players[index].score
-    }
-    
-    func add(observer: GameObserver) {
-        observers.append(observer)
-    }
-    
-    func remove(observer: GameObserver) {
-        if let index = observers.index(where: { $0 === observer }) {
-            observers.remove(at: index)
-        }
     }
     
 }
@@ -103,7 +107,7 @@ private class CoreConfig {
         self.config = config
     }
     
-    var rounds: Int {
+    var rounds: Int? {
         return config.rounds
     }
     
@@ -111,23 +115,7 @@ private class CoreConfig {
         return config.throwsPerTurn
     }
     
-    func targetsFor(round: Int) -> [Int] {
-        var roundTargets: [Int]?
-        if let targets = sequentialTargets, round < targets.count {
-            roundTargets = targets[round]
-        }
-        return roundTargets ?? targets
-    }
-    
     // MARK: Private
-    
-    private var sequentialTargets: [[Int]]? {
-        return _board?["targets"] as? [[Int]]
-    }
-    
-    private var targets: [Int] {
-        return _board?["targets"] as? [Int] ?? []
-    }
     
     private var _board: [String : Any]? {
         return config.json?["board"] as? [String : Any]
@@ -137,16 +125,10 @@ private class CoreConfig {
 
 protocol Game {
     
-    var model: BoardModel { get }
+    func game(_ game: CoreGame, hit target: Target?, player: GamePlayer, round: Int) -> ScoreResult
     
-    func score(player: GamePlayer, target: Target?, round: Int) -> ScoreResult
+    func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState
     
     func rank(players: [GamePlayer]) -> [GamePlayer]
-    
-}
-
-protocol GameObserver: class {
-    
-    func hit(target: Target?, player: GamePlayer)
     
 }

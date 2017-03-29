@@ -12,14 +12,21 @@ class X01Game {
     
     let model: BoardModel
     let config: Config
-    
-    var goal: Int = 501
+    let goal: Int
+    let targets: [Int: Bool]
     
     private var _finished: Bool = false
     
-    init(model: BoardModel, config: Config) {
+    init(model: BoardModel, config: Config, goal: Int) {
         self.model = model
         self.config = config
+        self.goal = goal
+        
+        var targets: [Int: Bool] = [:]
+        for value in config.targets {
+            targets[value] = true
+        }
+        self.targets = targets
     }
     
     // MARK: Private
@@ -28,11 +35,11 @@ class X01Game {
         let points = score.sum(model: model)
         
         if points == goal {
-            return .Won
+            return .won
         } else if points < goal {
-            return .OK
+            return .ok
         } else {
-            return .Bust
+            return .bust
         }
     }
     
@@ -40,11 +47,15 @@ class X01Game {
 
 extension X01Game: Game {
     
-    func score(player: GamePlayer, target: Target?, round: Int) -> ScoreResult {
+    func game(_ game: CoreGame, hit target: Target?, player: GamePlayer, round: Int) -> ScoreResult {
         let score = player.scores[round]!
         
         if let target = target, score.hits < config.throwsPerTurn {
-            score.hit(target: target)
+            let state = self.game(game, stateFor: target, player: player, round: round)
+            
+            if state != .closed {
+                score.hit(target: target)
+            }
         }
         
         let totalScore = player.score
@@ -54,8 +65,24 @@ extension X01Game: Game {
         return check(score: totalScore)
     }
     
+    func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState {
+        guard target.isInPlay(in: self, round: round) else {
+            return .closed
+        }
+        
+        return .initial
+    }
+    
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players
+    }
+    
+}
+
+fileprivate extension Target {
+    
+    func isInPlay(in game: X01Game, round: Int) -> Bool {
+        return game.targets[value] ?? false
     }
     
 }

@@ -16,13 +16,13 @@ class BoardView: UIView {
         }
     }
     
-    var dataSource: BoardViewDataSource? {
+    weak var dataSource: BoardViewDataSource? {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    var delegate: BoardViewDelegate?
+    weak var delegate: BoardViewDelegate?
     
     private var sliceColors: [[CGColor]] {
         return [
@@ -51,12 +51,10 @@ class BoardView: UIView {
         drawSlices(rect: frame)
         drawBullseye(rect: frame)
         drawNumbers(rect: frame)
-        
-        print("drawing")
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        event?.allTouches?.first
+        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -94,22 +92,28 @@ class BoardView: UIView {
         
         // Single
         if let target = dataSource.boardView(self, targetAt: section, for: .Single) {
-            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.bullseyeRadius, radiusEnd: layout.tripleInnerRadius, target: target, color: colors[0])
-            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.tripleOuterRadius, radiusEnd: layout.doubleInnerRadius, target: target, color: colors[0])
+            let state = dataSource.boardView(self, stateFor: target)
+            
+            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.bullseyeRadius, radiusEnd: layout.tripleInnerRadius, target: target, state: state, color: colors[0])
+            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.tripleOuterRadius, radiusEnd: layout.doubleInnerRadius, target: target, state: state, color: colors[0])
         }
         
         // Double
         if let target = dataSource.boardView(self, targetAt: section, for: .Double) {
-            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.doubleInnerRadius, radiusEnd: layout.doubleOuterRadius, target: target, color: colors[1])
+            let state = dataSource.boardView(self, stateFor: target)
+            
+            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.doubleInnerRadius, radiusEnd: layout.doubleOuterRadius, target: target, state: state, color: colors[1])
         }
         
         // Triple
         if let target = dataSource.boardView(self, targetAt: section, for: .Triple) {
-            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.tripleInnerRadius, radiusEnd: layout.tripleOuterRadius, target: target, color: colors[1])
+            let state = dataSource.boardView(self, stateFor: target)
+            
+            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.tripleInnerRadius, radiusEnd: layout.tripleOuterRadius, target: target, state: state, color: colors[1])
         }
     }
     
-    private func drawArc(rect: CGRect, angle: CGFloat, sweep: CGFloat, radiusStart: CGFloat, radiusEnd: CGFloat, target: Target, color: CGColor) {
+    private func drawArc(rect: CGRect, angle: CGFloat, sweep: CGFloat, radiusStart: CGFloat, radiusEnd: CGFloat, target: Target, state: TargetState, color: CGColor) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
         let path = CGMutablePath()
@@ -118,10 +122,10 @@ class BoardView: UIView {
         ctx.addPath(path)
         ctx.setLineWidth(1)
         ctx.setStrokeColor(UIColor.metal.cgColor)
-        ctx.setFillColor(color)
+        ctx.setFillColor(state.color?.cgColor ?? color)
         ctx.setLineCap(.round)
         ctx.setLineJoin(.round)
-        ctx.setAlpha(target.alpha)
+        ctx.setAlpha(state.alpha)
         ctx.drawPath(using: .fillStroke)
     }
     
@@ -136,21 +140,25 @@ class BoardView: UIView {
         
         // Single
         if let target = dataSource.boardView(self, bullsEyeTargetFor: .Single) {
+            let state = dataSource.boardView(self, stateFor: target)
+            
             let bullseyeRect = CGRect(x: rect.midX - layout.bullseyeRadius, y: rect.midY - layout.bullseyeRadius, width: layout.bullseyeRadius * 2, height: layout.bullseyeRadius * 2)
             
             ctx.addEllipse(in: bullseyeRect)
-            ctx.setFillColor(UIColor.bullseye.cgColor)
-            ctx.setAlpha(target.alpha)
+            ctx.setFillColor(state.color?.cgColor ?? UIColor.bullseye.cgColor)
+            ctx.setAlpha(state.alpha)
             ctx.drawPath(using: .fillStroke)
         }
         
         // Double
         if let target = dataSource.boardView(self, bullsEyeTargetFor: .Double) {
+            let state = dataSource.boardView(self, stateFor: target)
+            
             let bullseyeRect = CGRect(x: rect.midX - layout.doubleBullseyeRadius, y: rect.midY - layout.doubleBullseyeRadius, width: layout.doubleBullseyeRadius * 2, height: layout.doubleBullseyeRadius * 2)
             
             ctx.addEllipse(in: bullseyeRect)
-            ctx.setFillColor(UIColor.doubleBullseye.cgColor)
-            ctx.setAlpha(target.alpha)
+            ctx.setFillColor(state.color?.cgColor ?? UIColor.doubleBullseye.cgColor)
+            ctx.setAlpha(state.alpha)
             ctx.drawPath(using: .fillStroke)
         }
     }
@@ -168,20 +176,23 @@ class BoardView: UIView {
         let x: CGFloat = rect.midX
         let y: CGFloat = rect.midY
         
+        let sections = dataSource.numberOfSections(in: self)
         let radius = (layout.doubleOuterRadius + layout.radius) / 2
         let textHeight = (layout.radius - layout.doubleOuterRadius) * 2 / 3
         let font = "20".fontWith(height: textHeight, fontSize: 140)
-        let points = pointsForLabels(sections: 20, x: x, y: y, radius: radius, offset: (CGFloat.pi / 2) * 3)
+        let points = pointsForLabels(sections: sections, x: x, y: y, radius: radius, offset: (CGFloat.pi / 2) * 3)
         let attr = [ NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.number ]
         
         for (index, p) in points.enumerated() {
             if let target = dataSource.boardView(self, targetAt: index, for: .Single) {
+                let state = dataSource.boardView(self, stateFor: target)
+                
                 let string = "\(target.value)"
                 let text = CFAttributedStringCreate(nil, string as CFString!, attr as CFDictionary)
                 let line = CTLineCreateWithAttributedString(text!)
                 let bounds = CTLineGetBoundsWithOptions(line, CTLineBoundsOptions.useOpticalBounds)
                 
-                ctx.setAlpha(target.alpha)
+                ctx.setAlpha(state.alpha)
                 ctx.textPosition = CGPoint(x: p.x - bounds.midX, y: p.y - bounds.midY)
                 
                 CTLineDraw(line, ctx)
@@ -204,25 +215,45 @@ class BoardView: UIView {
     
 }
 
-extension Target {
+extension TargetState {
+    
+    var color: UIColor? {
+        switch self {
+        case .initial:
+            return nil
+        case .open:
+            return UIColor.green
+        case .closed:
+            return nil
+        }
+    }
     
     var alpha: CGFloat {
-        return enabled ? 1 : 0.05
+        switch self {
+        case .initial:
+            return 1
+        case .open:
+            return 1
+        case .closed:
+            return 0.05
+        }
     }
     
 }
 
-protocol BoardViewDelegate {
+protocol BoardViewDelegate: class {
     
     
 }
 
-protocol BoardViewDataSource {
+protocol BoardViewDataSource: class {
     
     func numberOfSections(in boardView: BoardView) -> Int
     
     func boardView(_ boardView: BoardView, targetAt index: Int, for section: Section) -> Target?
     
     func boardView(_ boardView: BoardView, bullsEyeTargetFor section: Section) -> Target?
+    
+    func boardView(_ boardView: BoardView, stateFor target: Target) -> TargetState
     
 }

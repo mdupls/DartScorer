@@ -18,6 +18,12 @@ class Score {
         }
     }
     
+    var scores: [Tracker] {
+        return _scores.map({ (item: (key: Int, value: Tracker)) -> Tracker in
+            return item.value
+        })
+    }
+    
     init() {
         
     }
@@ -39,11 +45,6 @@ class Score {
     }
     
     func hit(target: Target) {
-        guard target.enabled else {
-            print("--> Missed on \(target.value) (x\(target.section.rawValue)) for 0 points")
-            return
-        }
-        
         score(forTarget: target).hit(section: target.section)
         
         print("--> \(target.value) (x\(target.section.rawValue)) hit for \(target.score) points")
@@ -84,7 +85,9 @@ extension Score {
 }
 
 enum ScoreResult {
-    case OK
-    case Bust
-    case Won
+    case ok
+    case open
+    case close
+    case bust
+    case won
 }

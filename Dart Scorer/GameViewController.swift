@@ -20,6 +20,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var nextRoundBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     // MARK: IBActions
     
@@ -39,38 +40,36 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let width = scrollView.frame.width
-        let height = scrollView.frame.height
+        pageControl.numberOfPages = game.players.count
         
-        var previousView: UIView?
+        let contentView = scrollView.subviews[0]
         
         for (index, player) in game.players.enumerated() {
             let viewController = newViewController(withIdentifier: "board", index: index, player: player)
             
             addChildViewController(viewController)
+            contentView.addSubview(viewController.view)
+            
             viewController.view.translatesAutoresizingMaskIntoConstraints = false
-            viewController.view.frame = CGRect(x: 0, y: 0, width: width, height: height)
-            scrollView.addSubview(viewController.view)
-            viewController.didMove(toParentViewController: self)
-            
             viewController.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-            viewController.view.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            viewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            viewController.view.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+            viewController.view.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: 8).isActive = true
             
-            if let previousView = previousView {
-                viewController.view.leadingAnchor.constraint(equalTo: previousView.trailingAnchor).isActive = true
+            if index == 0 {
+                viewController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
             } else {
-                viewController.view.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+                viewController.view.leadingAnchor.constraint(equalTo: childViewControllers[index - 1].view.trailingAnchor).isActive = true
             }
             
-            previousView = viewController.view
+            if index == game.players.count - 1 {
+                viewController.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
+            }
             
-            addChildViewController(viewController)
+            viewController.didMove(toParentViewController: self)
         }
     }
     
     override func viewDidLayoutSubviews() {
-        scrollView.contentSize = CGSize(width: scrollView.frame.width * CGFloat(game.players.count), height: scrollView.frame.height)
         scroll(to: currentIndex)
     }
     
@@ -99,11 +98,14 @@ class GameViewController: UIViewController {
 extension GameViewController: UIScrollViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating {
+            currentIndex = Int((scrollView.contentOffset.x + scrollView.frame.width / 2) / scrollView.frame.width)
+            
+            pageControl.currentPage = currentIndex
+        }
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        currentIndex = Int((scrollView.contentOffset.x + scrollView.frame.width / 2) / scrollView.frame.width)
-        
         print("\(currentIndex)")
     }
     

@@ -47,6 +47,10 @@ class GameParser {
         return _json?["name"] as? String ?? ""
     }
     
+    var bullseye: Int {
+        return _board?["bullseye"] as? Int ?? _bullseye
+    }
+    
     var targets: [Int] {
         return _board?["targets"] as? [Int] ?? []
     }
@@ -59,35 +63,17 @@ class GameParser {
         return _board?["slices"] as? [Int] ?? _slices
     }
     
-    var hasBullseye: Bool {
-        return _board?["bullseye"] as? Bool ?? false
-    }
-    
-    var bullseye: Int {
-        return _board?["bullseye"] as? Int ?? _bullseye
-    }
-    
     func model() -> BoardModel {
-        let model = BoardModel(slices: slices, bullseye: bullseye)
+        let slices = self.slices
         
-        if let targets = sequentialTargets {
-            if let firstTargets = targets.first {
-                for value in firstTargets {
-                    model.target(forValue: value, section: .Single)?.enabled = true
-                    model.target(forValue: value, section: .Double)?.enabled = true
-                    model.target(forValue: value, section: .Triple)?.enabled = true
-                }
-            }
-        } else {
-            for value in targets {
-                model.target(forValue: value, section: .Single)?.enabled = true
-                model.target(forValue: value, section: .Double)?.enabled = true
-                model.target(forValue: value, section: .Triple)?.enabled = true
+        var bullseye: Int?
+        if let firstValue = targets.first {
+            if !slices.contains(firstValue) {
+                bullseye = firstValue
             }
         }
         
-        model.targetForBullseye(at: .Single)?.enabled = hasBullseye
-        model.targetForBullseye(at: .Double)?.enabled = hasBullseye
+        let model = BoardModel(slices: slices, bullseye: bullseye ?? self.bullseye)
         
         return model
     }

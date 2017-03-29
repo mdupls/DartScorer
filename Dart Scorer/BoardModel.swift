@@ -67,20 +67,6 @@ class BoardModel {
         }
     }
     
-    func enable(targetsWithValues values: [Int]) {
-        _slices.forEach { (value: [Section : Target]) in
-            value.forEach {
-                $1.enabled = false
-            }
-        }
-        
-        for value in values {
-            target(forValue: value, section: .Single)?.enabled = true
-            target(forValue: value, section: .Double)?.enabled = true
-            target(forValue: value, section: .Triple)?.enabled = true
-        }
-    }
-    
 }
 
 extension BoardModel: BoardViewDataSource {
@@ -95,6 +81,10 @@ extension BoardModel: BoardViewDataSource {
     
     func boardView(_ boardView: BoardView, bullsEyeTargetFor section: Section) -> Target? {
         return targetForBullseye(at: section)
+    }
+    
+    func boardView(_ boardView: BoardView, stateFor target: Target) -> TargetState {
+        return .initial
     }
     
 }

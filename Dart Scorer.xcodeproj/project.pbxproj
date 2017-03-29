@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19590D1C1E89E1F800CDB946 /* Round.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19590D1B1E89E1F800CDB946 /* Round.storyboard */; };
 		195A3D331E7D703100CE1215 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195A3D321E7D703100CE1215 /* BoardView.swift */; };
 		195A3D351E7D8AE200CE1215 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195A3D341E7D8AE200CE1215 /* MarkerView.swift */; };
 		195A3D371E7F6C6700CE1215 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195A3D361E7F6C6700CE1215 /* GameViewController.swift */; };
@@ -40,6 +41,7 @@
 		19B18AB91E84A7AE00923D8A /* GamesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B18AB81E84A7AE00923D8A /* GamesParser.swift */; };
 		19C606611E8839ED0077E2CC /* Stats.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C6065F1E8839ED0077E2CC /* Stats.storyboard */; };
 		19C606631E883A0E0077E2CC /* Game.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C606621E883A0E0077E2CC /* Game.storyboard */; };
+		19DCF5B41E8B0C2000C00442 /* BoardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DCF5B31E8B0C2000C00442 /* BoardDataSource.swift */; };
 		19F07DA21E246A0400C7AB32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F07DA11E246A0400C7AB32 /* AppDelegate.swift */; };
 		19F07DA71E246A0400C7AB32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19F07DA51E246A0400C7AB32 /* Main.storyboard */; };
 		19F07DA91E246A0400C7AB32 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19F07DA81E246A0400C7AB32 /* Assets.xcassets */; };
@@ -67,6 +69,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		19590D1B1E89E1F800CDB946 /* Round.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Round.storyboard; sourceTree = "<group>"; };
 		195A3D321E7D703100CE1215 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		195A3D341E7D8AE200CE1215 /* MarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
 		195A3D361E7F6C6700CE1215 /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 		19B18AB81E84A7AE00923D8A /* GamesParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesParser.swift; sourceTree = "<group>"; };
 		19C606601E8839ED0077E2CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Stats.storyboard; sourceTree = "<group>"; };
 		19C606621E883A0E0077E2CC /* Game.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Game.storyboard; sourceTree = "<group>"; };
+		19DCF5B31E8B0C2000C00442 /* BoardDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardDataSource.swift; sourceTree = "<group>"; };
 		19F07D9E1E246A0400C7AB32 /* Dart Scorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dart Scorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		19F07DA11E246A0400C7AB32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		19F07DA61E246A0400C7AB32 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 				1972CA271E79B69300A257D9 /* BoardModel.swift */,
 				195A3D321E7D703100CE1215 /* BoardView.swift */,
 				195A3D341E7D8AE200CE1215 /* MarkerView.swift */,
+				19DCF5B31E8B0C2000C00442 /* BoardDataSource.swift */,
 			);
 			name = Board;
 			sourceTree = "<group>";
@@ -246,6 +251,7 @@
 				19B18AB61E84A37000923D8A /* ViewController.swift */,
 				19F07DA51E246A0400C7AB32 /* Main.storyboard */,
 				19C606621E883A0E0077E2CC /* Game.storyboard */,
+				19590D1B1E89E1F800CDB946 /* Round.storyboard */,
 				19C6065F1E8839ED0077E2CC /* Stats.storyboard */,
 				19F07DA81E246A0400C7AB32 /* Assets.xcassets */,
 				19F07DAA1E246A0400C7AB32 /* LaunchScreen.storyboard */,
@@ -389,6 +395,7 @@
 				1972CA321E79C05200A257D9 /* shanghai.json in Resources */,
 				19C606611E8839ED0077E2CC /* Stats.storyboard in Resources */,
 				19F07DA71E246A0400C7AB32 /* Main.storyboard in Resources */,
+				19590D1C1E89E1F800CDB946 /* Round.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -442,6 +449,7 @@
 				1971206D1E834BC70024259C /* RoundViewController.swift in Sources */,
 				1972CA471E7A249900A257D9 /* X01.swift in Sources */,
 				19A3F2C01E79AD4100D660B5 /* BoardViewController.swift in Sources */,
+				19DCF5B41E8B0C2000C00442 /* BoardDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

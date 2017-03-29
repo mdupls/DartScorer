@@ -22,14 +22,17 @@ class BoardViewController: UIViewController {
             update(forGame: game)
         }
     }
-    var round: Int? {
+    var round: Int = 0 {
         didSet {
+            dataSource?.round = round
+            
             boardView?.setNeedsDisplay()
             markerView?.setNeedsDisplay()
         }
     }
     
     private var layout: BoardLayout!
+    private var dataSource: BoardDataSource!
     
     // MARK: IBOutlet
     
@@ -41,13 +44,26 @@ class BoardViewController: UIViewController {
     @IBAction func didTapBoard(gesture: UITapGestureRecognizer) {
         guard let game = game else { return }
         guard let player = player else { return }
-        guard let round = round else { return }
         
         if let target = layout?.target(forPoint: gesture.location(in: view)) {
             game.score(player: player, target: target, round: round)
             
             markerView?.setNeedsDisplay()
         }
+    }
+    
+    // MARK: Events
+    
+    func didOpenTarget(sender: Notification) {
+        boardView?.setNeedsDisplay()
+    }
+    
+    func didCloseTarget(sender: Notification) {
+        boardView?.setNeedsDisplay()
+    }
+    
+    func didGameFinish(sender: Notification) {
+        boardView?.setNeedsDisplay()
     }
     
     // MARK: Lifecycle
@@ -58,16 +74,27 @@ class BoardViewController: UIViewController {
         markerView.dataSource = self
         
         update(forGame: game)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didOpenTarget(sender:)), name: Notification.Name("TargetOpen"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didCloseTarget(sender:)), name: Notification.Name("TargetClose"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didGameFinish(sender:)), name: Notification.Name("GameFinished"), object: nil)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        view.setNeedsLayout()
     }
     
     private func update(forGame game: CoreGame?) {
         guard let game = game else { return }
+        guard let player = player else { return }
         
         let layout = BoardLayout(model: game.model)
         self.layout = layout
         
+        dataSource = BoardDataSource(game: game, player: player)
+        
         boardView?.layout = layout
-        boardView?.dataSource = game.model
+        boardView?.dataSource = dataSource
         
         markerView?.layout = layout
         

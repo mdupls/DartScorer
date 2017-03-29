@@ -1,7 +1,6 @@
 {
     "name": "Cricket",
     "board": {
-        "targets": [ 20, 19, 18, 17, 16, 15 ],
-        "bullseye": true
+        "targets": [ 25, 20, 19, 18, 17, 16, 15 ]
     }
 }

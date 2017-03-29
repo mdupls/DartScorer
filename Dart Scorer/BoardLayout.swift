@@ -82,6 +82,9 @@ class BoardLayout {
             section = .Single
         } else if radius < doubleOuterRadius {
             section = .Double
+        } else if radius < self.radius {
+            // If the radius is within the board radius, consider this a single.
+            section = .Single
         } else {
             return nil
         }
