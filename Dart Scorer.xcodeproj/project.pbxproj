@@ -250,8 +250,8 @@
 				19C606621E883A0E0077E2CC /* Game.storyboard */,
 				19590D1B1E89E1F800CDB946 /* Round.storyboard */,
 				19C6065F1E8839ED0077E2CC /* Stats.storyboard */,
-				19F07DA81E246A0400C7AB32 /* Assets.xcassets */,
 				19F07DAA1E246A0400C7AB32 /* LaunchScreen.storyboard */,
+				19F07DA81E246A0400C7AB32 /* Assets.xcassets */,
 				19F07DAD1E246A0400C7AB32 /* Info.plist */,
 			);
 			path = "Dart Scorer";
