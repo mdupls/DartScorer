@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,10 +16,10 @@
         <scene sceneID="uWy-2c-3FK">
             <objects>
                 <collectionViewController id="ltT-G1-xp6" customClass="RoundViewController" customModule="Dart_Scorer" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="NRw-BP-Bwe">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="NRw-BP-Bwe">
                         <rect key="frame" x="0.0" y="0.0" width="251" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Lhs-al-Nos">
                             <size key="itemSize" width="150" height="150"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -33,32 +34,48 @@
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Icu-mD-sDX">
-                                            <rect key="frame" x="8" y="8" width="134" height="105"/>
-                                            <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="100"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVg-Ir-pNm">
-                                            <rect key="frame" x="8" y="121" width="134" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aa2-Vn-Bou">
+                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="Icu-mD-sDX">
+                                                    <rect key="frame" x="20" y="20" width="110" height="88"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="100"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="x1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DVg-Ir-pNm">
+                                                    <rect key="frame" x="20" y="116" width="110" height="14"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="ultraLight" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="DVg-Ir-pNm" secondAttribute="trailing" constant="12" id="62m-Q6-OJn"/>
+                                                <constraint firstItem="Icu-mD-sDX" firstAttribute="leading" secondItem="aa2-Vn-Bou" secondAttribute="leadingMargin" constant="12" id="BcF-Z1-Toz"/>
+                                                <constraint firstItem="DVg-Ir-pNm" firstAttribute="leading" secondItem="aa2-Vn-Bou" secondAttribute="leadingMargin" constant="12" id="EjQ-RR-nu0"/>
+                                                <constraint firstItem="Icu-mD-sDX" firstAttribute="top" secondItem="aa2-Vn-Bou" secondAttribute="topMargin" constant="12" id="e8K-IB-KSn"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="DVg-Ir-pNm" secondAttribute="bottom" constant="12" id="kwC-gv-cOp"/>
+                                                <constraint firstItem="DVg-Ir-pNm" firstAttribute="top" secondItem="Icu-mD-sDX" secondAttribute="bottom" constant="8" id="pVw-JI-qr7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Icu-mD-sDX" secondAttribute="trailing" constant="12" id="svO-a1-h5R"/>
+                                                <constraint firstAttribute="width" secondItem="aa2-Vn-Bou" secondAttribute="height" multiplier="1:1" id="tvB-Ka-dHb"/>
+                                                <constraint firstItem="Icu-mD-sDX" firstAttribute="height" secondItem="aa2-Vn-Bou" secondAttribute="height" multiplier="0.7" constant="-16.799999999999997" id="xuE-tB-kqk"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="Icu-mD-sDX" firstAttribute="height" secondItem="MnM-GM-gaY" secondAttribute="height" multiplier="0.7" id="6ZA-mu-f8n"/>
-                                    <constraint firstItem="DVg-Ir-pNm" firstAttribute="top" secondItem="Icu-mD-sDX" secondAttribute="bottom" constant="8" id="CSK-X7-J1F"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="DVg-Ir-pNm" secondAttribute="bottom" id="SvB-Ev-vna"/>
-                                    <constraint firstItem="Icu-mD-sDX" firstAttribute="leading" secondItem="MnM-GM-gaY" secondAttribute="leadingMargin" id="cfo-kp-xnD"/>
-                                    <constraint firstItem="Icu-mD-sDX" firstAttribute="top" secondItem="MnM-GM-gaY" secondAttribute="topMargin" id="ijW-i0-IGW"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="Icu-mD-sDX" secondAttribute="trailing" id="jaQ-EE-p0x"/>
-                                    <constraint firstItem="DVg-Ir-pNm" firstAttribute="leading" secondItem="MnM-GM-gaY" secondAttribute="leadingMargin" id="kTx-om-TNc"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="DVg-Ir-pNm" secondAttribute="trailing" id="rYa-af-N0U"/>
+                                    <constraint firstItem="aa2-Vn-Bou" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="MnM-GM-gaY" secondAttribute="leading" id="BVJ-Kl-8Gc"/>
+                                    <constraint firstItem="aa2-Vn-Bou" firstAttribute="centerY" secondItem="MnM-GM-gaY" secondAttribute="centerY" id="aAT-XJ-Oaz"/>
+                                    <constraint firstItem="aa2-Vn-Bou" firstAttribute="centerX" secondItem="MnM-GM-gaY" secondAttribute="centerX" id="dve-Xz-jtp"/>
+                                    <constraint firstItem="aa2-Vn-Bou" firstAttribute="top" relation="greaterThanOrEqual" secondItem="MnM-GM-gaY" secondAttribute="top" id="hiH-ca-D6o"/>
+                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aa2-Vn-Bou" secondAttribute="bottom" id="n6o-3b-9Ac"/>
+                                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="aa2-Vn-Bou" secondAttribute="trailing" id="uAN-0o-H67"/>
                                 </constraints>
                                 <connections>
                                     <outlet property="multiplierLabel" destination="DVg-Ir-pNm" id="AI0-hH-B3a"/>
+                                    <outlet property="valueBackgroundView" destination="aa2-Vn-Bou" id="8As-BO-jmF"/>
                                     <outlet property="valueLabel" destination="Icu-mD-sDX" id="jg4-zu-OCT"/>
                                 </connections>
                             </collectionViewCell>

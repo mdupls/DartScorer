@@ -49,6 +49,8 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         super.willTransition(to: newCollection, with: coordinator)
         
         collectionViewTraitCollection = newCollection
+        
+        (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.scrollDirection = newCollection.isVertical ? .vertical : .horizontal
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -109,19 +111,29 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     private func size() -> CGSize {
-        return CGSize(width: 142, height: 180)
+        if (collectionViewTraitCollection ?? traitCollection).isVertical {
+            return CGSize(width: view.frame.width, height: ceil(view.frame.height / (3 + 1)))
+        } else {
+            return CGSize(width: ceil(view.frame.width / (3 + 1)), height: view.frame.height)
+        }
     }
     
     private func inset() -> UIEdgeInsets {
-        let horizontal = lineSpacing()
+        let inset = lineSpacing()
         
-        return UIEdgeInsetsMake(0, horizontal, 0, horizontal)
+        if (collectionViewTraitCollection ?? traitCollection).isVertical {
+            return UIEdgeInsetsMake(inset, 0, inset, 0)
+        } else {
+            return UIEdgeInsetsMake(0, inset, 0, inset)
+        }
     }
     
     private func lineSpacing() -> CGFloat {
-        let gaps = count > 0 ? (view.frame.width - CGFloat(count) * size().width) / CGFloat(count + 1) : 0
-        
-        return gaps
+        if (collectionViewTraitCollection ?? traitCollection).isVertical {
+            return count > 0 ? (view.frame.height - CGFloat(count) * size().height) / CGFloat(count + 1) : 0
+        } else {
+            return count > 0 ? (view.frame.width - CGFloat(count) * size().width) / CGFloat(count + 1) : 0
+        }
     }
     
     private func spacing() -> CGFloat {
@@ -152,7 +164,21 @@ class ScoreCellView: UICollectionViewCell {
     
     @IBOutlet weak var valueLabel: UILabel!
     @IBOutlet weak var multiplierLabel: UILabel!
+    @IBOutlet weak var valueBackgroundView: UIView!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        valueBackgroundView.layer.cornerRadius = valueBackgroundView.frame.width / 2
+    }
     
 }
 
+fileprivate extension UITraitCollection {
+    
+    var isVertical: Bool {
+        return verticalSizeClass == .compact
+    }
+    
+}
 

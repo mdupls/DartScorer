@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="FMY-Vl-T0e">
-    <device id="ipad12_9" orientation="landscape">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -11,22 +11,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
-        <scene sceneID="cXF-Q8-0lC">
-            <objects>
-                <navigationController id="BIT-Yv-bzs" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3XC-Ci-aDy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="FMY-Vl-T0e" kind="relationship" relationship="rootViewController" id="WgG-Re-jwM"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Y55-Bq-Dhf" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1298" y="108"/>
-        </scene>
         <!--Game View Controller-->
         <scene sceneID="wQd-r7-yNj">
             <objects>
@@ -36,14 +20,14 @@
                         <viewControllerLayoutGuide type="bottom" id="BzN-kK-UDs"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ls7-BD-m11">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tj8-Yr-3RA">
-                                <rect key="frame" x="956" y="64" width="410" height="960"/>
+                                <rect key="frame" x="289.66666666666674" y="64" width="124.33333333333331" height="672"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rRp-Os-vZp">
-                                        <rect key="frame" x="201" y="469.5" width="8" height="21"/>
+                                        <rect key="frame" x="58.333333333333314" y="325.66666666666669" width="8" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -56,11 +40,22 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XH-sh-JdN">
-                                <rect key="frame" x="0.0" y="64" width="1366" height="960"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nfR-qO-BqS">
-                                        <rect key="frame" x="0.0" y="0.0" width="1366" height="960"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="4272" height="672"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wood2" translatesAutoresizingMaskIntoConstraints="NO" id="NtG-ZE-atz">
+                                                <rect key="frame" x="0.0" y="0.0" width="4272" height="672"/>
+                                            </imageView>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="NtG-ZE-atz" firstAttribute="top" secondItem="nfR-qO-BqS" secondAttribute="top" id="0ao-Lx-2lV"/>
+                                            <constraint firstAttribute="bottom" secondItem="NtG-ZE-atz" secondAttribute="bottom" id="8Qo-YP-zKu"/>
+                                            <constraint firstItem="NtG-ZE-atz" firstAttribute="leading" secondItem="nfR-qO-BqS" secondAttribute="leading" id="VLM-wn-ZIp"/>
+                                            <constraint firstAttribute="trailing" secondItem="NtG-ZE-atz" secondAttribute="trailing" id="lSe-dY-iQn"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -76,12 +71,10 @@
                                 </connections>
                             </scrollView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="323-1I-WUd">
-                                <rect key="frame" x="663.5" y="987" width="39" height="37"/>
-                                <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="currentPageIndicatorTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="187.66666666666663" y="699" width="39" height="37"/>
                             </pageControl>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="BzN-kK-UDs" firstAttribute="top" secondItem="323-1I-WUd" secondAttribute="bottom" id="2hw-J3-lFs"/>
                             <constraint firstItem="323-1I-WUd" firstAttribute="centerX" secondItem="Ls7-BD-m11" secondAttribute="centerX" id="ECS-zH-9SI"/>
@@ -124,11 +117,11 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X9X-V8-ugh" userLabel="Score">
-                                <rect key="frame" x="0.0" y="20" width="1366" height="251"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="179"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="251" id="RSL-U0-34c"/>
                                 </constraints>
@@ -147,13 +140,13 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="59z-qd-M7M" userLabel="Board">
-                                <rect key="frame" x="0.0" y="271" width="1366" height="753"/>
+                                <rect key="frame" x="0.0" y="199" width="414" height="537"/>
                                 <connections>
                                     <segue destination="7uT-oi-NEs" kind="embed" identifier="board" id="V9L-Kb-FPB"/>
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="59z-qd-M7M" secondAttribute="trailing" id="2Eb-HY-nwP"/>
                             <constraint firstAttribute="trailing" secondItem="X9X-V8-ugh" secondAttribute="trailing" id="4iH-GL-KZD"/>
@@ -216,22 +209,22 @@
                         <viewControllerLayoutGuide type="bottom" id="ILQ-My-coJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="web-7W-gN9">
-                        <rect key="frame" x="0.0" y="0.0" width="1366" height="753"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="537"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ku-4f-ay4" customClass="BoardView" customModule="Dart_Scorer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1366" height="753"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="537"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="0YM-5F-q4g" appends="YES" id="u0Q-A3-vV9"/>
                                 </connections>
                             </view>
                             <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Jv-DE-1Gy" customClass="MarkerView" customModule="Dart_Scorer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="1366" height="753"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="537"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ILQ-My-coJ" firstAttribute="top" secondItem="8Ku-4f-ay4" secondAttribute="bottom" id="1LC-uv-qQD"/>
                             <constraint firstItem="ILQ-My-coJ" firstAttribute="top" secondItem="4Jv-DE-1Gy" secondAttribute="bottom" id="2S9-s3-grs"/>
@@ -263,7 +256,7 @@
                     </connections>
                 </gestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1197" y="431"/>
+            <point key="canvasLocation" x="1296" y="447"/>
         </scene>
         <!--Round-->
         <scene sceneID="x2T-wD-cnN">
@@ -271,7 +264,10 @@
                 <viewControllerPlaceholder storyboardName="Round" id="QJy-t6-TL1" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I67-Nf-WXO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="913" y="-141"/>
+            <point key="canvasLocation" x="1047" y="-121"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="wood2" width="4272" height="2352"/>
+    </resources>
 </document>

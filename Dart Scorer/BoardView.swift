@@ -222,7 +222,7 @@ extension TargetState {
         case .initial:
             return nil
         case .open:
-            return UIColor.green
+            return UIColor.open
         case .closed:
             return nil
         }
