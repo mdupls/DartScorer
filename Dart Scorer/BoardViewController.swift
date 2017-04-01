@@ -19,7 +19,7 @@ class BoardViewController: UIViewController {
     }
     var game: CoreGame? {
         didSet {
-            update(forGame: game)
+            update(for: game)
         }
     }
     var round: Int = 0 {
@@ -71,9 +71,7 @@ class BoardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        markerView.dataSource = self
-        
-        update(forGame: game)
+        update(for: game)
         
         NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
@@ -86,7 +84,7 @@ class BoardViewController: UIViewController {
         view.setNeedsLayout()
     }
     
-    private func update(forGame game: CoreGame?) {
+    private func update(for game: CoreGame?) {
         guard let game = game else { return }
         guard let player = player else { return }
         
@@ -95,20 +93,30 @@ class BoardViewController: UIViewController {
         
         dataSource = BoardDataSource(game: game, player: player)
         
-        targetSelectionView?.layout = layout
-        targetSelectionView?.boardView = boardView
-        targetSelectionView?.game = game
-        targetSelectionView?.player = player
-        targetSelectionView?.delegate = self
+        if let targetSelectionView = targetSelectionView {
+            targetSelectionView.layout = layout
+            targetSelectionView.boardView = boardView
+            targetSelectionView.game = game
+            targetSelectionView.player = player
+            targetSelectionView.delegate = self
+        }
         
-        boardView?.layout = layout
-        boardView?.dataSource = dataSource
-        boardView?.delegate = targetSelectionView
+        if let boardView = boardView {
+            boardView.layout = layout
+            boardView.dataSource = dataSource
+            boardView.delegate = targetSelectionView
+            boardView.setNeedsDisplay()
+        }
         
-        markerView?.layout = layout
-        
-        markerView?.setNeedsDisplay()
-        boardView?.setNeedsDisplay()
+        if let markerView = markerView {
+            markerView.layout = layout
+            
+            if game.showHitMarkers {
+                markerView.dataSource = self
+            }
+            
+            markerView.setNeedsDisplay()
+        }
     }
     
 }

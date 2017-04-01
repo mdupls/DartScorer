@@ -27,6 +27,10 @@ class CoreGame {
         return config.name
     }
     
+    var showHitMarkers: Bool {
+        return config.showHitMarkers
+    }
+    
     init(game: Game, model: BoardModel, players: [Player], config: Config) {
         self.game = game
         self.model = model
@@ -135,6 +139,10 @@ private class CoreConfig {
     
     var throwsPerTurn: Int {
         return config.throwsPerTurn
+    }
+    
+    var showHitMarkers: Bool {
+        return config.showHitMarkers
     }
     
     // MARK: Private

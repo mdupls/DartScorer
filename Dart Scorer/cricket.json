@@ -1,6 +1,7 @@
 {
     "name": "Cricket",
     "board": {
-        "targets": [ 25, 20, 19, 18, 17, 16, 15 ]
+        "targets": [ 25, 20, 19, 18, 17, 16, 15 ],
+        "showHitMarkers": true
     }
 }

@@ -64,6 +64,10 @@ class Config {
         return 3
     }
     
+    var showHitMarkers: Bool {
+        return board?["showHitMarkers"] as? Bool ?? false
+    }
+    
     var targets: [Int] {
         return board?["targets"] as? [Int] ?? []
     }
