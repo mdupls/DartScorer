@@ -36,20 +36,20 @@ class CricketGame {
 
 extension CricketGame: Game {
     
-    func game(_ game: CoreGame, hit target: Target?, player: GamePlayer, round: Int) -> ScoreResult {
+    func game(_ game: CoreGame, hit target: Target, player: GamePlayer, round: Int) -> ScoreResult? {
         var result: ScoreResult?
         let score = player.scores[round]!
         
-        if let target = target, score.hits < config.throwsPerTurn {
+        if score.hits < config.throwsPerTurn {
             let state = self.game(game, stateFor: target, player: player, round: round)
             
             if state != .closed {
                 score.hit(target: target)
                 
-                result = hasWon(player: player) ?? target.result(in: game) ?? target.result(for: player)
+                result = hasWon(player: player) ?? target.result(in: game) ?? target.result(for: player) ?? .ok
             }
         }
-        return result ?? .ok
+        return result
     }
     
     func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState {

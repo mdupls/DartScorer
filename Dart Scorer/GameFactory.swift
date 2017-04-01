@@ -52,6 +52,10 @@ class Config {
         self.json = json
     }
     
+    var name: String {
+        return json?["name"] as? String ?? ""
+    }
+    
     var rounds: Int? {
         return sequentialTargets?.count
     }

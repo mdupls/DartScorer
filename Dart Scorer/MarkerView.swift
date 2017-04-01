@@ -29,10 +29,11 @@ class MarkerView: UIView {
     }
     
     override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        guard let ctx = UIGraphicsGetCurrentContext() else { return }
         guard let dataSource = dataSource else { return }
         guard let layout = layout else { return }
-        
-        let _ = layout.centerIn(frame: rect)
         
         let sections = dataSource.numberOfSections(in: self)
         let sweep = (CGFloat.pi * 2) / CGFloat(sections)
@@ -52,8 +53,6 @@ class MarkerView: UIView {
             let angle = startAngle + (sweep - markSweep * CGFloat(marks) - spaceSweep * CGFloat(marks - 1)) / 2
             
             let color = marks == maxMarks ? UIColor.open.cgColor : UIColor.hit.cgColor
-            
-            guard let ctx = UIGraphicsGetCurrentContext() else { return }
             
             for mark in 0 ..< marks {
                 let path = CGMutablePath()

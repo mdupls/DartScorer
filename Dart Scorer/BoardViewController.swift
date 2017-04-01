@@ -24,6 +24,7 @@ class BoardViewController: UIViewController {
     }
     var round: Int = 0 {
         didSet {
+            targetSelectionView?.round = round
             dataSource?.round = round
             
             boardView?.setNeedsDisplay()
@@ -31,28 +32,27 @@ class BoardViewController: UIViewController {
         }
     }
     
-    private var layout: BoardLayout!
+    fileprivate var layout: BoardLayout!
     private var dataSource: BoardDataSource!
     
     // MARK: IBOutlet
     
     @IBOutlet weak var boardView: BoardView!
     @IBOutlet weak var markerView: MarkerView!
+    @IBOutlet weak var targetSelectionView: TargetSelectionView!
     
     // MARK: IBAction
     
-    @IBAction func didTapBoard(gesture: UITapGestureRecognizer) {
-        guard let game = game else { return }
-        guard let player = player else { return }
-        
-        if let target = layout?.target(forPoint: gesture.location(in: view)) {
-            game.score(player: player, target: target, round: round)
-            
-            markerView?.setNeedsDisplay()
-        }
+    // MARK: Events
+    
+    func didHitTarget(sender: Notification) {
+        markerView?.setNeedsDisplay()
     }
     
-    // MARK: Events
+    func didUnhitTarget(sender: Notification) {
+        markerView?.setNeedsDisplay()
+        boardView?.setNeedsDisplay()
+    }
     
     func didOpenTarget(sender: Notification) {
         boardView?.setNeedsDisplay()
@@ -75,6 +75,8 @@ class BoardViewController: UIViewController {
         
         update(forGame: game)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didOpenTarget(sender:)), name: Notification.Name("TargetOpen"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didCloseTarget(sender:)), name: Notification.Name("TargetClose"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didGameFinish(sender:)), name: Notification.Name("GameFinished"), object: nil)
@@ -93,8 +95,15 @@ class BoardViewController: UIViewController {
         
         dataSource = BoardDataSource(game: game, player: player)
         
+        targetSelectionView?.layout = layout
+        targetSelectionView?.boardView = boardView
+        targetSelectionView?.game = game
+        targetSelectionView?.player = player
+        targetSelectionView?.delegate = self
+        
         boardView?.layout = layout
         boardView?.dataSource = dataSource
+        boardView?.delegate = targetSelectionView
         
         markerView?.layout = layout
         
@@ -128,27 +137,12 @@ extension BoardViewController: MarkerViewDataSource {
     
 }
 
-extension BoardViewController: UIGestureRecognizerDelegate {
+extension BoardViewController: TargetSelectionViewDelegate {
     
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return false
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        print("\(touch.location(in: view))")
-        return true
+    func targetSelection(_ selection: TargetSelectionView, didHit target: Target) {
+        guard let player = player else { return }
+        
+        game?.score(player: player, target: target, round: round)
     }
     
 }

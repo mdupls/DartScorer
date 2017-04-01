@@ -39,22 +39,23 @@ class ShanghaiGame {
 
 extension ShanghaiGame: Game {
     
-    func game(_ game: CoreGame, hit target: Target?, player: GamePlayer, round: Int) -> ScoreResult {
+    func game(_ game: CoreGame, hit target: Target, player: GamePlayer, round: Int) -> ScoreResult? {
         let score = player.scores[round]!
         
-        if let target = target, score.hits < config.throwsPerTurn {
+        if score.hits < config.throwsPerTurn {
             let state = self.game(game, stateFor: target, player: player, round: round)
             
             if state != .closed {
                 score.hit(target: target)
             }
+            
+            let totalScore = player.score
+            
+            print("\(player.name)'s score: \(totalScore.sum())")
+            
+            return check(score: totalScore)
         }
-        
-        let totalScore = player.score
-        
-        print("\(player.name)'s score: \(totalScore.sum())")
-        
-        return check(score: totalScore)
+        return nil
     }
     
     func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState {

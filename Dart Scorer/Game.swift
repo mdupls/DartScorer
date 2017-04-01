@@ -23,6 +23,10 @@ class CoreGame {
         return config.rounds
     }
     
+    var name: String {
+        return config.name
+    }
+    
     init(game: Game, model: BoardModel, players: [Player], config: Config) {
         self.game = game
         self.model = model
@@ -63,7 +67,7 @@ class CoreGame {
         NotificationCenter.default.post(name: Notification.Name("GameFinished"), object: player, userInfo: nil)
     }
     
-    func score(player: GamePlayer, target: Target?, round: Int) {
+    func score(player: GamePlayer, target: Target, round: Int) {
         guard !_finished else { return }
         
         var score: Score
@@ -74,23 +78,37 @@ class CoreGame {
             player.scores[round] = score
         }
         
-        let result = game.game(self, hit: target, player: player, round: round)
-        
-        // Notify.
-        NotificationCenter.default.post(name: Notification.Name("TargetHit"), object: player, userInfo: ["score": score])
-        
-        switch result {
-        case .ok:
-            Void()
-        case .open:
-            NotificationCenter.default.post(name: Notification.Name("TargetOpen"), object: player, userInfo: nil)
-        case .close:
-            NotificationCenter.default.post(name: Notification.Name("TargetClose"), object: player, userInfo: nil)
-        case .bust:
-            player.scores.removeValue(forKey: round)
-        case .won:
-            won(player: player)
+        if let result = game.game(self, hit: target, player: player, round: round) {
+            // Notify.
+            NotificationCenter.default.post(name: Notification.Name("TargetHit"), object: player, userInfo: ["score": score])
+            
+            switch result {
+            case .ok:
+                Void()
+            case .open:
+                NotificationCenter.default.post(name: Notification.Name("TargetOpen"), object: player, userInfo: nil)
+            case .close:
+                NotificationCenter.default.post(name: Notification.Name("TargetClose"), object: player, userInfo: nil)
+            case .bust:
+                player.scores.removeValue(forKey: round)
+            case .won:
+                won(player: player)
+            }
         }
+    }
+    
+    func undoScore(player: GamePlayer, target index: Int, round: Int) {
+        guard let score = player.scores[round] else { return }
+        
+        score.removeTarget(at: index)
+        
+        // Notify
+        NotificationCenter.default.post(name: Notification.Name("TargetUnhit"), object: player, userInfo: [
+            "score": score,
+            "index": index
+        ])
+        
+        _finished = false
     }
     
     func score(forPlayerAt index: Int) -> Score? {
@@ -105,6 +123,10 @@ private class CoreConfig {
     
     init(config: Config) {
         self.config = config
+    }
+    
+    var name: String {
+        return config.name
     }
     
     var rounds: Int? {
@@ -125,7 +147,7 @@ private class CoreConfig {
 
 protocol Game {
     
-    func game(_ game: CoreGame, hit target: Target?, player: GamePlayer, round: Int) -> ScoreResult
+    func game(_ game: CoreGame, hit target: Target, player: GamePlayer, round: Int) -> ScoreResult?
     
     func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState
     

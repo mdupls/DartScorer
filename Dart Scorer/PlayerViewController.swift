@@ -1,5 +1,5 @@
 //
-//  GameViewController.swift
+//  PlayerViewController.swift
 //  Dart Scorer
 //
 //  Created by Michael Du Plessis on 2017-03-20.
@@ -9,6 +9,8 @@
 import UIKit
 
 class PlayerViewController: UIViewController {
+    
+    // MARK: Variables
     
     var player: GamePlayer?
     var game: CoreGame?
@@ -22,8 +24,14 @@ class PlayerViewController: UIViewController {
     weak var boardViewController: BoardViewController?
     weak var roundViewController: RoundViewController?
     
+    // MARK: IBOutlets
+    
+    @IBOutlet weak var playerName: NameView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        playerName.name = player?.name
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -35,6 +43,7 @@ class PlayerViewController: UIViewController {
         } else if segue.identifier == "round" {
             roundViewController = segue.destination as? RoundViewController
             roundViewController?.player = player
+            roundViewController?.game = game
             roundViewController?.round = round
         }
     }

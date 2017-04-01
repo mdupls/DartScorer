@@ -23,20 +23,39 @@ class BoardLayout {
     
     internal let model: BoardModel
     
-    private var frame: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
-    private var center: CGPoint { return CGPoint(x: frame.midX, y: frame.midY) }
+    var frame: CGRect {
+        get {
+            return _frame
+        }
+        set {
+            let diameter = min(newValue.width, newValue.height) * BoardRatio
+            let rect = CGRect(x: (newValue.width - diameter) / 2, y: (newValue.height - diameter) / 2, width: diameter, height: diameter)
+            
+            _diameter = diameter
+            _center = CGPoint(x: newValue.midX, y: newValue.midY)
+            _frame = rect
+        }
+    }
     
     var diameter: CGFloat {
-        return min(frame.width, frame.height)
+        return _diameter
     }
     
     var radius: CGFloat {
-        return diameter / 2
+        return _diameter / 2
+    }
+    
+    var center: CGPoint {
+        return _center
     }
     
     var sweepAngle: CGFloat {
         return (CGFloat.pi * 2) / CGFloat(model.sectionCount)
     }
+    
+    private var _diameter: CGFloat = 0
+    private var _center: CGPoint = CGPoint(x: 0, y: 0)
+    private var _frame: CGRect = CGRect(x: 0, y: 0, width: 0, height: 0)
     
     internal var markerOuterRadius: CGFloat { return radius * MarkerOuterRatio }
     internal var markerInnerRadius: CGFloat { return radius * MarkerInnerRatio }
@@ -51,11 +70,8 @@ class BoardLayout {
         self.model = model
     }
     
-    func centerIn(frame: CGRect) -> CGRect {
-        let diameter = min(frame.width, frame.height) * BoardRatio
-        let rect = CGRect(x: (frame.width - diameter) / 2, y: (frame.height - diameter) / 2, width: diameter, height: diameter)
-        self.frame = rect
-        return rect
+    func board(hasPoint point: CGPoint) -> Bool {
+        return center.distance(to: point) <= radius
     }
     
     // MARK: Private
@@ -63,7 +79,7 @@ class BoardLayout {
     internal func slice(forAngle angle: CGFloat, radius: CGFloat) -> Target? {
         let normalizedAngle = angle < 0 ? angle + CGFloat.pi : angle - CGFloat.pi
         
-        var index = Int(ceil(abs(normalizedAngle) / (sweepAngle / 2)) / 2.0)
+        var index = Int(ceil(abs(normalizedAngle) / (sweepAngle / 2)) / 2)
         
         if angle < 0 {
             index = model.sectionCount - index
@@ -72,53 +88,18 @@ class BoardLayout {
             }
         }
         
-        var section: Section
-        
-        if radius < tripleInnerRadius {
-            section = .Single
-        } else if radius < tripleOuterRadius {
-            section = .Triple
-        } else if radius < doubleInnerRadius {
-            section = .Single
-        } else if radius < doubleOuterRadius {
-            section = .Double
-        } else if radius < self.radius {
-            // If the radius is within the board radius, consider this a single.
-            section = .Single
-        } else {
-            return nil
-        }
-        
-        return model.target(forIndex: index, section: section)
-    }
-    
-    internal func isDoubleBullseye(point: CGPoint) -> Bool {
-        return point.distance(to: center) <= doubleBullseyeRadius
-    }
-    
-    internal func isBullseye(point: CGPoint) -> Bool {
-        return point.distance(to: center) <= bullseyeRadius
-    }
-    
-    internal func slice(point: CGPoint) -> Target? {
-        let originPoint = CGPoint(x: point.x - center.x, y: point.y - center.y)
-        let angle = atan2(originPoint.x, originPoint.y)
-        
-        return slice(forAngle: angle, radius: point.distance(to: center))
+        return model.target(forIndex: index)
     }
     
 }
 
 extension BoardLayout {
     
-    func target(forPoint point: CGPoint) -> Target? {
-        if isDoubleBullseye(point: point) {
-            return model.targetForBullseye(at: .Double)
-        } else if isBullseye(point: point) {
-            return model.targetForBullseye(at: .Single)
-        }
+    func slice(for point: CGPoint) -> Target? {
+        let originPoint = CGPoint(x: point.x - center.x, y: point.y - center.y)
+        let angle = atan2(originPoint.x, originPoint.y)
         
-        return slice(point: point)
+        return slice(forAngle: angle, radius: point.distance(to: center))
     }
     
     func angle(forIndex index: Int) -> CGFloat {

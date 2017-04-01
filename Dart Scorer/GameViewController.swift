@@ -1,5 +1,5 @@
 //
-//  PlayerBoardViewController.swift
+//  GameViewController
 //  Dart Scorer
 //
 //  Created by Michael Du Plessis on 2017-03-19.
@@ -40,7 +40,10 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = game.name
         pageControl.numberOfPages = game.players.count
+        
+        scrollView.canCancelContentTouches = false
         
         let contentView = scrollView.subviews[0]
         

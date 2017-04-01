@@ -12,13 +12,18 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     
     // MARK: Variables
     
+    var game: CoreGame?
     var player: GamePlayer?
     var round: Int? {
         didSet {
             update()
         }
     }
-    var targets: [Target]?
+    var targets: [Target]? {
+        guard let round = round else { return nil }
+        
+        return player?.scores[round]?.targets
+    }
     var collectionViewTraitCollection: UITraitCollection?
     
     var count: Int {
@@ -34,7 +39,14 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     func didHitTarget(sender: Notification) {
         guard player === sender.object as? GamePlayer else { return }
         
-        update()
+        collectionView?.insertItems(at: [IndexPath(item: count - 1, section: 0)])
+    }
+    
+    func didUnhitTarget(sender: Notification) {
+        guard player === sender.object as? GamePlayer else { return }
+        guard let index = sender.userInfo?["index"] as? Int else { return }
+        
+        collectionView?.deleteItems(at: [IndexPath(item: index, section: 0)])
     }
     
     // MARK: Lifecycle
@@ -43,6 +55,13 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(RoundViewController.didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RoundViewController.didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        update(with: traitCollection)
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -50,7 +69,7 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         
         collectionViewTraitCollection = newCollection
         
-        (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.scrollDirection = newCollection.isVertical ? .vertical : .horizontal
+        update(with: newCollection)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -59,7 +78,16 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         collectionView?.collectionViewLayout.invalidateLayout()
     }
     
-    // MARK: UITableViewDataSource
+    // MARK: UICollectionViewDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let round = round else { return }
+        guard let player = player else { return }
+        
+        game?.undoScore(player: player, target: indexPath.row, round: round)
+    }
+    
+    // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return count
@@ -94,46 +122,37 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     // MARK: Private
     
     private func update() {
-        guard let round = round else { return }
-        
-        targets = player?.scores[round]?.targets
-        
         collectionView?.reloadData()
         collectionView?.collectionViewLayout.invalidateLayout()
+    }
+    
+    private func update(with traitCollection: UITraitCollection) {
+        
     }
     
     private func populate(cell: ScoreCellView?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         guard let targets = targets else { return }
         
-        cell.valueLabel.text = "\(targets[indexPath.row].value)"
-        cell.multiplierLabel.text = "x\(targets[indexPath.row].section.rawValue)"
+        let target = targets[indexPath.row]
+        
+        cell.value = target.value
+        cell.multiplier = target.section.rawValue
+        cell.hits = player?.score.totalHits(for: target.value)
     }
     
     private func size() -> CGSize {
-        if (collectionViewTraitCollection ?? traitCollection).isVertical {
-            return CGSize(width: view.frame.width, height: ceil(view.frame.height / (3 + 1)))
-        } else {
-            return CGSize(width: ceil(view.frame.width / (3 + 1)), height: view.frame.height)
-        }
+        return CGSize(width: ceil(view.frame.width / (3 + 1)), height: view.frame.height)
     }
     
     private func inset() -> UIEdgeInsets {
         let inset = lineSpacing()
         
-        if (collectionViewTraitCollection ?? traitCollection).isVertical {
-            return UIEdgeInsetsMake(inset, 0, inset, 0)
-        } else {
-            return UIEdgeInsetsMake(0, inset, 0, inset)
-        }
+        return UIEdgeInsetsMake(0, inset, 0, inset)
     }
     
     private func lineSpacing() -> CGFloat {
-        if (collectionViewTraitCollection ?? traitCollection).isVertical {
-            return count > 0 ? (view.frame.height - CGFloat(count) * size().height) / CGFloat(count + 1) : 0
-        } else {
-            return count > 0 ? (view.frame.width - CGFloat(count) * size().width) / CGFloat(count + 1) : 0
-        }
+        return count > 0 ? (view.frame.width - CGFloat(count) * size().width) / CGFloat(count + 1) : 0
     }
     
     private func spacing() -> CGFloat {
@@ -157,28 +176,3 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     }
     
 }
-
-// MARK: UICollectionViewCell
-
-class ScoreCellView: UICollectionViewCell {
-    
-    @IBOutlet weak var valueLabel: UILabel!
-    @IBOutlet weak var multiplierLabel: UILabel!
-    @IBOutlet weak var valueBackgroundView: UIView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        valueBackgroundView.layer.cornerRadius = valueBackgroundView.frame.width / 2
-    }
-    
-}
-
-fileprivate extension UITraitCollection {
-    
-    var isVertical: Bool {
-        return verticalSizeClass == .compact
-    }
-    
-}
-

@@ -10,9 +10,9 @@ import Foundation
 import UIKit
 
 enum Section: Int {
-    case Single = 1
-    case Double = 2
-    case Triple = 3
+    case single = 1
+    case double = 2
+    case triple = 3
 }
 
 class BoardModel {
@@ -34,57 +34,47 @@ class BoardModel {
         
         for value in slices {
             var slice: [Section : Target] = [:]
-            slice[.Single] = Target(value: value, section: .Single)
-            slice[.Double] = Target(value: value, section: .Double)
-            slice[.Triple] = Target(value: value, section: .Triple)
+            slice[.single] = Target(value: value, section: .single)
+            slice[.double] = Target(value: value, section: .double)
+            slice[.triple] = Target(value: value, section: .triple)
             
             _slices.append(slice)
         }
         
-        _bullseye = Target(value: bullseye, section: .Single)
-        _doubleBullseye = Target(value: bullseye, section: .Double)
+        _bullseye = Target(value: bullseye, section: .single)
+        _doubleBullseye = Target(value: bullseye, section: .double)
     }
     
-    func target(forIndex index: Int, section: Section = .Single) -> Target? {
+    func index(of target: Target) -> Int? {
+        if target.score == _bullseye.score {
+            return nil
+        } else if target.score == _doubleBullseye.score {
+            return nil
+        }
+        
+        return slices.index(of: target.value)
+    }
+    
+    func target(forIndex index: Int, section: Section = .single) -> Target? {
         return _slices[index][section]
     }
     
-    func target(forValue value: Int, section: Section = .Single) -> Target? {
+    func target(forValue value: Int, section: Section = .single) -> Target? {
         if let index = slices.index(of: value) {
             return target(forIndex: index, section: section)
         }
         return nil
     }
     
-    func targetForBullseye(at section: Section = .Single) -> Target? {
+    func targetForBullseye(at section: Section = .single) -> Target? {
         switch section {
-        case .Single:
+        case .single:
             return _bullseye
-        case .Double:
+        case .double:
             return _doubleBullseye
         default:
             return nil
         }
-    }
-    
-}
-
-extension BoardModel: BoardViewDataSource {
-    
-    func numberOfSections(in boardView: BoardView) -> Int {
-        return sectionCount
-    }
-    
-    func boardView(_ boardView: BoardView, targetAt index: Int, for section: Section) -> Target? {
-        return target(forIndex: index, section: section)
-    }
-    
-    func boardView(_ boardView: BoardView, bullsEyeTargetFor section: Section) -> Target? {
-        return targetForBullseye(at: section)
-    }
-    
-    func boardView(_ boardView: BoardView, stateFor target: Target) -> TargetState {
-        return .initial
     }
     
 }

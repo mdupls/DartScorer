@@ -40,6 +40,10 @@ class Score {
         targets.append(contentsOf: score.targets)
     }
     
+    func removeTarget(at index: Int) {
+        targets.remove(at: index)
+    }
+    
 }
 
 extension Score {
