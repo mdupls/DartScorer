@@ -252,7 +252,7 @@ extension TargetSelectionView: BoardViewDelegate {
     
     func boardView(_ boardView: BoardView, alphaForTarget target: Target) -> CGFloat {
         if strategy?.target != nil {
-            return strategy?.target === target ? 1 : 0.2
+            return strategy?.target?.value == target.value ? 1 : 0.2
         }
         return 1
     }
@@ -385,7 +385,7 @@ class SliceStrategy: TargetStrategy {
         
         return true
     }
-        
+    
     func move(with point: CGPoint) -> Bool {
         var isNewTarget: Bool
         
@@ -422,14 +422,24 @@ class SliceStrategy: TargetStrategy {
     
     private func calculateSection(for point: CGPoint) -> Section {
         let distance = point.distance(to: layout.center)
-        
         var section: Section
-        if distance < layout.tripleOuterRadius + layout.radius * 0.1 {
-            section = .triple
-        } else if distance < layout.doubleOuterRadius + layout.radius * 0.1 {
-            section = .double
+        
+        if startedWithSection == .single {
+            if distance < layout.bullseyeRadius + layout.radius * 0.1 {
+                section = .triple
+            } else if distance < layout.tripleOuterRadius + layout.radius * 0.1 {
+                section = .double
+            } else {
+                section = .single
+            }
         } else {
-            section = .single
+            if distance < layout.tripleOuterRadius + layout.radius * 0.1 {
+                section = .triple
+            } else if distance < layout.doubleOuterRadius + layout.radius * 0.1 {
+                section = .double
+            } else {
+                section = .single
+            }
         }
         
         return section
