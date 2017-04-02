@@ -18,11 +18,13 @@ class PlayerViewController: UIViewController {
         didSet {
             boardViewController?.round = round
             roundViewController?.round = round
+            scoreViewController?.round = round
         }
     }
     
     weak var boardViewController: BoardViewController?
     weak var roundViewController: RoundViewController?
+    weak var scoreViewController: ActiveScoreViewController?
     
     // MARK: IBOutlets
     
@@ -45,6 +47,11 @@ class PlayerViewController: UIViewController {
             roundViewController?.player = player
             roundViewController?.game = game
             roundViewController?.round = round
+        } else if segue.identifier == "score" {
+            scoreViewController = segue.destination as? ActiveScoreViewController
+            scoreViewController?.player = player
+            scoreViewController?.game = game
+            scoreViewController?.round = round
         }
     }
     

@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -121,7 +122,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X9X-V8-ugh" userLabel="Score">
-                                <rect key="frame" x="0.0" y="20" width="414" height="272"/>
+                                <rect key="frame" x="0.0" y="78" width="414" height="214"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="251" id="RSL-U0-34c"/>
                                 </constraints>
@@ -137,6 +138,15 @@
                                 </variation>
                                 <connections>
                                     <segue destination="QJy-t6-TL1" kind="embed" identifier="round" id="9aN-Dd-Fd0"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R4u-lR-Rh8">
+                                <rect key="frame" x="0.0" y="28" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="DrD-u9-utm"/>
+                                </constraints>
+                                <connections>
+                                    <segue destination="41T-GN-fA1" kind="embed" identifier="score" id="2Rb-2P-auw"/>
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o1u-kM-j2R" customClass="NameView" customModule="Dart_Scorer" customModuleProvider="target">
@@ -158,9 +168,13 @@
                             <constraint firstItem="59z-qd-M7M" firstAttribute="top" secondItem="o1u-kM-j2R" secondAttribute="top" constant="30" id="0OW-af-RrG"/>
                             <constraint firstAttribute="trailing" secondItem="59z-qd-M7M" secondAttribute="trailing" id="2Eb-HY-nwP"/>
                             <constraint firstAttribute="trailing" secondItem="X9X-V8-ugh" secondAttribute="trailing" id="4iH-GL-KZD"/>
+                            <constraint firstItem="X9X-V8-ugh" firstAttribute="top" secondItem="R4u-lR-Rh8" secondAttribute="bottom" id="4pe-sj-eag"/>
+                            <constraint firstItem="o1u-kM-j2R" firstAttribute="top" secondItem="X9X-V8-ugh" secondAttribute="bottom" id="5sr-7h-Yeg"/>
+                            <constraint firstItem="R4u-lR-Rh8" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="6Tt-is-F6d"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="o1u-kM-j2R" secondAttribute="bottom" id="7fo-gb-sMb"/>
                             <constraint firstItem="59z-qd-M7M" firstAttribute="width" secondItem="X9X-V8-ugh" secondAttribute="height" multiplier="485:394" id="80g-FA-xeR"/>
                             <constraint firstItem="o1u-kM-j2R" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="AlZ-S1-1Bi"/>
+                            <constraint firstItem="R4u-lR-Rh8" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="C5A-kM-weD"/>
                             <constraint firstItem="o1u-kM-j2R" firstAttribute="trailing" secondItem="59z-qd-M7M" secondAttribute="trailing" id="EW4-3C-6Cl"/>
                             <constraint firstItem="o1u-kM-j2R" firstAttribute="leading" secondItem="59z-qd-M7M" secondAttribute="leading" id="GPM-xm-72U"/>
                             <constraint firstItem="59z-qd-M7M" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="KGL-cC-tfm"/>
@@ -169,11 +183,10 @@
                             <constraint firstItem="o1u-kM-j2R" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="RCz-wQ-xTu"/>
                             <constraint firstItem="59z-qd-M7M" firstAttribute="width" secondItem="X9X-V8-ugh" secondAttribute="height" multiplier="4:1" id="Xje-c2-OeX"/>
                             <constraint firstItem="o1u-kM-j2R" firstAttribute="bottom" secondItem="59z-qd-M7M" secondAttribute="bottom" id="b68-5k-miK"/>
+                            <constraint firstAttribute="trailing" secondItem="R4u-lR-Rh8" secondAttribute="trailing" id="cgO-QL-Ffb"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="59z-qd-M7M" secondAttribute="bottom" id="f2M-Kb-44C"/>
                             <constraint firstItem="59z-qd-M7M" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="gJP-5v-WdE"/>
                             <constraint firstItem="X9X-V8-ugh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mrW-m7-dZM"/>
-                            <constraint firstItem="X9X-V8-ugh" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="nPo-oz-dNT"/>
-                            <constraint firstItem="o1u-kM-j2R" firstAttribute="top" secondItem="X9X-V8-ugh" secondAttribute="bottom" id="uDt-k4-YYw"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -194,7 +207,6 @@
                                 <include reference="AlZ-S1-1Bi"/>
                                 <exclude reference="RCz-wQ-xTu"/>
                                 <include reference="b68-5k-miK"/>
-                                <exclude reference="uDt-k4-YYw"/>
                                 <exclude reference="2Eb-HY-nwP"/>
                                 <exclude reference="gJP-5v-WdE"/>
                                 <exclude reference="7fo-gb-sMb"/>
@@ -288,6 +300,54 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I67-Nf-WXO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047" y="-121"/>
+        </scene>
+        <!--Active Score View Controller-->
+        <scene sceneID="of0-di-5I3">
+            <objects>
+                <viewController id="41T-GN-fA1" customClass="ActiveScoreViewController" customModule="Dart_Scorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="J6i-J5-1lh"/>
+                        <viewControllerLayoutGuide type="bottom" id="fW0-zZ-eGu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zfh-pr-WXP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view opaque="NO" alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fv-mB-cMS">
+                                <rect key="frame" x="154.33333333333331" y="0.0" width="106.99999999999994" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="w50-EW-gci"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxy-ss-5PW">
+                                <rect key="frame" x="169.33333333333334" y="3" width="77" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1fv-mB-cMS" firstAttribute="trailing" secondItem="gxy-ss-5PW" secondAttribute="trailing" constant="15" id="5Ro-R5-vFH"/>
+                            <constraint firstItem="1fv-mB-cMS" firstAttribute="top" secondItem="Zfh-pr-WXP" secondAttribute="topMargin" id="GYJ-UR-5bz"/>
+                            <constraint firstItem="1fv-mB-cMS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zfh-pr-WXP" secondAttribute="leadingMargin" id="HVF-rU-cC6"/>
+                            <constraint firstItem="1fv-mB-cMS" firstAttribute="leading" secondItem="gxy-ss-5PW" secondAttribute="leading" constant="-15" id="Ntt-dG-XF6"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="1fv-mB-cMS" secondAttribute="trailing" id="R8A-3B-l9n"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="1fv-mB-cMS" secondAttribute="bottom" id="ZIy-s6-bG7"/>
+                            <constraint firstItem="1fv-mB-cMS" firstAttribute="bottom" secondItem="gxy-ss-5PW" secondAttribute="bottom" constant="3" id="ws6-K9-7Mg"/>
+                            <constraint firstItem="1fv-mB-cMS" firstAttribute="centerX" secondItem="Zfh-pr-WXP" secondAttribute="centerX" id="yZV-3W-Ufb"/>
+                            <constraint firstItem="1fv-mB-cMS" firstAttribute="top" secondItem="gxy-ss-5PW" secondAttribute="top" constant="-3" id="yaQ-yX-Rf1"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="scoreBackground" destination="1fv-mB-cMS" id="RNq-ZQ-ab1"/>
+                        <outlet property="scoreLabel" destination="gxy-ss-5PW" id="VdK-vC-qGz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mBi-QX-YCX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1341" y="86"/>
         </scene>
     </scenes>
     <resources>

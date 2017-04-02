@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1955ACDA1E909C3B0069FA8F /* ActiveScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1955ACD91E909C3B0069FA8F /* ActiveScoreViewController.swift */; };
 		19590D1C1E89E1F800CDB946 /* Round.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19590D1B1E89E1F800CDB946 /* Round.storyboard */; };
 		195A3D331E7D703100CE1215 /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195A3D321E7D703100CE1215 /* BoardView.swift */; };
 		195A3D351E7D8AE200CE1215 /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195A3D341E7D8AE200CE1215 /* MarkerView.swift */; };
@@ -72,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1955ACD91E909C3B0069FA8F /* ActiveScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveScoreViewController.swift; sourceTree = "<group>"; };
 		19590D1B1E89E1F800CDB946 /* Round.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Round.storyboard; sourceTree = "<group>"; };
 		195A3D321E7D703100CE1215 /* BoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		195A3D341E7D8AE200CE1215 /* MarkerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				19C32B831E9022CB0039EE23 /* ScoreGestureRecognizer.swift */,
 				195A3D341E7D8AE200CE1215 /* MarkerView.swift */,
 				19DCF5B31E8B0C2000C00442 /* BoardDataSource.swift */,
+				19C32B7F1E8EDF8B0039EE23 /* ScoreCellView.swift */,
 			);
 			name = Board;
 			sourceTree = "<group>";
@@ -252,9 +255,9 @@
 				195A3D361E7F6C6700CE1215 /* GameViewController.swift */,
 				19920FF21E802C5A00E2381C /* PlayerViewController.swift */,
 				19A3F2BF1E79AD4100D660B5 /* BoardViewController.swift */,
+				1955ACD91E909C3B0069FA8F /* ActiveScoreViewController.swift */,
 				195A3D381E7F726500CE1215 /* ScoreViewController.swift */,
 				1971206C1E834BC70024259C /* RoundViewController.swift */,
-				19C32B7F1E8EDF8B0039EE23 /* ScoreCellView.swift */,
 				19B18AB81E84A7AE00923D8A /* GamesParser.swift */,
 				19B18AB41E84A36300923D8A /* GameChooserViewController.swift */,
 				19B18AB61E84A37000923D8A /* ViewController.swift */,
@@ -452,6 +455,7 @@
 				1972CA3B1E79D72900A257D9 /* CGPoint+Extensions.swift in Sources */,
 				19C32B801E8EDF8B0039EE23 /* ScoreCellView.swift in Sources */,
 				1972CA281E79B69300A257D9 /* BoardModel.swift in Sources */,
+				1955ACDA1E909C3B0069FA8F /* ActiveScoreViewController.swift in Sources */,
 				195A3D351E7D8AE200CE1215 /* MarkerView.swift in Sources */,
 				19C32B841E9022CB0039EE23 /* ScoreGestureRecognizer.swift in Sources */,
 				19B18AB91E84A7AE00923D8A /* GamesParser.swift in Sources */,

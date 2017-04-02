@@ -14,19 +14,22 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     
     var game: CoreGame?
     var player: GamePlayer?
+    
     var round: Int? {
         didSet {
             update()
         }
     }
-    var targets: [Target]? {
+    
+    private var collectionViewTraitCollection: UITraitCollection?
+    
+    private var targets: [Target]? {
         guard let round = round else { return nil }
         
         return player?.scores[round]?.targets
     }
-    var collectionViewTraitCollection: UITraitCollection?
-    
-    var count: Int {
+
+    private var count: Int {
         var count: Int?
         if let round = round {
             count = player?.scores[round]?.hits
@@ -39,7 +42,15 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     func didHitTarget(sender: Notification) {
         guard player === sender.object as? GamePlayer else { return }
         
-        collectionView?.insertItems(at: [IndexPath(item: count - 1, section: 0)])
+        let indexPaths = collectionView?.indexPathsForVisibleItems
+        
+        self.collectionView?.insertItems(at: [IndexPath(item: self.count - 1, section: 0)])
+        
+        if let indexPaths = indexPaths {
+            for indexPath in indexPaths {
+                populate(cell: collectionView?.cellForItem(at: indexPath) as? ScoreCellView, indexPath: indexPath)
+            }
+        }
     }
     
     func didUnhitTarget(sender: Notification) {
@@ -47,6 +58,12 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         guard let index = sender.userInfo?["index"] as? Int else { return }
         
         collectionView?.deleteItems(at: [IndexPath(item: index, section: 0)])
+        
+        if let indexPaths = collectionView?.indexPathsForVisibleItems {
+            for indexPath in indexPaths {
+                populate(cell: collectionView?.cellForItem(at: indexPath) as? ScoreCellView, indexPath: indexPath)
+            }
+        }
     }
     
     // MARK: Lifecycle
@@ -136,9 +153,12 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         
         let target = targets[indexPath.row]
         
-        cell.value = target.value
-        cell.multiplier = target.section.rawValue
-        cell.hits = player?.score.totalHits(for: target.value)
+        cell.target = target
+        
+        if game?.showHitMarkers ?? false {
+            cell.hits = player?.score.totalHits(for: target.value)
+            cell.requiredHits = game?.targetHitsRequired
+        }
     }
     
     private func size() -> CGSize {

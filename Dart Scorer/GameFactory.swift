@@ -28,7 +28,7 @@ class GameFactory {
         case "Cricket":
             game = CricketGame(config: config)
         case "X01":
-            game = X01Game(config: config, goal: 501)
+            game = X01Game(config: config, goal: 101)
         case "Shanghai":
             game = ShanghaiGame(config: config)
         default:
@@ -61,11 +61,15 @@ class Config {
     }
     
     var throwsPerTurn: Int {
-        return 3
+        return json?["throwsPerTurn"] as? Int ?? 3
     }
     
     var showHitMarkers: Bool {
         return board?["showHitMarkers"] as? Bool ?? false
+    }
+    
+    var targetHitsRequired: Int? {
+        return json?["targetHitsRequired"] as? Int
     }
     
     var targets: [Int] {

@@ -72,6 +72,16 @@ extension X01Game: Game {
         return .initial
     }
     
+    func score(forRound roundScore: Score, total totalScore: Score) -> String {
+        let roundTotal = roundScore.sum()
+        let total = totalScore.sum()
+        
+        if roundTotal > 0 {
+            return "\(goal - (total - roundTotal)) - \(roundTotal) = \(goal - total)"
+        }
+        return "\(goal - total)"
+    }
+    
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players
     }

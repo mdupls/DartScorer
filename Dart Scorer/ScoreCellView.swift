@@ -16,13 +16,13 @@ class ScoreCellView: UICollectionViewCell {
         }
     }
     
-    var value: Int? {
+    var requiredHits: Int? {
         didSet {
             setNeedsDisplay()
         }
     }
     
-    var multiplier: Int? {
+    var target: Target? {
         didSet {
             setNeedsDisplay()
         }
@@ -52,7 +52,7 @@ class ScoreCellView: UICollectionViewCell {
         
         drawBackground(rect: centerRect)
         
-        if let value = value, let multiplier = multiplier {
+        if let target = target {
             let valueHeight = ceil(centerRect.height / 3)
             let spacing = ceil(valueHeight / 5)
             let multiplierHeight = ceil(valueHeight / 2)
@@ -60,12 +60,8 @@ class ScoreCellView: UICollectionViewCell {
             let valueFrame = CGRect(x: centerRect.minX, y: centerRect.minY + ceil((centerRect.height - valueHeight - spacing - multiplierHeight) / 2), width: centerRect.width, height: valueHeight)
             let multiplierFrame = CGRect(x: centerRect.minX, y: valueFrame.maxY + spacing, width: centerRect.width, height: multiplierHeight)
             
-            draw(value: value, rect: valueFrame)
-            draw(multiplier: multiplier, rect: multiplierFrame)
-        } else if let value = value {
-            draw(value: value, rect: centerRect)
-        } else if let multiplier = multiplier {
-            draw(multiplier: multiplier, rect: centerRect)
+            drawValue(target: target, rect: valueFrame)
+            drawMultiplier(target: target, rect: multiplierFrame)
         }
         
         if let hits = hits {
@@ -78,22 +74,25 @@ class ScoreCellView: UICollectionViewCell {
     private func drawBackground(rect: CGRect) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
+        ctx.saveGState()
+        
         ctx.addEllipse(in: rect)
-        ctx.setFillColor(UIColor.white.cgColor)
-        ctx.setAlpha(0.7)
+        ctx.setFillColor((target?.section ?? .single).color.cgColor)
+        ctx.setAlpha((target?.section ?? .single).alpha)
         ctx.fillPath()
+        
+        ctx.restoreGState()
     }
     
-    private func draw(value: Int, rect: CGRect) {
+    private func drawValue(target: Target, rect: CGRect) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
-        let str = "\(value)"
+        let str = "\(target.value)"
         
-        let font = UIFont(name: "HelveticaNeue-UltraLight", size: 40)!
-        let color = UIColor.black
+        let font = UIFont(name: "HelveticaNeue", size: 40)!
         
         let attributes = [
-            NSForegroundColorAttributeName: color,
+            NSForegroundColorAttributeName: target.section.textColor,
             NSFontAttributeName: font
         ]
         
@@ -109,54 +108,44 @@ class ScoreCellView: UICollectionViewCell {
         ctx.restoreGState()
     }
     
-    private func draw(multiplier: Int, rect: CGRect) {
+    private func drawMultiplier(target: Target, rect: CGRect) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
-        let str = "x\(multiplier)"
+        let str = "x\(target.section.rawValue)"
         
-        let font = UIFont(name: "HelveticaNeue-UltraLight", size: 20)!
-        let color = UIColor.black
+        let font = UIFont(name: "HelveticaNeue", size: 20)!
         
         let attributes = [
-            NSForegroundColorAttributeName: color,
+            NSForegroundColorAttributeName: target.section.textColor,
             NSFontAttributeName: font
         ]
+        
+        let offset = str.size(attributes: attributes)
         
         ctx.saveGState()
         
         ctx.translateBy (x: rect.midX, y: rect.midY)
-        
-        let offset = str.size(attributes: attributes)
         ctx.translateBy (x: -offset.width / 2, y: -offset.height / 2)
         
+        // Draw text.
         str.draw(at: CGPoint(x: 0, y: 0), withAttributes: attributes)
         
         ctx.restoreGState()
     }
     
-    private func drawMarker(for multiplier: Int, rect: CGRect) {
+    private func drawMarker(for marks: Int, rect: CGRect) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
         ctx.saveGState()
-        
-        ctx.translateBy (x: rect.midX, y: rect.midY)
         
         let sweep = CGFloat.pi * 2
         let startAngle: CGFloat = 0//(sweep * 3) / 2 + CGFloat.pi / 2
+        let color = UIColor.white.cgColor
+        let maxMarks = max(requiredHits ?? 0, marks)
         
-        var color: CGColor
-        var marks: Int
-        var maxMarks: Int
-        
-        if multiplier < 3 {
-            marks = multiplier
-            maxMarks = 3
-            color = UIColor.hit.cgColor
-        } else {
-            marks = 1
-            maxMarks = 1
-            color = UIColor.open.cgColor
-        }
+        ctx.setFillColor(color)
+        ctx.setAlpha(0.5)
+        ctx.translateBy (x: rect.midX, y: rect.midY)
         
         let spaceSweep: CGFloat = 0.1
         let spacesSweep = spaceSweep * CGFloat(maxMarks <= 1 ? 0 : maxMarks)
@@ -169,13 +158,40 @@ class ScoreCellView: UICollectionViewCell {
             path.addArc(center: CGPoint(x: 0, y: 0), radiusStart: ceil(rect.height / 2), radiusEnd: ceil(rect.height / 2) - 7, angle: angle + CGFloat(mark) * (markSweep + spaceSweep), sweep: markSweep)
             
             ctx.addPath(path)
-            ctx.setFillColor(color)
-            ctx.setLineCap(.round)
-            ctx.setLineJoin(.round)
             ctx.fillPath()
         }
         
         ctx.restoreGState()
+    }
+    
+}
+
+extension Section {
+    
+    var color: UIColor {
+        switch self {
+        case .single:
+            return UIColor.single
+        case .double:
+            return UIColor.double
+        case .triple:
+            return UIColor.triple
+        }
+    }
+    
+    var textColor: UIColor {
+        switch self {
+        case .single:
+            return UIColor.darkGray
+        case .double:
+            return UIColor.white
+        case .triple:
+            return UIColor.white
+        }
+    }
+    
+    var alpha: CGFloat {
+        return 0.5
     }
     
 }

@@ -35,4 +35,8 @@ extension UIColor {
     static var open: UIColor { return UIColor.green }
     static var hit: UIColor { return UIColor.orange }
     
+    static var single: UIColor { return UIColor.white }
+    static var double: UIColor { return UIColor.green }
+    static var triple: UIColor { return UIColor.red }
+    
 }

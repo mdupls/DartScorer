@@ -31,6 +31,10 @@ class CoreGame {
         return config.showHitMarkers
     }
     
+    var targetHitsRequired: Int? {
+        return config.targetHitsRequired
+    }
+    
     init(game: Game, model: BoardModel, players: [Player], config: Config) {
         self.game = game
         self.model = model
@@ -48,11 +52,8 @@ class CoreGame {
             boundedRound = min(boundedRound, rounds - 1)
         }
         
-        // Tell the model to use the enabled targets for the round.
-//        model.enable(targetsWithValues: game.targets(for: boundedRound))
-        
         // Notify of round change.
-        NotificationCenter.default.post(name: Notification.Name("RoundChange"), object: self, userInfo: nil)
+        NotificationCenter.default.post(name: Notification.Name("RoundChange"), object: self, userInfo: ["round": boundedRound])
         
         return boundedRound
     }
@@ -119,6 +120,13 @@ class CoreGame {
         return players[index].score
     }
     
+    func score(for player: GamePlayer, round: Int) -> String {
+        let totalScore = player.score
+        let roundScore = player.score(for: round) ?? Score()
+        
+        return game.score(forRound: roundScore, total: totalScore)
+    }
+    
 }
 
 private class CoreConfig {
@@ -145,6 +153,10 @@ private class CoreConfig {
         return config.showHitMarkers
     }
     
+    var targetHitsRequired: Int? {
+        return config.targetHitsRequired
+    }
+    
     // MARK: Private
     
     private var _board: [String : Any]? {
@@ -158,6 +170,8 @@ protocol Game {
     func game(_ game: CoreGame, hit target: Target, player: GamePlayer, round: Int) -> ScoreResult?
     
     func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState
+    
+    func score(forRound roundScore: Score, total totalScore: Score) -> String
     
     func rank(players: [GamePlayer]) -> [GamePlayer]
     

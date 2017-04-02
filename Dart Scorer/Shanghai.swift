@@ -66,6 +66,16 @@ extension ShanghaiGame: Game {
         return .initial
     }
     
+    func score(forRound roundScore: Score, total totalScore: Score) -> String {
+        let roundTotal = roundScore.sum()
+        let total = totalScore.sum()
+        
+        if roundTotal > 0 {
+            return "\(total - roundTotal) + \(roundTotal) = \(total)"
+        }
+        return "\(total)"
+    }
+    
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players.sorted(by: { (player1, player2) -> Bool in
             return player1.score.sum() > player2.score.sum()

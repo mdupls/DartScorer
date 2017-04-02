@@ -65,4 +65,20 @@ class GamePlayer {
         self.player = player
     }
     
+    func score(upTo round: Int) -> Score {
+        let score = Score()
+        
+        for r in 0 ..< round {
+            if let roundScore = self.score(for: r) {
+                score.add(score: roundScore)
+            }
+        }
+        
+        return score
+    }
+    
+    func score(for round: Int) -> Score? {
+        return scores[round]
+    }
+    
 }
