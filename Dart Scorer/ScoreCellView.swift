@@ -134,18 +134,15 @@ class ScoreCellView: UICollectionViewCell {
     }
     
     private func drawMarker(for marks: Int, rect: CGRect) {
+        guard marks > 0 else { return }
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
-        
-        ctx.saveGState()
         
         let sweep = CGFloat.pi * 2
         let startAngle: CGFloat = 0//(sweep * 3) / 2 + CGFloat.pi / 2
-        let color = UIColor.white.cgColor
-        let maxMarks = max(requiredHits ?? 0, marks)
         
-        ctx.setFillColor(color)
-        ctx.setAlpha(0.5)
-        ctx.translateBy (x: rect.midX, y: rect.midY)
+        let requiredHits = self.requiredHits ?? 0
+        let maxMarks = max(requiredHits, marks)
+        let marksForPoints = max(0, marks - requiredHits)
         
         let spaceSweep: CGFloat = 0.1
         let spacesSweep = spaceSweep * CGFloat(maxMarks <= 1 ? 0 : maxMarks)
@@ -153,15 +150,38 @@ class ScoreCellView: UICollectionViewCell {
         let markSweep = marksSweep / CGFloat(maxMarks)
         let angle = startAngle + (sweep - markSweep * CGFloat(marks) - spaceSweep * CGFloat(marks - 1)) / 2
         
-        for mark in 0 ..< marks {
-            let path = CGMutablePath()
-            path.addArc(center: CGPoint(x: 0, y: 0), radiusStart: ceil(rect.height / 2), radiusEnd: ceil(rect.height / 2) - 7, angle: angle + CGFloat(mark) * (markSweep + spaceSweep), sweep: markSweep)
+        ctx.saveGState()
+        
+        ctx.translateBy (x: rect.midX, y: rect.midY)
+        ctx.setAlpha(marksForPoints > 0 ? 0.3 : 0.5)
+        ctx.setFillColor(UIColor.white.cgColor)
+        
+        // Draw the marks not worth points.
+        for mark in marksForPoints ..< marks {
+            drawMark(ctx: ctx, mark: mark, angle: angle, markSweep: markSweep, spaceSweep: spaceSweep, rect: rect)
+        }
+        
+        ctx.fillPath()
+        
+        // Draw the marks worth points.
+        if marksForPoints > 0 {
+            ctx.setAlpha(0.7)
             
-            ctx.addPath(path)
+            for mark in 0 ..< marksForPoints {
+                drawMark(ctx: ctx, mark: mark, angle: angle, markSweep: markSweep, spaceSweep: spaceSweep, rect: rect)
+            }
+            
             ctx.fillPath()
         }
         
         ctx.restoreGState()
+    }
+    
+    private func drawMark(ctx: CGContext, mark: Int, angle: CGFloat, markSweep: CGFloat, spaceSweep: CGFloat, rect: CGRect) {
+        let path = CGMutablePath()
+        path.addArc(center: CGPoint(x: 0, y: 0), radiusStart: ceil(rect.height / 2), radiusEnd: ceil(rect.height / 2) - 7, angle: angle + CGFloat(mark) * (markSweep + spaceSweep), sweep: markSweep)
+        
+        ctx.addPath(path)
     }
     
 }
