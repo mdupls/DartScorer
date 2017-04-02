@@ -46,8 +46,8 @@ class ActiveScoreViewController: UIViewController {
         
         scoreBackground.layer.cornerRadius = 8
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ActiveScoreViewController.didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ActiveScoreViewController.didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
         
         update()
     }

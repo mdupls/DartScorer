@@ -21,7 +21,7 @@ class GameFactory {
         let model = parser.model()
         var game: Game?
         
-        let config = Config(json: parser.json)
+        let config = Config(json: parser.json, slices: parser.slices)
         
         // TODO: Swift 3 reflection APIs seem to be lacking. For now, just hard-code a mapping.
         switch parser.name {
@@ -47,9 +47,11 @@ class GameFactory {
 class Config {
     
     let json: [String: Any]?
+    let slices: [Int]
     
-    init(json: [String: Any]?) {
+    init(json: [String: Any]?, slices: [Int]) {
         self.json = json
+        self.slices = slices
     }
     
     var name: String {
@@ -86,6 +88,10 @@ class Config {
             roundTargets = targets[round]
         }
         return roundTargets ?? targets
+    }
+    
+    func isBullseye(value: Int) -> Bool {
+        return !slices.contains(value)
     }
     
     // MARK: Private

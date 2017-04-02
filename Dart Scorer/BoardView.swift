@@ -128,8 +128,8 @@ class BoardView: UIView {
         guard let dataSource = dataSource else { return }
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
-        let alpha = self.alpha(for: target)
         let state = dataSource.boardView(self, stateFor: target)
+        let alpha = self.alpha(for: target, state: state)
         
         let path = CGMutablePath()
         path.addArc(center: center, radiusStart: radiusStart, radiusEnd: radiusEnd, angle: angle, sweep: sweep)
@@ -140,7 +140,7 @@ class BoardView: UIView {
         ctx.setFillColor(state.color?.cgColor ?? color)
         ctx.setLineCap(.round)
         ctx.setLineJoin(.round)
-        ctx.setAlpha(alpha * state.alpha)
+        ctx.setAlpha(alpha)
         ctx.drawPath(using: .fillStroke)
     }
     
@@ -162,14 +162,14 @@ class BoardView: UIView {
         if let target = dataSource.boardView(self, bullsEyeTargetFor: .single) {
             guard let ctx = UIGraphicsGetCurrentContext() else { return }
             
-            let alpha = self.alpha(for: target)
             let state = dataSource.boardView(self, stateFor: target)
+            let alpha = self.alpha(for: target, state: state)
             let radius = layout.bullseyeRadius
             let bullseyeRect = CGRect(x: rect.midX - radius, y: rect.midY - radius, width: radius * 2, height: radius * 2)
             
             ctx.addEllipse(in: bullseyeRect)
             ctx.setFillColor(state.color?.cgColor ?? UIColor.bullseye.cgColor)
-            ctx.setAlpha(alpha * state.alpha)
+            ctx.setAlpha(alpha)
             ctx.drawPath(using: .fillStroke)
         }
     }
@@ -181,14 +181,14 @@ class BoardView: UIView {
         if let target = dataSource.boardView(self, bullsEyeTargetFor: .double) {
             guard let ctx = UIGraphicsGetCurrentContext() else { return }
             
-            let alpha = self.alpha(for: target)
             let state = dataSource.boardView(self, stateFor: target)
+            let alpha = self.alpha(for: target, state: state)
             let radius = layout.doubleBullseyeRadius
             let bullseyeRect = CGRect(x: rect.midX - radius, y: rect.midY - radius, width: radius * 2, height: radius * 2)
             
             ctx.addEllipse(in: bullseyeRect)
             ctx.setFillColor(state.color?.cgColor ?? UIColor.doubleBullseye.cgColor)
-            ctx.setAlpha(alpha * state.alpha)
+            ctx.setAlpha(alpha)
             ctx.drawPath(using: .fillStroke)
         }
     }
@@ -216,14 +216,14 @@ class BoardView: UIView {
         for (index, p) in points.enumerated() {
             if let target = dataSource.boardView(self, targetAt: index, for: .single) {
                 let state = dataSource.boardView(self, stateFor: target)
-                let alpha = self.alpha(for: target)
+                let alpha = self.alpha(for: target, state: state)
                 
                 let string = "\(target.value)"
                 let text = CFAttributedStringCreate(nil, string as CFString!, attr as CFDictionary)
                 let line = CTLineCreateWithAttributedString(text!)
                 let bounds = CTLineGetBoundsWithOptions(line, CTLineBoundsOptions.useOpticalBounds)
                 
-                ctx.setAlpha(alpha * state.alpha)
+                ctx.setAlpha(alpha)
                 ctx.textPosition = CGPoint(x: p.x - bounds.midX, y: p.y - bounds.midY)
                 
                 CTLineDraw(line, ctx)
@@ -244,8 +244,12 @@ class BoardView: UIView {
         return points
     }
     
-    private func alpha(for target: Target) -> CGFloat {
-        return enabled ? delegate?.boardView(self, alphaForTarget: target) ?? 1 : disabledTargetAlpha
+    private func alpha(for target: Target, state: TargetState) -> CGFloat {
+        var alpha = state.alpha
+        if alpha == 1 {
+            alpha = enabled ? delegate?.boardView(self, alphaForTarget: target) ?? 1 : disabledTargetAlpha
+        }
+        return alpha
     }
     
 }

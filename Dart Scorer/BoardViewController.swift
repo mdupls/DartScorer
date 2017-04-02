@@ -77,7 +77,7 @@ class BoardViewController: UIViewController {
     }
     
     func didGameFinish(sender: Notification) {
-        boardView?.setNeedsDisplay()
+        boardView?.enabled = false
     }
     
     // MARK: Lifecycle
@@ -87,11 +87,11 @@ class BoardViewController: UIViewController {
         
         update(for: game)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didOpenTarget(sender:)), name: Notification.Name("TargetOpen"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didCloseTarget(sender:)), name: Notification.Name("TargetClose"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didGameFinish(sender:)), name: Notification.Name("GameFinished"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didOpenTarget(sender:)), name: Notification.Name("TargetOpen"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didCloseTarget(sender:)), name: Notification.Name("TargetClose"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didGameFinish(sender:)), name: Notification.Name("GameFinished"), object: nil)
     }
     
     override func viewDidLayoutSubviews() {

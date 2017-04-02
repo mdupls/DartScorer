@@ -12,6 +12,7 @@ class ShanghaiGame {
     
     let config: Config
     let targets: [[Int: Bool]]
+    let rounds: Int
     
     init(config: Config) {
         self.config = config
@@ -27,6 +28,48 @@ class ShanghaiGame {
             }
         }
         self.targets = targets
+        self.rounds = config.rounds ?? 0
+    }
+    
+    // MARK: Private
+    
+    func maximumPointsPossible(from round: Int) -> Int {
+        var sum = 0
+        if let sequentialTargets = config.sequentialTargets {
+            for r in round ..< rounds {
+                let targets = sequentialTargets[r]
+                
+                let maxTarget = targets.reduce(0, { (result, value) -> Int in
+                    if value > result {
+                        return value
+                    }
+                    return result
+                })
+                
+                let multiplier = config.isBullseye(value: maxTarget) ? Section.double.rawValue : Section.triple.rawValue
+                
+                sum += maxTarget * multiplier * config.throwsPerTurn
+            }
+        }
+        return sum
+    }
+    
+    func hasWon(game: CoreGame, player: GamePlayer, round: Int) -> ScoreResult? {
+        let players = rank(players: game.players)
+        
+        let remainingMaxPoints = maximumPointsPossible(from: round)
+        
+        if players.count == 1 {
+            if round == rounds - 1 {
+                return .won
+            }
+        } else {
+            if players[0].score().sum() > players[1].score().sum() + remainingMaxPoints {
+                return .won
+            }
+        }
+        
+        return .ok
     }
     
 }
@@ -43,7 +86,7 @@ extension ShanghaiGame: Game {
                 score.hit(target: target)
             }
             
-            return .ok
+            return hasWon(game: game, player: player, round: round)
         }
         return nil
     }

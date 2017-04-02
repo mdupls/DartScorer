@@ -26,6 +26,7 @@ class GameViewController: UIViewController {
     
     @IBAction func didTapNextRound(sender: UIBarButtonItem) {
         round = game.select(round: round + 1)
+        updateForRound()
         
         // Scroll to the first player.
         scroll(to: 0)
@@ -33,6 +34,18 @@ class GameViewController: UIViewController {
         childViewControllers.forEach {
             ($0 as? PlayerViewController)?.round = round
         }
+    }
+    
+    // MARK: Events
+    
+    func didGameFinish(sender: Notification) {
+        nextRoundBarButtonItem?.isEnabled = false
+        
+        performSegue(withIdentifier: "gameEnded", sender: nil)
+    }
+    
+    func didUnhitTarget(sender: Notification) {
+        updateForRound()
     }
     
     // MARK: Lifecycle
@@ -70,6 +83,9 @@ class GameViewController: UIViewController {
             
             viewController.didMove(toParentViewController: self)
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didGameFinish(sender:)), name: Notification.Name("GameFinished"), object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -94,6 +110,15 @@ class GameViewController: UIViewController {
         currentIndex = index
         
         scrollView.contentOffset = CGPoint(x: CGFloat(index) * scrollView.frame.width, y: 0)
+    }
+    
+    private func updateForRound() {
+        var canPlayNextRound: Bool?
+        if let rounds = game?.rounds {
+            canPlayNextRound = round < rounds - 1
+        }
+        
+        nextRoundBarButtonItem?.isEnabled = canPlayNextRound ?? true
     }
     
 }

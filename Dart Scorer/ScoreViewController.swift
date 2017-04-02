@@ -8,10 +8,32 @@
 
 import UIKit
 
-class ScoreViewController: UIViewController {
+class ScoreViewController: UITableViewController {
+    
+    // MARK: Variables
+    
+    var game: CoreGame?
+    
+    private var count: Int {
+        return 0//game?.players.count ?? 0
+    }
+    
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    // MARK: UITableViewDelegate
+    
+    // MARK: UITableViewDataSource
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return count
     }
     
 }

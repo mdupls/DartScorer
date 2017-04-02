@@ -71,8 +71,8 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(RoundViewController.didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(RoundViewController.didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
