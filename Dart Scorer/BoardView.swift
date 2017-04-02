@@ -202,8 +202,8 @@ class BoardView: UIView {
         
         let sections = dataSource.numberOfSections(in: self)
         let radius = (layout.doubleOuterRadius + layout.radius) / 2
-        let textHeight = (layout.radius - layout.doubleOuterRadius) * 2 / 3
-        let font = "20".fontWith(height: textHeight, fontSize: 140)
+        let fontSize = (layout.radius - layout.doubleOuterRadius) / 2
+        let font = UIFont(name: "HelveticaNeue-Thin", size: fontSize)!
         let points = pointsForLabels(sections: sections, x: x, y: y, radius: radius, offset: (CGFloat.pi / 2) * 3)
         let attr = [ NSFontAttributeName: font, NSForegroundColorAttributeName: UIColor.number ]
         
