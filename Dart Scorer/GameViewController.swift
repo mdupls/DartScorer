@@ -56,7 +56,7 @@ class GameViewController: UIViewController {
             viewController.view.translatesAutoresizingMaskIntoConstraints = false
             viewController.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
             viewController.view.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-            viewController.view.bottomAnchor.constraint(equalTo: pageControl.topAnchor, constant: 8).isActive = true
+            viewController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
             
             if index == 0 {
                 viewController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
