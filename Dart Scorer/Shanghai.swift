@@ -29,12 +29,6 @@ class ShanghaiGame {
         self.targets = targets
     }
     
-    // MARK: Private
-    
-    func check(score: Score) -> ScoreResult {
-        return .ok
-    }
-    
 }
 
 extension ShanghaiGame: Game {
@@ -49,11 +43,7 @@ extension ShanghaiGame: Game {
                 score.hit(target: target)
             }
             
-            let totalScore = player.score
-            
-            print("\(player.name)'s score: \(totalScore.sum())")
-            
-            return check(score: totalScore)
+            return .ok
         }
         return nil
     }
@@ -78,7 +68,7 @@ extension ShanghaiGame: Game {
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players.sorted(by: { (player1, player2) -> Bool in
-            return player1.score.sum() > player2.score.sum()
+            return player1.score().sum() > player2.score().sum()
         })
     }
     

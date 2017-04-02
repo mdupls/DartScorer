@@ -55,11 +55,7 @@ extension X01Game: Game {
                 score.hit(target: target)
             }
             
-            let totalScore = player.score
-            
-            print("\(player.name)'s score: \(totalScore.sum())")
-            
-            return check(score: totalScore)
+            return check(score: player.score(at: round))
         }
         return nil
     }

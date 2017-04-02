@@ -12,6 +12,7 @@ class CricketGame {
     
     let config: Config
     let targets: [Int: Bool]
+    let targetHitsRequired: Int
         
     init(config: Config) {
         self.config = config
@@ -21,11 +22,13 @@ class CricketGame {
             targets[value] = true
         }
         self.targets = targets
+        
+        targetHitsRequired = config.targetHitsRequired ?? 3
     }
     
     func hasWon(player: GamePlayer) -> ScoreResult? {
         for value in config.targets {
-            if player.score.totalHits(for: value) < 3 {
+            if player.score().totalHits(for: value) < targetHitsRequired {
                 return nil
             }
         }
@@ -69,7 +72,7 @@ extension CricketGame: Game {
     }
     
     func score(forRound roundScore: Score, total totalScore: Score) -> String {
-        let result = totalScore.cricketSum(round: roundScore, hitsRequired: config.targetHitsRequired ?? 0)
+        let result = totalScore.cricketSum(round: roundScore, hitsRequired: targetHitsRequired)
         
         let roundTotal = result.round
         let total = result.total
@@ -143,7 +146,7 @@ fileprivate extension Target {
     
     func isClosed(in game: CoreGame) -> Bool {
         for player in game.players {
-            if player.score.totalHits(for: value) < 3 {
+            if player.score().totalHits(for: value) < 3 {
                 return false
             }
         }
@@ -151,7 +154,7 @@ fileprivate extension Target {
     }
     
     func isOpen(for player: GamePlayer) -> Bool {
-        return player.score.totalHits(for: value) >= 3
+        return player.score().totalHits(for: value) >= 3
     }
     
     func result(in game: CoreGame) -> ScoreResult? {

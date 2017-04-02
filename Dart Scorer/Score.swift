@@ -11,6 +11,7 @@ import Foundation
 class Score {
     
     var targets: [Target] = []
+    var bust: Bool = false
     
     var hits: Int {
         return targets.count

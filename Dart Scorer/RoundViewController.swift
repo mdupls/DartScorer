@@ -156,13 +156,15 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         cell.target = target
         
         if game?.showHitMarkers ?? false {
-            cell.hits = player?.score.totalHits(for: target.value)
+            cell.hits = player?.score().totalHits(for: target.value)
             cell.requiredHits = game?.targetHitsRequired
         }
     }
     
     private func size() -> CGSize {
-        return CGSize(width: ceil(view.frame.width / (3 + 1)), height: view.frame.height)
+        let throwsPerTurn = game?.throwsPerTurn ?? 0
+        
+        return CGSize(width: ceil(view.frame.width / CGFloat(throwsPerTurn + 1)), height: view.frame.height)
     }
     
     private func inset() -> UIEdgeInsets {

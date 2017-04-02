@@ -13,11 +13,14 @@ class CoreGame {
     let game: Game
     let model: BoardModel
     let players: [GamePlayer]
-    let throwsPerTurn: Int = 3
     
     private let config: CoreConfig
     
     private var _finished: Bool = false
+    
+    var throwsPerTurn: Int {
+        return config.throwsPerTurn
+    }
     
     var rounds: Int? {
         return config.rounds
@@ -84,6 +87,10 @@ class CoreGame {
         }
         
         if let result = game.game(self, hit: target, player: player, round: round) {
+            if result == .bust {
+                score.bust = true
+            }
+            
             // Notify.
             NotificationCenter.default.post(name: Notification.Name("TargetHit"), object: player, userInfo: ["score": score])
             
@@ -95,7 +102,7 @@ class CoreGame {
             case .close:
                 NotificationCenter.default.post(name: Notification.Name("TargetClose"), object: player, userInfo: nil)
             case .bust:
-                player.scores.removeValue(forKey: round)
+                print("bust")
             case .won:
                 won(player: player)
             }
@@ -117,11 +124,11 @@ class CoreGame {
     }
     
     func score(forPlayerAt index: Int) -> Score? {
-        return players[index].score
+        return players[index].score()
     }
     
     func score(for player: GamePlayer, round: Int) -> String {
-        let totalScore = player.score
+        let totalScore = player.score(at: round)
         let roundScore = player.score(for: round) ?? Score()
         
         return game.score(forRound: roundScore, total: totalScore)

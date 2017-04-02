@@ -10,6 +10,8 @@ import UIKit
 
 class ScoreCellView: UICollectionViewCell {
     
+    private let markerRatio: CGFloat = 0.1
+    
     var hits: Int? {
         didSet {
             setNeedsDisplay()
@@ -40,7 +42,8 @@ class ScoreCellView: UICollectionViewCell {
     }
     
     func centerRect(_ rect: CGRect) -> CGRect {
-        let diameter = min(rect.width, rect.height) - 14 - 4
+        let fullDiameter = min(rect.width, rect.height)
+        let diameter = fullDiameter - fullDiameter * markerRatio * 1.5
         return CGRect(x: (rect.width - diameter) / 2, y: (rect.height - diameter) / 2, width: diameter, height: diameter)
     }
     
@@ -89,7 +92,7 @@ class ScoreCellView: UICollectionViewCell {
         
         let str = "\(target.value)"
         
-        let font = UIFont(name: "HelveticaNeue", size: 40)!
+        let font = UIFont(name: "HelveticaNeue", size: rect.height * 1.4)!
         
         let attributes = [
             NSForegroundColorAttributeName: target.section.textColor,
@@ -113,7 +116,7 @@ class ScoreCellView: UICollectionViewCell {
         
         let str = "x\(target.section.rawValue)"
         
-        let font = UIFont(name: "HelveticaNeue", size: 20)!
+        let font = UIFont(name: "HelveticaNeue", size: rect.height * 1.4)!
         
         let attributes = [
             NSForegroundColorAttributeName: target.section.textColor,
@@ -179,7 +182,9 @@ class ScoreCellView: UICollectionViewCell {
     
     private func drawMark(ctx: CGContext, mark: Int, angle: CGFloat, markSweep: CGFloat, spaceSweep: CGFloat, rect: CGRect) {
         let path = CGMutablePath()
-        path.addArc(center: CGPoint(x: 0, y: 0), radiusStart: ceil(rect.height / 2), radiusEnd: ceil(rect.height / 2) - 7, angle: angle + CGFloat(mark) * (markSweep + spaceSweep), sweep: markSweep)
+        let radius = ceil(rect.height / 2)
+        
+        path.addArc(center: CGPoint(x: 0, y: 0), radiusStart: radius, radiusEnd: radius - radius * markerRatio, angle: angle + CGFloat(mark) * (markSweep + spaceSweep), sweep: markSweep)
         
         ctx.addPath(path)
     }

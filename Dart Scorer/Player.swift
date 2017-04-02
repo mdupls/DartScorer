@@ -49,20 +49,22 @@ class GamePlayer {
     
     var scores: [Int: Score] = [:] // Each round has a score
     
-    var score: Score {
-        let score = Score()
-        
-        return scores.reduce(score, { (result, item: (key: Int, value: Score)) -> Score in
-            result.add(score: item.value)
-            
-            return result
-        })
-    }
-    
     var name: String { return player.name }
     
     init(player: Player) {
         self.player = player
+    }
+    
+    func score(at round: Int? = nil) -> Score {
+        let score = Score()
+        
+        return scores.reduce(score, { (result, item: (key: Int, value: Score)) -> Score in
+            if item.key == round || !item.value.bust {
+                result.add(score: item.value)
+            }
+            
+            return result
+        })
     }
     
     func score(upTo round: Int) -> Score {
