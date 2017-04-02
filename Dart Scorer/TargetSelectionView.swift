@@ -21,6 +21,7 @@ class TargetSelectionView: UIView {
     private var shouldDrawSelector: Bool = false
     private let bullseyeEnlargeFactor: CGFloat = 2.5
     private let sliceEnlargeFactor: CGFloat = 2
+    fileprivate var hasMoved: Bool = false
     
     var strategy: TargetStrategy?
     weak var delegate: TargetSelectionViewDelegate?
@@ -46,6 +47,7 @@ class TargetSelectionView: UIView {
         
         switch gesture.state {
         case .began:
+            hasMoved = false
             let point = gesture.location(in: self)
             
             if point.distance(to: center) <= layout.bullseyeRadius * bullseyeEnlargeFactor {
@@ -71,6 +73,10 @@ class TargetSelectionView: UIView {
             let point = gesture.location(in: self)
             
             if strategy?.move(with: point) ?? false {
+                hasMoved = true
+                boardView?.setNeedsDisplay()
+            } else if !hasMoved {
+                hasMoved = true
                 boardView?.setNeedsDisplay()
             }
         case .cancelled:
@@ -96,16 +102,16 @@ class TargetSelectionView: UIView {
         
         if shouldDrawSelector, let target = strategy?.target {
             if target.value > 20 {
-                drawBullseye(rect: rect, section: target.section)
+                drawBullseye(rect: rect, target: target)
             } else {
-                drawSlice(rect: rect, target: target, section: target.section)
+                drawSlice(rect: rect, target: target)
             }
         }
     }
     
     // MARK: Private
     
-    private func drawSlice(rect: CGRect, target: Target, section: Section?) {
+    private func drawSlice(rect: CGRect, target: Target) {
         guard let game = game else { return }
         guard let layout = layout else { return }
         guard let index = game.model.index(of: target) else { return }
@@ -114,9 +120,9 @@ class TargetSelectionView: UIView {
         let angle = layout.angle(forIndex: index)
         let colors = sliceColors[index % 2]
         
-        drawSingleArc(rect: rect, angle: angle, sweep: sweep, value: target.value, color: colors[0], section: section)
-        drawDoubleArc(rect: rect, angle: angle, sweep: sweep, value: target.value, color: colors[1], section: section)
-        drawTripleArc(rect: rect, angle: angle, sweep: sweep, value: target.value, color: colors[1], section: section)
+        drawSingleArc(rect: rect, angle: angle, sweep: sweep, value: target.value, color: colors[0], section: target.section)
+        drawDoubleArc(rect: rect, angle: angle, sweep: sweep, value: target.value, color: colors[1], section: target.section)
+        drawTripleArc(rect: rect, angle: angle, sweep: sweep, value: target.value, color: colors[1], section: target.section)
     }
     
     private func drawSingleArc(rect: CGRect, angle: CGFloat, sweep: CGFloat, value: Int, color: CGColor, section: Section?) {
@@ -134,7 +140,17 @@ class TargetSelectionView: UIView {
         guard let layout = layout else { return }
         
         if let target = game.model.target(forValue: value, section: .double) {
-            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.doubleInnerRadius, radiusEnd: layout.doubleOuterRadius, target: target, color: color, section: section)
+            let highlighted = target.section == section
+            let enlargeFactor = strategy?.enlargeFactor ?? 1
+            let growthFactor = max(0, enlargeFactor - 1)
+            
+            let angle = highlighted ? angle - (sweep * growthFactor) / 2 : angle
+            let sweep = highlighted ? sweep * enlargeFactor : sweep
+            let highlightColor = highlighted ? UIColor.open.cgColor : nil
+            let radiusStart = highlighted ? layout.doubleInnerRadius - layout.radius * 0.03 : layout.doubleInnerRadius
+            let radiusEnd = highlighted ? layout.doubleOuterRadius + layout.radius * 0.03 : layout.doubleOuterRadius
+            
+            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: radiusStart, radiusEnd: radiusEnd, target: target, color: color, highlightColor: highlightColor, section: section)
         }
     }
     
@@ -143,41 +159,29 @@ class TargetSelectionView: UIView {
         guard let layout = layout else { return }
         
         if let target = game.model.target(forValue: value, section: .triple) {
-            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.tripleInnerRadius, radiusEnd: layout.tripleOuterRadius, target: target, color: color, section: section)
+            let highlighted = target.section == section
+            let enlargeFactor = strategy?.enlargeFactor ?? 1
+            let growthFactor = max(0, enlargeFactor - 1)
+            
+            let angle = highlighted ? angle - (sweep * growthFactor) / 2 : angle
+            let sweep = highlighted ? sweep * enlargeFactor : sweep
+            let highlightColor = highlighted ? UIColor.open.cgColor : nil
+            let radiusStart = highlighted ? layout.tripleInnerRadius - layout.radius * 0.03 : layout.tripleInnerRadius
+            let radiusEnd = highlighted ? layout.tripleOuterRadius + layout.radius * 0.03 : layout.tripleOuterRadius
+            
+            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: radiusStart, radiusEnd: radiusEnd, target: target, color: color, highlightColor: highlightColor, section: section)
         }
     }
     
-    private func drawArc(rect: CGRect, angle: CGFloat, sweep: CGFloat, radiusStart: CGFloat, radiusEnd: CGFloat, target: Target, color: CGColor, section: Section?) {
+    private func drawArc(rect: CGRect, angle: CGFloat, sweep: CGFloat, radiusStart: CGFloat, radiusEnd: CGFloat, target: Target, color: CGColor, highlightColor: CGColor? = nil, section: Section?) {
         guard let game = game else { return }
         guard let player = player else { return }
-        guard let layout = layout else { return }
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
         let state = game.game.game(game, stateFor: target, player: player, round: round)
-        var highlightColor: CGColor?
-        var _radiusStart: CGFloat
-        var _radiusEnd: CGFloat
-        var _angle: CGFloat
-        var _sweep: CGFloat
-        
-        if target.section == section && section != .single {
-            highlightColor = UIColor.open.cgColor
-            
-            let grow = layout.radius * 0.03
-            _radiusStart = radiusStart - grow
-            _radiusEnd = radiusEnd + grow
-            
-            _sweep = sweep * (strategy?.enlargeFactor ?? 1)
-            _angle = angle - (_sweep - sweep) / 2
-        } else {
-            _radiusStart = radiusStart
-            _radiusEnd = radiusEnd
-            _sweep = sweep
-            _angle = angle
-        }
         
         let path = CGMutablePath()
-        path.addArc(center: center, radiusStart: _radiusStart, radiusEnd: _radiusEnd, angle: _angle, sweep: _sweep)
+        path.addArc(center: center, radiusStart: radiusStart, radiusEnd: radiusEnd, angle: angle, sweep: sweep)
         
         ctx.addPath(path)
         ctx.setLineWidth(1)
@@ -189,7 +193,7 @@ class TargetSelectionView: UIView {
         ctx.drawPath(using: .fillStroke)
     }
     
-    private func drawBullseye(rect: CGRect, section: Section?) {
+    private func drawBullseye(rect: CGRect, target: Target) {
         guard let game = game else { return }
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
@@ -200,8 +204,8 @@ class TargetSelectionView: UIView {
         guard let singleTarget = game.model.targetForBullseye(at: .single) else { return }
         guard let doubleTarget = game.model.targetForBullseye(at: .double) else { return }
         
-        drawSingleBullseye(rect: rect, target: singleTarget, section: section)
-        drawDoubleBullseye(rect: rect, target: doubleTarget, section: section)
+        drawSingleBullseye(rect: rect, target: singleTarget, section: target.section)
+        drawDoubleBullseye(rect: rect, target: doubleTarget, section: target.section)
     }
     
     private func drawSingleBullseye(rect: CGRect, target: Target, section: Section?) {
@@ -215,7 +219,7 @@ class TargetSelectionView: UIView {
         let bullseyeRect = CGRect(x: rect.midX - radius, y: rect.midY - radius, width: radius * 2, height: radius * 2)
         
         var highlightColor: CGColor?
-        if target.section == section && section != .single {
+        if target.section == section {
             highlightColor = UIColor.open.cgColor
         }
         
@@ -236,7 +240,7 @@ class TargetSelectionView: UIView {
         let bullseyeRect = CGRect(x: rect.midX - radius, y: rect.midY - radius, width: radius * 2, height: radius * 2)
         
         var highlightColor: CGColor?
-        if target.section == section && section != .single {
+        if target.section == section {
             highlightColor = UIColor.open.cgColor
         }
         
@@ -251,7 +255,7 @@ class TargetSelectionView: UIView {
 extension TargetSelectionView: BoardViewDelegate {
     
     func boardView(_ boardView: BoardView, alphaForTarget target: Target) -> CGFloat {
-        if strategy?.target != nil {
+        if hasMoved && strategy?.target != nil {
             return strategy?.target?.value == target.value ? 1 : 0.2
         }
         return 1
@@ -407,7 +411,7 @@ class SliceStrategy: TargetStrategy {
     }
     
     private func calculateTarget(for point: CGPoint, fixed fixedTarget: Target? = nil) -> Target? {
-        let section = calculateSection(for: point)
+        let section = calculateSection(for: point, target: fixedTarget)
         
         if let target = fixedTarget ?? layout.slice(for: point) {
             if let target = game.model.target(forValue: target.value, section: section) {
@@ -420,7 +424,7 @@ class SliceStrategy: TargetStrategy {
         return nil
     }
     
-    private func calculateSection(for point: CGPoint) -> Section {
+    private func calculateSection(for point: CGPoint, target: Target? = nil) -> Section {
         let distance = point.distance(to: layout.center)
         var section: Section
         

@@ -177,26 +177,26 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="NUW-Ax-uIJ"/>
                                 <exclude reference="AlZ-S1-1Bi"/>
                                 <exclude reference="RCz-wQ-xTu"/>
                                 <exclude reference="b68-5k-miK"/>
                                 <exclude reference="80g-FA-xeR"/>
                                 <exclude reference="Xje-c2-OeX"/>
                                 <exclude reference="gJP-5v-WdE"/>
-                                <exclude reference="NUW-Ax-uIJ"/>
                                 <exclude reference="R0m-vL-WZS"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
                             <mask key="constraints">
+                                <include reference="NUW-Ax-uIJ"/>
+                                <exclude reference="mrW-m7-dZM"/>
                                 <include reference="AlZ-S1-1Bi"/>
                                 <exclude reference="RCz-wQ-xTu"/>
                                 <include reference="b68-5k-miK"/>
                                 <exclude reference="uDt-k4-YYw"/>
                                 <exclude reference="2Eb-HY-nwP"/>
                                 <exclude reference="gJP-5v-WdE"/>
-                                <include reference="NUW-Ax-uIJ"/>
-                                <exclude reference="mrW-m7-dZM"/>
                                 <exclude reference="7fo-gb-sMb"/>
                                 <include reference="R0m-vL-WZS"/>
                             </mask>
