@@ -55,6 +55,14 @@ extension CricketGame: Game {
         return result
     }
     
+    func game(_ game: CoreGame, undoHit target: Target, player: GamePlayer, round: Int) -> ScoreResult? {
+        let score = player.scores[round]!
+        
+        score.unHit(target: target)
+        
+        return .ok
+    }
+    
     func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState {
         guard target.isInPlay(in: self) else {
             return .closed

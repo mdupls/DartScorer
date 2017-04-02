@@ -27,7 +27,10 @@ class BoardViewController: UIViewController {
             targetSelectionView?.round = round
             dataSource?.round = round
             
-            boardView?.setNeedsDisplay()
+            let bust = player?.score(for: round)?.bust ?? false
+            
+            boardView?.enabled = !bust
+            
             markerView?.setNeedsDisplay()
         }
     }
@@ -46,12 +49,23 @@ class BoardViewController: UIViewController {
     // MARK: Events
     
     func didHitTarget(sender: Notification) {
+        guard player === sender.object as? GamePlayer else { return }
+        
+        let bust = (sender.userInfo?["score"] as? Score)?.bust ?? false
+        
+        boardView?.enabled = !bust
+        
         markerView?.setNeedsDisplay()
     }
     
     func didUnhitTarget(sender: Notification) {
+        guard player === sender.object as? GamePlayer else { return }
+        
+        let bust = (sender.userInfo?["score"] as? Score)?.bust ?? false
+        
+        boardView?.enabled = !bust
+        
         markerView?.setNeedsDisplay()
-        boardView?.setNeedsDisplay()
     }
     
     func didOpenTarget(sender: Notification) {

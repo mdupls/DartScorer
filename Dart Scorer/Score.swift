@@ -27,6 +27,16 @@ class Score {
         print("--> \(target.value) (x\(target.section.rawValue)) hit for \(target.score) points")
     }
     
+    func unHit(target: Target) {
+        let score = target.score
+        
+        if let index = targets.index(where: { (_target) -> Bool in
+            return _target.score == score
+        }) {
+            targets.remove(at: index)
+        }
+    }
+    
     func totalHits(for value: Int) -> Int {
         var hits = 0
         for target in targets {

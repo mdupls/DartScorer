@@ -16,6 +16,10 @@ class PlayerViewController: UIViewController {
     var game: CoreGame?
     var round: Int = 0 {
         didSet {
+            let bust = player?.score(for: round)?.bust ?? false
+            
+            bustLabel?.isHidden = !bust
+            
             boardViewController?.round = round
             roundViewController?.round = round
             scoreViewController?.round = round
@@ -29,11 +33,34 @@ class PlayerViewController: UIViewController {
     // MARK: IBOutlets
     
     @IBOutlet weak var playerName: NameView!
+    @IBOutlet weak var bustLabel: UILabel!
+    
+    // MARK: Events
+    
+    func didHitTarget(sender: Notification) {
+        guard player === sender.object as? GamePlayer else { return }
+        
+        let bust = (sender.userInfo?["score"] as? Score)?.bust ?? false
+        
+        bustLabel.isHidden = !bust
+    }
+    
+    func didUnhitTarget(sender: Notification) {
+        guard player === sender.object as? GamePlayer else { return }
+        
+        let bust = (sender.userInfo?["score"] as? Score)?.bust ?? false
+        
+        bustLabel.isHidden = !bust
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bustLabel.isHidden = true
         playerName.name = player?.name
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BoardViewController.didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

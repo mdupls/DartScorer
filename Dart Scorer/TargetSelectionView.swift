@@ -256,7 +256,7 @@ extension TargetSelectionView: BoardViewDelegate {
     
     func boardView(_ boardView: BoardView, alphaForTarget target: Target) -> CGFloat {
         if hasMoved && strategy?.target != nil {
-            return strategy?.target?.value == target.value ? 1 : 0.2
+            return strategy?.target?.value == target.value ? 1 : disabledTargetAlpha
         }
         return 1
     }

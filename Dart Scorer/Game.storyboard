@@ -173,6 +173,12 @@
                                     <segue destination="7uT-oi-NEs" kind="embed" identifier="board" id="V9L-Kb-FPB"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bust!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qEN-jy-ZSK">
+                                <rect key="frame" x="0.0" y="322" width="1024" height="1024"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -194,7 +200,9 @@
                             <constraint firstItem="R4u-lR-Rh8" firstAttribute="leading" secondItem="o1u-kM-j2R" secondAttribute="trailing" constant="-364" id="FcD-ys-buM">
                                 <variation key="heightClass=compact" constant="0.0"/>
                             </constraint>
+                            <constraint firstItem="qEN-jy-ZSK" firstAttribute="bottom" secondItem="59z-qd-M7M" secondAttribute="bottom" id="FiU-MN-qUs"/>
                             <constraint firstItem="o1u-kM-j2R" firstAttribute="leading" secondItem="59z-qd-M7M" secondAttribute="leading" id="GPM-xm-72U"/>
+                            <constraint firstItem="qEN-jy-ZSK" firstAttribute="leading" secondItem="59z-qd-M7M" secondAttribute="leading" id="HeN-9a-gDw"/>
                             <constraint firstItem="59z-qd-M7M" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="KGL-cC-tfm"/>
                             <constraint firstItem="X9X-V8-ugh" firstAttribute="leading" secondItem="59z-qd-M7M" secondAttribute="trailing" id="NUW-Ax-uIJ"/>
                             <constraint firstItem="59z-qd-M7M" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" priority="750" id="OyF-qm-JCP"/>
@@ -212,10 +220,13 @@
                             <constraint firstItem="59z-qd-M7M" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="gJP-5v-WdE"/>
                             <constraint firstItem="X9X-V8-ugh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mrW-m7-dZM"/>
                             <constraint firstItem="59z-qd-M7M" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="pVD-a4-JuR"/>
+                            <constraint firstItem="qEN-jy-ZSK" firstAttribute="top" secondItem="59z-qd-M7M" secondAttribute="top" id="uVB-Zy-6TO"/>
+                            <constraint firstItem="qEN-jy-ZSK" firstAttribute="trailing" secondItem="59z-qd-M7M" secondAttribute="trailing" id="zqo-ln-ByZ"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="FcD-ys-buM"/>
+                                <exclude reference="NUW-Ax-uIJ"/>
                                 <exclude reference="AlZ-S1-1Bi"/>
                                 <exclude reference="RCz-wQ-xTu"/>
                                 <exclude reference="b68-5k-miK"/>
@@ -225,7 +236,6 @@
                                 <exclude reference="dSG-Yx-kaR"/>
                                 <exclude reference="gJP-5v-WdE"/>
                                 <exclude reference="pVD-a4-JuR"/>
-                                <exclude reference="NUW-Ax-uIJ"/>
                                 <exclude reference="R0m-vL-WZS"/>
                                 <exclude reference="SaB-vm-31U"/>
                             </mask>
@@ -234,6 +244,8 @@
                             <mask key="constraints">
                                 <exclude reference="6Tt-is-F6d"/>
                                 <include reference="FcD-ys-buM"/>
+                                <include reference="NUW-Ax-uIJ"/>
+                                <exclude reference="mrW-m7-dZM"/>
                                 <exclude reference="5sr-7h-Yeg"/>
                                 <include reference="AlZ-S1-1Bi"/>
                                 <exclude reference="RCz-wQ-xTu"/>
@@ -241,8 +253,6 @@
                                 <exclude reference="2Eb-HY-nwP"/>
                                 <exclude reference="gJP-5v-WdE"/>
                                 <include reference="pVD-a4-JuR"/>
-                                <include reference="NUW-Ax-uIJ"/>
-                                <exclude reference="mrW-m7-dZM"/>
                                 <exclude reference="7fo-gb-sMb"/>
                                 <include reference="R0m-vL-WZS"/>
                                 <exclude reference="SaB-vm-31U"/>
@@ -267,6 +277,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="33E-qe-g83"/>
                     <connections>
+                        <outlet property="bustLabel" destination="qEN-jy-ZSK" id="V48-jH-ala"/>
                         <outlet property="playerName" destination="o1u-kM-j2R" id="WhM-Ii-Ocf"/>
                     </connections>
                 </viewController>

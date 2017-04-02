@@ -16,6 +16,12 @@ class BoardView: UIView {
         }
     }
     
+    var enabled: Bool = true {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     weak var dataSource: BoardViewDataSource? {
         didSet {
             setNeedsDisplay()
@@ -122,7 +128,7 @@ class BoardView: UIView {
         guard let dataSource = dataSource else { return }
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
-        let alpha = delegate?.boardView(self, alphaForTarget: target) ?? 1
+        let alpha = self.alpha(for: target)
         let state = dataSource.boardView(self, stateFor: target)
         
         let path = CGMutablePath()
@@ -156,7 +162,7 @@ class BoardView: UIView {
         if let target = dataSource.boardView(self, bullsEyeTargetFor: .single) {
             guard let ctx = UIGraphicsGetCurrentContext() else { return }
             
-            let alpha = delegate?.boardView(self, alphaForTarget: target) ?? 1
+            let alpha = self.alpha(for: target)
             let state = dataSource.boardView(self, stateFor: target)
             let radius = layout.bullseyeRadius
             let bullseyeRect = CGRect(x: rect.midX - radius, y: rect.midY - radius, width: radius * 2, height: radius * 2)
@@ -175,7 +181,7 @@ class BoardView: UIView {
         if let target = dataSource.boardView(self, bullsEyeTargetFor: .double) {
             guard let ctx = UIGraphicsGetCurrentContext() else { return }
             
-            let alpha = delegate?.boardView(self, alphaForTarget: target) ?? 1
+            let alpha = self.alpha(for: target)
             let state = dataSource.boardView(self, stateFor: target)
             let radius = layout.doubleBullseyeRadius
             let bullseyeRect = CGRect(x: rect.midX - radius, y: rect.midY - radius, width: radius * 2, height: radius * 2)
@@ -210,7 +216,7 @@ class BoardView: UIView {
         for (index, p) in points.enumerated() {
             if let target = dataSource.boardView(self, targetAt: index, for: .single) {
                 let state = dataSource.boardView(self, stateFor: target)
-                let alpha = delegate?.boardView(self, alphaForTarget: target) ?? 1
+                let alpha = self.alpha(for: target)
                 
                 let string = "\(target.value)"
                 let text = CFAttributedStringCreate(nil, string as CFString!, attr as CFDictionary)
@@ -236,6 +242,10 @@ class BoardView: UIView {
             points.append(CGPoint(x: x2, y: y2))
         }
         return points
+    }
+    
+    private func alpha(for target: Target) -> CGFloat {
+        return enabled ? delegate?.boardView(self, alphaForTarget: target) ?? 1 : disabledTargetAlpha
     }
     
 }

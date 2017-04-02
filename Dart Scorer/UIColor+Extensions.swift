@@ -43,3 +43,5 @@ extension UIColor {
 
 let hitAlpha: CGFloat = 0.5
 let hitForPointsAlpha: CGFloat = 0.7
+
+let disabledTargetAlpha: CGFloat = 0.2

@@ -80,6 +80,8 @@ class CoreGame {
         
         var score: Score
         if let _score = player.scores[round] {
+            guard !_score.bust else { return }
+            
             score = _score
         } else {
             score = Score()
@@ -112,15 +114,21 @@ class CoreGame {
     func undoScore(player: GamePlayer, target index: Int, round: Int) {
         guard let score = player.scores[round] else { return }
         
-        score.removeTarget(at: index)
+        let target = score.targets[index]
         
-        // Notify
-        NotificationCenter.default.post(name: Notification.Name("TargetUnhit"), object: player, userInfo: [
-            "score": score,
-            "index": index
-        ])
-        
-        _finished = false
+        if let result = game.game(self, undoHit: target, player: player, round: round) {
+            if result != .bust {
+                score.bust = false
+            }
+            
+            // Notify
+            NotificationCenter.default.post(name: Notification.Name("TargetUnhit"), object: player, userInfo: [
+                "score": score,
+                "index": index
+                ])
+            
+            _finished = false
+        }
     }
     
     func score(forPlayerAt index: Int) -> Score? {
@@ -175,6 +183,8 @@ private class CoreConfig {
 protocol Game {
     
     func game(_ game: CoreGame, hit target: Target, player: GamePlayer, round: Int) -> ScoreResult?
+    
+    func game(_ game: CoreGame, undoHit target: Target, player: GamePlayer, round: Int) -> ScoreResult?
     
     func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState
     
