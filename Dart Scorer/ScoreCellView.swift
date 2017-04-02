@@ -153,8 +153,8 @@ class ScoreCellView: UICollectionViewCell {
         ctx.saveGState()
         
         ctx.translateBy (x: rect.midX, y: rect.midY)
-        ctx.setAlpha(marksForPoints > 0 ? 0.3 : 0.5)
-        ctx.setFillColor(UIColor.white.cgColor)
+        ctx.setAlpha(marksForPoints > 0 ? hitAlpha / 2 : hitAlpha)
+        ctx.setFillColor(UIColor.hit.cgColor)
         
         // Draw the marks not worth points.
         for mark in marksForPoints ..< marks {
@@ -165,7 +165,7 @@ class ScoreCellView: UICollectionViewCell {
         
         // Draw the marks worth points.
         if marksForPoints > 0 {
-            ctx.setAlpha(0.7)
+            ctx.setAlpha(hitForPointsAlpha)
             
             for mark in 0 ..< marksForPoints {
                 drawMark(ctx: ctx, mark: mark, angle: angle, markSweep: markSweep, spaceSweep: spaceSweep, rect: rect)

@@ -33,10 +33,13 @@ extension UIColor {
     static var doubleBullseye: UIColor { return UIColor(hex: 0xFF1857) }
     
     static var open: UIColor { return UIColor.green }
-    static var hit: UIColor { return UIColor.orange }
+    static var hit: UIColor { return UIColor.white }
     
     static var single: UIColor { return UIColor.white }
     static var double: UIColor { return UIColor.green }
     static var triple: UIColor { return UIColor.red }
     
 }
+
+let hitAlpha: CGFloat = 0.5
+let hitForPointsAlpha: CGFloat = 0.7

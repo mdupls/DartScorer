@@ -38,33 +38,54 @@ class MarkerView: UIView {
         let sections = dataSource.numberOfSections(in: self)
         let sweep = (CGFloat.pi * 2) / CGFloat(sections)
         
+        ctx.setFillColor(UIColor.hit.cgColor)
+        
         for section in 0 ..< sections {
-            let startAngle = layout.angle(forIndex: section)
-            
-            let maxMarks = dataSource.boardView(self, maxMarksForSection: section)
             let hits = dataSource.boardView(self, hitsForSection: section)
-            let marks = min(maxMarks, hits)
             
-            let leadingSpaceSweep: CGFloat = 0.05
-            let spaceSweep: CGFloat = 0.01
-            let spacesSweep = spaceSweep * CGFloat(maxMarks - 1) + leadingSpaceSweep * 2
-            let marksSweep = sweep - spacesSweep
-            let markSweep = marksSweep / CGFloat(maxMarks)
-            let angle = startAngle + (sweep - markSweep * CGFloat(marks) - spaceSweep * CGFloat(marks - 1)) / 2
-            
-            let color = marks == maxMarks ? UIColor.open.cgColor : UIColor.hit.cgColor
-            
-            for mark in 0 ..< marks {
-                let path = CGMutablePath()
-                path.addArc(center: center, radiusStart: layout.markerInnerRadius, radiusEnd: layout.markerOuterRadius, angle: angle + CGFloat(mark) * (markSweep + spaceSweep), sweep: markSweep)
+            if hits > 0 {
+                let startAngle = layout.angle(forIndex: section)
                 
-                ctx.addPath(path)
-                ctx.setFillColor(color)
-                ctx.setLineCap(.round)
-                ctx.setLineJoin(.round)
+                let maxMarks = dataSource.boardView(self, maxMarksForSection: section)
+                let marksForPoints = max(0, hits - maxMarks)
+                let leadingSpaceSweep: CGFloat = 0.05
+                
+                if marksForPoints > 0 {
+                    let markSweep = sweep - leadingSpaceSweep * 2
+                    let angle = startAngle - markSweep + leadingSpaceSweep
+                    
+                    ctx.setAlpha(hitForPointsAlpha)
+                    
+                    drawMark(ctx: ctx, angle: angle, markSweep: markSweep)
+                } else {
+                    let marks = min(maxMarks, hits)
+                    let spaceSweep: CGFloat = 0.01
+                    let spacesSweep = spaceSweep * CGFloat(maxMarks - 1) + leadingSpaceSweep * 2
+                    let marksSweep = sweep - spacesSweep
+                    let markSweep = marksSweep / CGFloat(maxMarks)
+                    let angle = startAngle + (sweep - markSweep * CGFloat(marks) - spaceSweep * CGFloat(marks - 1)) / 2
+                    
+                    ctx.setAlpha(hitAlpha / 2)
+                    
+                    for mark in 0 ..< marks {
+                        drawMark(ctx: ctx, mark: mark, angle: angle, markSweep: markSweep, spaceSweep: spaceSweep)
+                    }
+                }
+                
                 ctx.fillPath()
             }
         }
+    }
+    
+    // MARK: Private
+    
+    private func drawMark(ctx: CGContext, mark: Int = 1, angle: CGFloat, markSweep: CGFloat, spaceSweep: CGFloat = 0) {
+        guard let layout = layout else { return }
+        
+        let path = CGMutablePath()
+        path.addArc(center: center, radiusStart: layout.markerInnerRadius, radiusEnd: layout.markerOuterRadius, angle: angle + CGFloat(mark) * (markSweep + spaceSweep), sweep: markSweep)
+        
+        ctx.addPath(path)
     }
     
 }

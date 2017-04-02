@@ -128,7 +128,7 @@ extension BoardViewController: MarkerViewDataSource {
     }
     
     func boardView(_ markerView: MarkerView, maxMarksForSection section: Int) -> Int {
-        return game?.throwsPerTurn ?? 0
+        return game?.targetHitsRequired ?? game?.throwsPerTurn ?? 0
     }
     
     func boardView(_ markerView: MarkerView, hitsForSection section: Int) -> Int {
