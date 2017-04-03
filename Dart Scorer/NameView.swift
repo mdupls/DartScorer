@@ -43,9 +43,10 @@ class NameView: UIView {
         context.translateBy (x: rect.midX, y: rect.midY)
         context.scaleBy (x: 1, y: -1)
         
-        let font = UIFont(name: "HelveticaNeue-Thin", size: 40)!
+        let height = rect.height / 15
+        let font = UIFont(name: "HelveticaNeue-Thin", size: height)!
         
-        centreArcPerpendicular(text: name, context: context, radius: rect.height / 2 - 15, angle: CGFloat.pi / 2, colour: UIColor.white, font: font, clockwise: true)
+        centreArcPerpendicular(text: name, context: context, radius: rect.height / 2 - (height * 3) / 4, angle: CGFloat.pi / 2, colour: UIColor.white, font: font, clockwise: true)
     }
     
     private func centreArcPerpendicular(text str: String, context: CGContext, radius r: CGFloat, angle theta: CGFloat, colour c: UIColor, font: UIFont, clockwise: Bool){
