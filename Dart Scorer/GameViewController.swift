@@ -8,6 +8,12 @@
 
 import UIKit
 
+fileprivate enum DoneType {
+    case nextRound
+    case done
+    case none
+}
+
 class GameViewController: UIViewController {
     
     // MARK: Variables
@@ -16,17 +22,20 @@ class GameViewController: UIViewController {
     var round: Int = 0
     var currentIndex: Int = 0
     
+    private var doneType: DoneType = .nextRound
+    
     // MARK: IBOutlets
     
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var nextRoundBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var pageControl: UIPageControl!
+    
+    @IBOutlet var nextRoundBarButtonItem: UIBarButtonItem! // explicit strong reference
+    @IBOutlet var doneBarButtonItem: UIBarButtonItem! // explicit strong reference
     
     // MARK: IBActions
     
     @IBAction func didTapNextRound(sender: UIBarButtonItem) {
-        round = game.select(round: round + 1)
-        updateForRound()
+        updateRound(from: round, to: bound(round: round + 1))
         
         // Scroll to the first player.
         scroll(to: 0)
@@ -36,22 +45,32 @@ class GameViewController: UIViewController {
         }
     }
     
+    @IBAction func didTapDoneGame(sender: UIBarButtonItem) {
+        let _ = game?.winner()
+    }
+    
     // MARK: Events
     
     func didGameFinish(sender: Notification) {
-        nextRoundBarButtonItem?.isEnabled = false
+        doneType = .done
+        
+        updateRound()
         
         performSegue(withIdentifier: "gameEnded", sender: nil)
     }
     
     func didUnhitTarget(sender: Notification) {
-        updateForRound()
+        doneType = .nextRound
+        
+        updateRound()
     }
     
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        updateRound()
         
         title = game.name
         pageControl.numberOfPages = game.players.count
@@ -88,8 +107,21 @@ class GameViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didGameFinish(sender:)), name: Notification.Name("GameFinished"), object: nil)
     }
     
+    deinit {
+        nextRoundBarButtonItem = nil
+        doneBarButtonItem = nil
+    }
+    
     override func viewDidLayoutSubviews() {
         scroll(to: currentIndex)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "gameEnded" {
+            if let viewController = segue.destination as? ScoreViewController {
+                viewController.game = game
+            }
+        }
     }
     
     // MARK: Private
@@ -112,13 +144,41 @@ class GameViewController: UIViewController {
         scrollView.contentOffset = CGPoint(x: CGFloat(index) * scrollView.frame.width, y: 0)
     }
     
-    private func updateForRound() {
-        var canPlayNextRound: Bool?
-        if let rounds = game?.rounds {
-            canPlayNextRound = round < rounds - 1
+    private func updateRound(from fromRound: Int, to toRound: Int) {
+        round = toRound
+        doneType = fromRound == toRound ? .done : .nextRound
+        
+        updateRound()
+    }
+    
+    private func updateRound() {
+        if let rounds = game?.rounds, round == rounds - 1 {
+            doneType = .done
         }
         
-        nextRoundBarButtonItem?.isEnabled = canPlayNextRound ?? true
+        switch doneType {
+        case .nextRound:
+            var canPlayNextRound: Bool?
+            if let rounds = game?.rounds {
+                canPlayNextRound = round < rounds - 1
+            }
+            navigationItem.rightBarButtonItems = [ nextRoundBarButtonItem ]
+            nextRoundBarButtonItem?.isEnabled = canPlayNextRound ?? true
+        case .done:
+            navigationItem.rightBarButtonItems = [ doneBarButtonItem ]
+        case .none:
+            navigationItem.rightBarButtonItems = nil
+        }
+    }
+    
+    private func bound(round: Int) -> Int {
+        var boundedRound = max(0, round)
+        
+        if let rounds = game?.rounds {
+            boundedRound = min(boundedRound, rounds - 1)
+        }
+        
+        return boundedRound
     }
     
 }

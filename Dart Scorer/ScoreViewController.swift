@@ -15,7 +15,7 @@ class ScoreViewController: UITableViewController {
     var game: CoreGame?
     
     private var count: Int {
-        return 0//game?.players.count ?? 0
+        return game?.players.count ?? 0
     }
     
     // MARK: Lifecycle
@@ -35,5 +35,30 @@ class ScoreViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return count
     }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "playerScoreCell", for: indexPath)
+        
+        populate(cell: cell as? ScoreCellView, indexPath: indexPath)
+        
+        return cell
+    }
+    
+    // MARK: Private
+    
+    private func populate(cell: ScoreCellView?, indexPath: IndexPath) {
+        guard let cell = cell else { return }
+        guard let player = game?.players[indexPath.row] else { return }
+        
+        cell.nameLabel.text = player.name
+        cell.scoreLabel.text = "\(player.score().sum())"
+    }
+    
+}
+
+class ScoreCellView: UITableViewCell {
+    
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
     
 }

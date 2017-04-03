@@ -8,6 +8,12 @@
 
 import Foundation
 
+enum GameState {
+    case finished
+    case inProgress
+    case lastRound
+}
+
 class CoreGame {
     
     let game: Game
@@ -15,8 +21,6 @@ class CoreGame {
     let players: [GamePlayer]
     
     private let config: CoreConfig
-    
-    private var _finished: Bool = false
     
     var throwsPerTurn: Int {
         return config.throwsPerTurn
@@ -48,36 +52,26 @@ class CoreGame {
         }
     }
     
-    func select(round: Int) -> Int {
-        var boundedRound = max(0, round)
-        
+    func isLast(round: Int) -> Bool {
         if let rounds = rounds {
-            boundedRound = min(boundedRound, rounds - 1)
+            return round == rounds - 1
         }
-        
-        // Notify of round change.
-        NotificationCenter.default.post(name: Notification.Name("RoundChange"), object: self, userInfo: ["round": boundedRound])
-        
-        return boundedRound
+        return false
     }
     
     func winner() -> GamePlayer? {
-        guard _finished else { return nil }
+        guard let player = game.rank(players: players).first else { return nil }
         
-        return game.rank(players: players).first
+        won(player: player)
+        
+        return player
     }
     
     func won(player: GamePlayer) {
-        _finished = true
-        
-        print("\(player.player.name) won!")
-        
         NotificationCenter.default.post(name: Notification.Name("GameFinished"), object: player, userInfo: nil)
     }
     
     func score(player: GamePlayer, target: Target, round: Int) {
-        guard !_finished else { return }
-        
         var score: Score
         if let _score = player.scores[round] {
             guard !_score.bust else { return }
@@ -126,8 +120,6 @@ class CoreGame {
                 "score": score,
                 "index": index
                 ])
-            
-            _finished = false
         }
     }
     

@@ -48,7 +48,7 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         
         if let indexPaths = indexPaths {
             for indexPath in indexPaths {
-                populate(cell: collectionView?.cellForItem(at: indexPath) as? ScoreCellView, indexPath: indexPath)
+                populate(cell: collectionView?.cellForItem(at: indexPath) as? HitCellView, indexPath: indexPath)
             }
         }
     }
@@ -61,7 +61,7 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         
         if let indexPaths = collectionView?.indexPathsForVisibleItems {
             for indexPath in indexPaths {
-                populate(cell: collectionView?.cellForItem(at: indexPath) as? ScoreCellView, indexPath: indexPath)
+                populate(cell: collectionView?.cellForItem(at: indexPath) as? HitCellView, indexPath: indexPath)
             }
         }
     }
@@ -113,7 +113,7 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "single", for: indexPath)
         
-        populate(cell: cell as? ScoreCellView, indexPath: indexPath)
+        populate(cell: cell as? HitCellView, indexPath: indexPath)
         
         return cell
     }
@@ -147,7 +147,7 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         
     }
     
-    private func populate(cell: ScoreCellView?, indexPath: IndexPath) {
+    private func populate(cell: HitCellView?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         guard let targets = targets else { return }
         

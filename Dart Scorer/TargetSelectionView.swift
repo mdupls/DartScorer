@@ -130,8 +130,11 @@ class TargetSelectionView: UIView {
         guard let layout = layout else { return }
         
         if let target = game.model.target(forValue: value, section: .single) {
-            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.bullseyeRadius, radiusEnd: layout.tripleInnerRadius, target: target, color: color, section: section)
-            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.tripleOuterRadius, radiusEnd: layout.doubleInnerRadius, target: target, color: color, section: section)
+            let highlighted = target.section == section
+            let highlightColor = highlighted ? UIColor.hit.cgColor : nil
+            
+            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.bullseyeRadius, radiusEnd: layout.tripleInnerRadius, target: target, color: color, highlightColor: highlightColor, section: section)
+            drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.tripleOuterRadius, radiusEnd: layout.doubleInnerRadius, target: target, color: color, highlightColor: highlightColor, section: section)
         }
     }
     
@@ -146,7 +149,7 @@ class TargetSelectionView: UIView {
             
             let angle = highlighted ? angle - (sweep * growthFactor) / 2 : angle
             let sweep = highlighted ? sweep * enlargeFactor : sweep
-            let highlightColor = highlighted ? UIColor.open.cgColor : nil
+            let highlightColor = highlighted ? UIColor.hit.cgColor : nil
             let radiusStart = highlighted ? layout.doubleInnerRadius - layout.radius * 0.03 : layout.doubleInnerRadius
             let radiusEnd = highlighted ? layout.doubleOuterRadius + layout.radius * 0.03 : layout.doubleOuterRadius
             
@@ -165,7 +168,7 @@ class TargetSelectionView: UIView {
             
             let angle = highlighted ? angle - (sweep * growthFactor) / 2 : angle
             let sweep = highlighted ? sweep * enlargeFactor : sweep
-            let highlightColor = highlighted ? UIColor.open.cgColor : nil
+            let highlightColor = highlighted ? UIColor.hit.cgColor : nil
             let radiusStart = highlighted ? layout.tripleInnerRadius - layout.radius * 0.03 : layout.tripleInnerRadius
             let radiusEnd = highlighted ? layout.tripleOuterRadius + layout.radius * 0.03 : layout.tripleOuterRadius
             
@@ -220,7 +223,7 @@ class TargetSelectionView: UIView {
         
         var highlightColor: CGColor?
         if target.section == section {
-            highlightColor = UIColor.open.cgColor
+            highlightColor = UIColor.hit.cgColor
         }
         
         ctx.addEllipse(in: bullseyeRect)
@@ -241,7 +244,7 @@ class TargetSelectionView: UIView {
         
         var highlightColor: CGColor?
         if target.section == section {
-            highlightColor = UIColor.open.cgColor
+            highlightColor = UIColor.hit.cgColor
         }
         
         ctx.addEllipse(in: bullseyeRect)
@@ -255,7 +258,7 @@ class TargetSelectionView: UIView {
 extension TargetSelectionView: BoardViewDelegate {
     
     func boardView(_ boardView: BoardView, alphaForTarget target: Target) -> CGFloat {
-        if hasMoved && strategy?.target != nil {
+        if hasMoved && strategy?.target != nil && strategy?.initialSection == .single {
             return strategy?.target?.value == target.value ? 1 : disabledTargetAlpha
         }
         return 1
@@ -298,6 +301,7 @@ protocol TargetSelectionViewDelegate: class {
 protocol TargetStrategy {
     
     var target: Target? { get }
+    var initialSection: Section? { get }
     var enlargeFactor: CGFloat { get }
     
     func start(with point: CGPoint) -> Bool
@@ -315,6 +319,7 @@ class BullseyeStrategy: TargetStrategy {
     let enlargeFactor: CGFloat
     
     var target: Target?
+    var initialSection: Section?
     
     init(game: CoreGame, player: GamePlayer, layout: BoardLayout, round: Int, enlargeFactor: CGFloat) {
         self.game = game
@@ -372,8 +377,7 @@ class SliceStrategy: TargetStrategy {
     let enlargeFactor: CGFloat
     
     var target: Target?
-    
-    private var startedWithSection: Section?
+    var initialSection: Section?
     
     init(game: CoreGame, player: GamePlayer, layout: BoardLayout, round: Int, enlargeFactor: CGFloat) {
         self.game = game
@@ -385,7 +389,7 @@ class SliceStrategy: TargetStrategy {
     
     func start(with point: CGPoint) -> Bool {
         target = calculateTarget(for: point)
-        startedWithSection = calculateSection(for: point)
+        initialSection = calculateSection(for: point)
         
         return true
     }
@@ -396,7 +400,7 @@ class SliceStrategy: TargetStrategy {
         // Only update the board if the touch started from a valid section. This improves the usability.
         // If you start dragging from a number, then you are locked on a particular target. If you start
         // dragging from anywhere else, you can switch between different targets during the same gesture.
-        let startedDoubleOrTriple = startedWithSection != .single
+        let startedDoubleOrTriple = initialSection != .single
         
         let target = calculateTarget(for: point, fixed: startedDoubleOrTriple ? nil : self.target)
         if startedDoubleOrTriple {
@@ -428,7 +432,7 @@ class SliceStrategy: TargetStrategy {
         let distance = point.distance(to: layout.center)
         var section: Section
         
-        if startedWithSection == .single {
+        if initialSection == .single {
             if distance < layout.bullseyeRadius + layout.radius * 0.1 {
                 section = .triple
             } else if distance < layout.tripleOuterRadius + layout.radius * 0.1 {

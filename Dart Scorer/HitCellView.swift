@@ -1,5 +1,5 @@
 //
-//  ScoreCellView.swift
+//  HitCellView.swift
 //  Dart Scorer
 //
 //  Created by Michael Du Plessis on 2017-03-31.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ScoreCellView: UICollectionViewCell {
+class HitCellView: UICollectionViewCell {
     
     private let markerRatio: CGFloat = 0.1
     

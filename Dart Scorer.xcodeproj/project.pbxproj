@@ -40,7 +40,7 @@
 		19B18AB71E84A37000923D8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B18AB61E84A37000923D8A /* ViewController.swift */; };
 		19B18AB91E84A7AE00923D8A /* GamesParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B18AB81E84A7AE00923D8A /* GamesParser.swift */; };
 		19C32B7E1E8DEFDD0039EE23 /* NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B7D1E8DEFDD0039EE23 /* NameView.swift */; };
-		19C32B801E8EDF8B0039EE23 /* ScoreCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B7F1E8EDF8B0039EE23 /* ScoreCellView.swift */; };
+		19C32B801E8EDF8B0039EE23 /* HitCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */; };
 		19C32B821E8F13380039EE23 /* TargetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B811E8F13380039EE23 /* TargetSelectionView.swift */; };
 		19C32B841E9022CB0039EE23 /* ScoreGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B831E9022CB0039EE23 /* ScoreGestureRecognizer.swift */; };
 		19C606611E8839ED0077E2CC /* Stats.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C6065F1E8839ED0077E2CC /* Stats.storyboard */; };
@@ -106,7 +106,7 @@
 		19B18AB61E84A37000923D8A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		19B18AB81E84A7AE00923D8A /* GamesParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesParser.swift; sourceTree = "<group>"; };
 		19C32B7D1E8DEFDD0039EE23 /* NameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameView.swift; sourceTree = "<group>"; };
-		19C32B7F1E8EDF8B0039EE23 /* ScoreCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreCellView.swift; sourceTree = "<group>"; };
+		19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitCellView.swift; sourceTree = "<group>"; };
 		19C32B811E8F13380039EE23 /* TargetSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetSelectionView.swift; sourceTree = "<group>"; };
 		19C32B831E9022CB0039EE23 /* ScoreGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreGestureRecognizer.swift; sourceTree = "<group>"; };
 		19C606601E8839ED0077E2CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Stats.storyboard; sourceTree = "<group>"; };
@@ -182,7 +182,7 @@
 				19C32B831E9022CB0039EE23 /* ScoreGestureRecognizer.swift */,
 				195A3D341E7D8AE200CE1215 /* MarkerView.swift */,
 				19DCF5B31E8B0C2000C00442 /* BoardDataSource.swift */,
-				19C32B7F1E8EDF8B0039EE23 /* ScoreCellView.swift */,
+				19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */,
 			);
 			name = Board;
 			sourceTree = "<group>";
@@ -453,7 +453,7 @@
 				19C32B7E1E8DEFDD0039EE23 /* NameView.swift in Sources */,
 				19B18AB71E84A37000923D8A /* ViewController.swift in Sources */,
 				1972CA3B1E79D72900A257D9 /* CGPoint+Extensions.swift in Sources */,
-				19C32B801E8EDF8B0039EE23 /* ScoreCellView.swift in Sources */,
+				19C32B801E8EDF8B0039EE23 /* HitCellView.swift in Sources */,
 				1972CA281E79B69300A257D9 /* BoardModel.swift in Sources */,
 				1955ACDA1E909C3B0069FA8F /* ActiveScoreViewController.swift in Sources */,
 				195A3D351E7D8AE200CE1215 /* MarkerView.swift in Sources */,

@@ -11,6 +11,7 @@ import UIKit
 enum StatusMessage {
     case bust
     case won
+    case lost
     
     var message: String {
         switch self {
@@ -18,6 +19,8 @@ enum StatusMessage {
             return "Bust!"
         case .won:
             return "You Won!"
+        case .lost:
+            return "You lost"
         }
     }
 }
@@ -76,9 +79,11 @@ class PlayerViewController: UIViewController {
     }
     
     func didGameFinish(sender: Notification) {
-        guard player === sender.object as? GamePlayer else { return }
-        
-        displayStatus(status: .won)
+        if player === sender.object as? GamePlayer {
+            displayStatus(status: .won)
+        } else {
+            displayStatus(status: .lost)
+        }
     }
     
     // MARK: Lifecycle
