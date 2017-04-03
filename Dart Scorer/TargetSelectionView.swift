@@ -20,7 +20,7 @@ class TargetSelectionView: UIView {
     
     private var shouldDrawSelector: Bool = false
     private let bullseyeEnlargeFactor: CGFloat = 2.5
-    private let sliceEnlargeFactor: CGFloat = 2
+    private let sliceEnlargeFactor: CGFloat = 1.5
     fileprivate var hasMoved: Bool = false
     
     var strategy: TargetStrategy?
@@ -131,6 +131,11 @@ class TargetSelectionView: UIView {
         
         if let target = game.model.target(forValue: value, section: .single) {
             let highlighted = target.section == section
+            let enlargeFactor = strategy?.enlargeFactor ?? 1
+            let growthFactor = max(0, enlargeFactor - 1)
+            
+            let angle = highlighted ? angle - (sweep * growthFactor) / 2 : angle
+            let sweep = highlighted ? sweep * enlargeFactor : sweep
             let highlightColor = highlighted ? UIColor.hit.cgColor : nil
             
             drawArc(rect: rect, angle: angle, sweep: sweep, radiusStart: layout.bullseyeRadius, radiusEnd: layout.tripleInnerRadius, target: target, color: color, highlightColor: highlightColor, section: section)
