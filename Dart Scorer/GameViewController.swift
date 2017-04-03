@@ -11,6 +11,7 @@ import UIKit
 fileprivate enum DoneType {
     case nextRound
     case done
+    case stats
     case none
 }
 
@@ -31,6 +32,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet var nextRoundBarButtonItem: UIBarButtonItem! // explicit strong reference
     @IBOutlet var doneBarButtonItem: UIBarButtonItem! // explicit strong reference
+    @IBOutlet var statsBarButtonItem: UIBarButtonItem! // explicit strong reference
     
     // MARK: IBActions
     
@@ -52,11 +54,9 @@ class GameViewController: UIViewController {
     // MARK: Events
     
     func didGameFinish(sender: Notification) {
-        doneType = .done
+        doneType = .stats
         
         updateRound()
-        
-        performSegue(withIdentifier: "gameEnded", sender: nil)
     }
     
     func didUnhitTarget(sender: Notification) {
@@ -110,6 +110,7 @@ class GameViewController: UIViewController {
     deinit {
         nextRoundBarButtonItem = nil
         doneBarButtonItem = nil
+        statsBarButtonItem = nil
     }
     
     override func viewDidLayoutSubviews() {
@@ -117,7 +118,7 @@ class GameViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "gameEnded" {
+        if segue.identifier == "stats" {
             if let viewController = segue.destination as? ScoreViewController {
                 viewController.game = game
             }
@@ -152,7 +153,7 @@ class GameViewController: UIViewController {
     }
     
     private func updateRound() {
-        if let rounds = game?.rounds, round == rounds - 1 {
+        if doneType == .nextRound, let rounds = game?.rounds, round == rounds - 1 {
             doneType = .done
         }
         
@@ -166,6 +167,8 @@ class GameViewController: UIViewController {
             nextRoundBarButtonItem?.isEnabled = canPlayNextRound ?? true
         case .done:
             navigationItem.rightBarButtonItems = [ doneBarButtonItem ]
+        case .stats:
+            navigationItem.rightBarButtonItems = [ statsBarButtonItem ]
         case .none:
             navigationItem.rightBarButtonItems = nil
         }

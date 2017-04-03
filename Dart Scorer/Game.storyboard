@@ -114,6 +114,12 @@
                                     <action selector="didTapNextRoundWithSender:" destination="FMY-Vl-T0e" id="3Al-lX-BUr"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem title="Stats" id="Fha-Qg-GeI">
+                                <connections>
+                                    <action selector="didTapGameStatsWithSender:" destination="FMY-Vl-T0e" id="qqj-lA-BfO"/>
+                                    <segue destination="qqK-Q1-X2g" kind="show" identifier="stats" id="dvG-FX-m85"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
@@ -122,7 +128,7 @@
                         <outlet property="nextRoundBarButtonItem" destination="f8o-GZ-rkW" id="DgU-56-MPs"/>
                         <outlet property="pageControl" destination="323-1I-WUd" id="YYZ-NO-SeI"/>
                         <outlet property="scrollView" destination="3XH-sh-JdN" id="TSN-k0-Jno"/>
-                        <segue destination="qqK-Q1-X2g" kind="show" identifier="gameEnded" id="ueX-IN-Au7"/>
+                        <outlet property="statsBarButtonItem" destination="Fha-Qg-GeI" id="drL-1R-SIM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Zd-U6-x1I" userLabel="First Responder" sceneMemberID="firstResponder"/>

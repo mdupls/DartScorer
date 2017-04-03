@@ -30,7 +30,7 @@ class RoundView: UIView {
         super.draw(rect)
         
         drawBackground(rect: rect)
-        drawRound(rect: rect, name: "Round \(round)".localizedUppercase)
+        drawRound(rect: rect, name: "Round \(round + 1)".localizedUppercase)
     }
     
     // MARK: Private
@@ -70,7 +70,7 @@ class RoundView: UIView {
         centreArcPerpendicular(text: name, context: context, radius: layout.radius + (height * 3) / 4, angle: -CGFloat.pi / 4, colour: UIColor.white, font: font, clockwise: false)
     }
     
-    private func centreArcPerpendicular(text str: String, context: CGContext, radius r: CGFloat, angle theta: CGFloat, colour c: UIColor, font: UIFont, clockwise: Bool){
+    private func centreArcPerpendicular(text str: String, context: CGContext, radius r: CGFloat, angle theta: CGFloat, colour c: UIColor, font: UIFont, clockwise: Bool) {
         // *******************************************************
         // This draws the String str around an arc of radius r,
         // with the text centred at polar angle theta
