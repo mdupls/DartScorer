@@ -24,6 +24,7 @@ class BoardViewController: UIViewController {
     }
     var round: Int = 0 {
         didSet {
+            roundView?.round = round
             targetSelectionView?.round = round
             dataSource?.round = round
             
@@ -41,6 +42,7 @@ class BoardViewController: UIViewController {
     // MARK: IBOutlet
     
     @IBOutlet weak var boardView: BoardView!
+    @IBOutlet weak var roundView: RoundView!
     @IBOutlet weak var markerView: MarkerView!
     @IBOutlet weak var targetSelectionView: TargetSelectionView!
     
@@ -120,6 +122,11 @@ class BoardViewController: UIViewController {
             boardView.dataSource = dataSource
             boardView.delegate = targetSelectionView
             boardView.setNeedsDisplay()
+        }
+        
+        if let roundView = roundView {
+            roundView.layout = layout
+            roundView.round = round
         }
         
         if let markerView = markerView {

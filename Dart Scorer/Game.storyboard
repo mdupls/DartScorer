@@ -304,6 +304,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQn-Zh-ymd" customClass="RoundView" customModule="Dart_Scorer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1024"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ku-4f-ay4" customClass="BoardView" customModule="Dart_Scorer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="1024"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -326,7 +330,11 @@
                             <constraint firstItem="zmh-tX-W1F" firstAttribute="bottom" secondItem="8Ku-4f-ay4" secondAttribute="bottom" id="2I4-2S-htg"/>
                             <constraint firstItem="4Jv-DE-1Gy" firstAttribute="leading" secondItem="8Ku-4f-ay4" secondAttribute="leading" id="7xD-8u-Ffb"/>
                             <constraint firstItem="8Ku-4f-ay4" firstAttribute="leading" secondItem="web-7W-gN9" secondAttribute="leading" id="C2t-gh-BgU"/>
+                            <constraint firstItem="TQn-Zh-ymd" firstAttribute="top" secondItem="8Ku-4f-ay4" secondAttribute="top" id="FL8-5e-wSL"/>
+                            <constraint firstItem="TQn-Zh-ymd" firstAttribute="leading" secondItem="8Ku-4f-ay4" secondAttribute="leading" id="Kyl-4B-Igm"/>
+                            <constraint firstItem="TQn-Zh-ymd" firstAttribute="trailing" secondItem="8Ku-4f-ay4" secondAttribute="trailing" id="Psk-cF-47h"/>
                             <constraint firstItem="zmh-tX-W1F" firstAttribute="trailing" secondItem="8Ku-4f-ay4" secondAttribute="trailing" id="TPJ-Qg-hli"/>
+                            <constraint firstItem="TQn-Zh-ymd" firstAttribute="bottom" secondItem="8Ku-4f-ay4" secondAttribute="bottom" id="UTH-rP-WUB"/>
                             <constraint firstItem="4Jv-DE-1Gy" firstAttribute="bottom" secondItem="8Ku-4f-ay4" secondAttribute="bottom" id="WmF-PK-5hk"/>
                             <constraint firstItem="4Jv-DE-1Gy" firstAttribute="top" secondItem="8Ku-4f-ay4" secondAttribute="top" id="Y6W-S5-4se"/>
                             <constraint firstAttribute="trailing" secondItem="8Ku-4f-ay4" secondAttribute="trailing" id="erj-o9-ylY"/>
@@ -339,6 +347,7 @@
                     <connections>
                         <outlet property="boardView" destination="8Ku-4f-ay4" id="vlo-ez-MM3"/>
                         <outlet property="markerView" destination="4Jv-DE-1Gy" id="f4T-q3-dk7"/>
+                        <outlet property="roundView" destination="TQn-Zh-ymd" id="S5D-Cd-VmR"/>
                         <outlet property="targetSelectionView" destination="zmh-tX-W1F" id="zUS-UR-IuC"/>
                     </connections>
                 </viewController>

@@ -31,6 +31,7 @@
 		1979DF881E7B313300A667FC /* Cricket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF871E7B313300A667FC /* Cricket.swift */; };
 		1979DF8A1E7B313F00A667FC /* Shanghai.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF891E7B313F00A667FC /* Shanghai.swift */; };
 		1979DF8E1E7B31DE00A667FC /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF8D1E7B31DE00A667FC /* Target.swift */; };
+		198EE4631E92F5A400CEA09B /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198EE4621E92F5A400CEA09B /* RoundView.swift */; };
 		19920FF31E802C5A00E2381C /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19920FF21E802C5A00E2381C /* PlayerViewController.swift */; };
 		19A3F2BC1E78C8CA00D660B5 /* BoardLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3F2BB1E78C8CA00D660B5 /* BoardLayout.swift */; };
 		19A3F2C01E79AD4100D660B5 /* BoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3F2BF1E79AD4100D660B5 /* BoardViewController.swift */; };
@@ -97,6 +98,7 @@
 		1979DF871E7B313300A667FC /* Cricket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cricket.swift; sourceTree = "<group>"; };
 		1979DF891E7B313F00A667FC /* Shanghai.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shanghai.swift; sourceTree = "<group>"; };
 		1979DF8D1E7B31DE00A667FC /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
+		198EE4621E92F5A400CEA09B /* RoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		19920FF21E802C5A00E2381C /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		19A3F2BB1E78C8CA00D660B5 /* BoardLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardLayout.swift; sourceTree = "<group>"; };
 		19A3F2BF1E79AD4100D660B5 /* BoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardViewController.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				19A3F2BB1E78C8CA00D660B5 /* BoardLayout.swift */,
 				1972CA271E79B69300A257D9 /* BoardModel.swift */,
 				19C32B7D1E8DEFDD0039EE23 /* NameView.swift */,
+				198EE4621E92F5A400CEA09B /* RoundView.swift */,
 				195A3D321E7D703100CE1215 /* BoardView.swift */,
 				19C32B811E8F13380039EE23 /* TargetSelectionView.swift */,
 				19C32B831E9022CB0039EE23 /* ScoreGestureRecognizer.swift */,
@@ -461,6 +464,7 @@
 				19B18AB91E84A7AE00923D8A /* GamesParser.swift in Sources */,
 				1979DF8A1E7B313F00A667FC /* Shanghai.swift in Sources */,
 				19F07DA21E246A0400C7AB32 /* AppDelegate.swift in Sources */,
+				198EE4631E92F5A400CEA09B /* RoundView.swift in Sources */,
 				1972CA451E7A243900A257D9 /* GameFactory.swift in Sources */,
 				1971206D1E834BC70024259C /* RoundViewController.swift in Sources */,
 				1972CA471E7A249900A257D9 /* X01.swift in Sources */,
