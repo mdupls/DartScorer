@@ -163,38 +163,26 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     
     private func size() -> CGSize {
         let throwsPerTurn = game?.throwsPerTurn ?? 0
+        let width = ceil(view.frame.width / CGFloat(throwsPerTurn + 1))
+        let dimension = min(width, view.frame.height)
         
-        return CGSize(width: ceil(view.frame.width / CGFloat(throwsPerTurn + 1)), height: view.frame.height)
+        return CGSize(width: dimension, height: dimension)
     }
     
     private func inset() -> UIEdgeInsets {
-        let inset = lineSpacing()
+        let spacing = lineSpacing()
+        let width = size().width
+        let inset = (view.frame.width - (width * CGFloat(count) + spacing * CGFloat(count - 1))) / 2
         
         return UIEdgeInsetsMake(0, inset, 0, inset)
     }
     
     private func lineSpacing() -> CGFloat {
-        return count > 0 ? (view.frame.width - CGFloat(count) * size().width) / CGFloat(count + 1) : 0
+        return count > 0 ? size().width / CGFloat(count + 1) : 0
     }
     
     private func spacing() -> CGFloat {
-        let orientation = UIApplication.shared.statusBarOrientation
-        
-        if UIInterfaceOrientationIsPortrait(orientation) {
-            switch (collectionViewTraitCollection ?? collectionView!.traitCollection).horizontalSizeClass {
-            case .compact:
-                return 5
-            default:
-                return 30
-            }
-        } else {
-            switch (collectionViewTraitCollection ?? collectionView!.traitCollection).horizontalSizeClass {
-            case .compact:
-                return 5
-            default:
-                return 42
-            }
-        }
+        return 0
     }
     
 }
