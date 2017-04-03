@@ -162,11 +162,17 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     private func size() -> CGSize {
-        let throwsPerTurn = game?.throwsPerTurn ?? 0
-        let width = ceil(view.frame.width / CGFloat(throwsPerTurn + 1))
-        let dimension = min(width, view.frame.height)
+        let throwsPerTurn = CGFloat(game?.throwsPerTurn ?? 0)
+        let width = view.frame.width / (throwsPerTurn + 1)
         
-        return CGSize(width: dimension, height: dimension)
+        var dimension: CGFloat
+        if width < view.frame.height {
+            dimension = width
+        } else {
+            dimension = view.frame.height / (throwsPerTurn + 1)
+        }
+        
+        return CGSize(width: dimension, height: view.frame.height)
     }
     
     private func inset() -> UIEdgeInsets {
@@ -178,7 +184,7 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     private func lineSpacing() -> CGFloat {
-        return count > 0 ? size().width / CGFloat(count + 1) : 0
+        return count > 0 ? size().width / CGFloat((game?.throwsPerTurn ?? 0) + 1) : 0
     }
     
     private func spacing() -> CGFloat {
