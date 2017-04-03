@@ -432,22 +432,12 @@ class SliceStrategy: TargetStrategy {
         let distance = point.distance(to: layout.center)
         var section: Section
         
-        if initialSection == .single {
-            if distance < layout.bullseyeRadius + layout.radius * 0.1 {
-                section = .triple
-            } else if distance < layout.tripleOuterRadius + layout.radius * 0.1 {
-                section = .double
-            } else {
-                section = .single
-            }
+        if distance < layout.tripleOuterRadius + layout.radius * 0.1 {
+            section = .triple
+        } else if distance <= layout.doubleOuterRadius {
+            section = .double
         } else {
-            if distance < layout.tripleOuterRadius + layout.radius * 0.1 {
-                section = .triple
-            } else if distance < layout.doubleOuterRadius + layout.radius * 0.1 {
-                section = .double
-            } else {
-                section = .single
-            }
+            section = .single
         }
         
         return section
