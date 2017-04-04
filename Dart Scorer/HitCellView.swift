@@ -30,8 +30,8 @@ class HitCellView: UICollectionViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         
         contentMode = .redraw
     }
