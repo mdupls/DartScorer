@@ -178,7 +178,7 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     private func lineSpacing() -> CGFloat {
-        return count > 0 ? size().width / CGFloat((game?.throwsPerTurn ?? 0) + 1) : 0
+        return size().width / CGFloat((game?.throwsPerTurn ?? 0) + 1)
     }
     
     private func spacing() -> CGFloat {

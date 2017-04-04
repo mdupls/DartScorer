@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xF3-Pm-aeY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xF3-Pm-aeY">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -45,17 +45,27 @@
                                     <constraint firstAttribute="width" priority="750" constant="343" id="kVj-Be-kws"/>
                                 </constraints>
                                 <connections>
-                                    <segue destination="SMn-Yz-g2F" kind="embed" id="0Kz-LS-Y84"/>
+                                    <segue destination="SMn-Yz-g2F" kind="embed" identifier="embedGameChooser" id="0Kz-LS-Y84"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lim-zY-bjw">
+                                <rect key="frame" x="0.0" y="519" width="375" height="148"/>
+                                <connections>
+                                    <segue destination="Bn2-Vm-hzI" kind="embed" identifier="embedPlayers" id="7dy-l5-fpA"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="7Zd-p9-Lrj" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="yGr-3W-Rtv" secondAttribute="trailingMargin" priority="750" id="2dG-6U-ry9"/>
-                            <constraint firstItem="7Zd-p9-Lrj" firstAttribute="centerY" secondItem="yGr-3W-Rtv" secondAttribute="centerY" id="R9d-32-Ax5"/>
+                            <constraint firstItem="RVe-4W-qlE" firstAttribute="top" secondItem="lim-zY-bjw" secondAttribute="bottom" id="5Oy-HP-12M"/>
+                            <constraint firstItem="7Zd-p9-Lrj" firstAttribute="centerY" secondItem="yGr-3W-Rtv" secondAttribute="centerY" priority="750" id="R9d-32-Ax5"/>
+                            <constraint firstItem="lim-zY-bjw" firstAttribute="top" secondItem="7Zd-p9-Lrj" secondAttribute="bottom" constant="13" id="UVF-yc-Hjy"/>
+                            <constraint firstAttribute="trailing" secondItem="lim-zY-bjw" secondAttribute="trailing" id="aAc-hn-cLz"/>
                             <constraint firstItem="7Zd-p9-Lrj" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yGr-3W-Rtv" secondAttribute="leadingMargin" priority="750" id="ccm-km-YJf"/>
                             <constraint firstItem="RVe-4W-qlE" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7Zd-p9-Lrj" secondAttribute="bottom" id="ebU-RM-nYd"/>
                             <constraint firstItem="7Zd-p9-Lrj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Pcn-Yq-Koc" secondAttribute="bottom" id="hFh-8e-YFM"/>
+                            <constraint firstItem="lim-zY-bjw" firstAttribute="leading" secondItem="yGr-3W-Rtv" secondAttribute="leading" id="nNG-yX-xwn"/>
                             <constraint firstItem="7Zd-p9-Lrj" firstAttribute="centerX" secondItem="yGr-3W-Rtv" secondAttribute="centerX" id="xyT-p6-1ai"/>
                         </constraints>
                     </view>
@@ -63,7 +73,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r4u-fQ-ezs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1183" y="116"/>
+            <point key="canvasLocation" x="-1183.2" y="115.59220389805098"/>
         </scene>
         <!--Game Chooser View Controller-->
         <scene sceneID="jvH-J6-RUI">
@@ -78,7 +88,7 @@
                                 <rect key="frame" x="0.0" y="28" width="343" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BFx-PO-SGR" id="ehB-iL-LU2">
-                                    <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R1C-op-2ge">
@@ -118,6 +128,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pz7-pp-Mex" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="223" y="114"/>
+        </scene>
+        <!--Players-->
+        <scene sceneID="lAI-IK-IUo">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Players" id="Bn2-Vm-hzI" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RW8-vp-y9a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1183" y="656"/>
         </scene>
     </scenes>
 </document>

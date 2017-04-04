@@ -12,6 +12,12 @@ class GameChooserViewController: UITableViewController {
     
     private var config: GamesParser?
     
+    var players: [Player]? {
+        didSet {
+            
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,15 +27,6 @@ class GameChooserViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "playGame" {
             if let viewController = segue.destination as? GameViewController {
-                let player1 = Player(name: "Michael")
-                let player2 = Player(name: "Tegan")
-                let player3 = Player(name: "Tuco")
-                
-                var players: [Player] = []
-                players.append(player1)
-                players.append(player2)
-                players.append(player3)
-                
                 guard let index = tableView.indexPathForSelectedRow?.row, let game = config?.games[index] else {
                     return
                 }
@@ -37,13 +34,16 @@ class GameChooserViewController: UITableViewController {
                     return
                 }
                 
-                viewController.game = GameFactory(players: players).createGame(config: config)
+                viewController.game = GameFactory(players: players!).createGame(config: config)
             }
         }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "playGame" {
+            guard let players = players, !players.isEmpty else {
+                return false
+            }
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return false
             }
