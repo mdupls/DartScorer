@@ -91,6 +91,10 @@ extension CricketGame: Game {
         return "\(total)"
     }
     
+    func score(for score: Score) -> Int {
+        return score.cricketSum(hitsRequired: targetHitsRequired)
+    }
+    
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players
     }
@@ -99,7 +103,7 @@ extension CricketGame: Game {
 
 fileprivate extension Score {
     
-    func cricketSum(round score: Score, hitsRequired: Int) -> (round: Int, total: Int) {
+    func targetMap() -> [Int: Int] {
         var totalMap: [Int: Int] = [:]
         targets.forEach {
             if let hits = totalMap[$0.value] {
@@ -108,15 +112,26 @@ fileprivate extension Score {
                 totalMap[$0.value] = $0.section.rawValue
             }
         }
+        return totalMap
+    }
+    
+    func cricketSum(hitsRequired: Int) -> Int {
+        let totalMap = targetMap()
         
-        var roundMap: [Int: Int] = [:]
-        score.targets.forEach {
-            if let hits = roundMap[$0.value] {
-                roundMap[$0.value] = hits + $0.section.rawValue
-            } else {
-                roundMap[$0.value] = $0.section.rawValue
+        let total = totalMap.reduce(0) { (result, item: (key: Int, value: Int)) -> Int in
+            let hits = item.value
+            if hits > hitsRequired {
+                return result + (hits - hitsRequired) * item.key
             }
+            return result
         }
+        
+        return total
+    }
+    
+    func cricketSum(round score: Score, hitsRequired: Int) -> (round: Int, total: Int) {
+        let totalMap = targetMap()
+        let roundMap = score.targetMap()
         
         let round = roundMap.reduce(0) { (result, item: (key: Int, value: Int)) -> Int in
             let totalHits = totalMap[item.key] ?? 0

@@ -50,8 +50,10 @@ class ScoreViewController: UITableViewController {
         guard let cell = cell else { return }
         guard let player = game?.players[indexPath.row] else { return }
         
+        let score = game?.score(for: player.score())
+        
         cell.nameLabel.text = player.name
-        cell.scoreLabel.text = "\(player.score().sum())"
+        cell.scoreLabel.text = "\(score ?? 0)"
     }
     
 }

@@ -86,6 +86,10 @@ extension X01Game: Game {
         return "\(goal - total)"
     }
     
+    func score(for score: Score) -> Int {
+        return goal - score.sum()
+    }
+    
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players
     }

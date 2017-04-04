@@ -117,6 +117,10 @@ extension ShanghaiGame: Game {
         return "\(total)"
     }
     
+    func score(for score: Score) -> Int {
+        return score.sum()
+    }
+    
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players.sorted(by: { (player1, player2) -> Bool in
             return player1.score().sum() > player2.score().sum()
