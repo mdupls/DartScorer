@@ -129,7 +129,7 @@ class TargetSelectionView: UIView {
         guard let game = game else { return }
         guard let layout = layout else { return }
         
-        if let target = game.model.target(forValue: value, section: .single) {
+        if let target = game.model.slice(forValue: value, section: .single) {
             let highlighted = target.section == section
             let enlargeFactor = strategy?.enlargeFactor ?? 1
             let growthFactor = max(0, enlargeFactor - 1)
@@ -147,7 +147,7 @@ class TargetSelectionView: UIView {
         guard let game = game else { return }
         guard let layout = layout else { return }
         
-        if let target = game.model.target(forValue: value, section: .double) {
+        if let target = game.model.slice(forValue: value, section: .double) {
             let highlighted = target.section == section
             let enlargeFactor = strategy?.enlargeFactor ?? 1
             let growthFactor = max(0, enlargeFactor - 1)
@@ -166,7 +166,7 @@ class TargetSelectionView: UIView {
         guard let game = game else { return }
         guard let layout = layout else { return }
         
-        if let target = game.model.target(forValue: value, section: .triple) {
+        if let target = game.model.slice(forValue: value, section: .triple) {
             let highlighted = target.section == section
             let enlargeFactor = strategy?.enlargeFactor ?? 1
             let growthFactor = max(0, enlargeFactor - 1)
@@ -423,7 +423,7 @@ class SliceStrategy: TargetStrategy {
         let section = calculateSection(for: point, target: fixedTarget)
         
         if let target = fixedTarget ?? layout.slice(for: point) {
-            if let target = game.model.target(forValue: target.value, section: section) {
+            if let target = game.model.slice(forValue: target.value, section: section) {
                 let state = game.game.game(game, stateFor: target, player: player, round: round)
                 if state != .closed {
                     return target

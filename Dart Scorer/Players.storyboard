@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Qcf-x3-aNQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="R6a-Nz-bq3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Player Chooser View Controller-->
+        <!--Players-->
         <scene sceneID="z6X-JM-s4i">
             <objects>
                 <collectionViewController id="I6Z-Y2-dGy" customClass="PlayerChooserViewController" customModule="Dart_Scorer" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="u4H-Lz-wC6">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="u4H-Lz-wC6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -37,13 +38,21 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cqv-Cq-gLW">
+                                            <rect key="frame" x="20" y="20" width="110" height="37"/>
+                                        </imageView>
                                     </subviews>
                                 </view>
                                 <constraints>
+                                    <constraint firstItem="cqv-Cq-gLW" firstAttribute="leading" secondItem="aYe-xI-bLF" secondAttribute="leadingMargin" constant="12" id="4zU-Kf-04O"/>
                                     <constraint firstItem="fOs-Sx-Pw0" firstAttribute="centerX" secondItem="aYe-xI-bLF" secondAttribute="centerX" id="5PJ-Ng-dak"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="cqv-Cq-gLW" secondAttribute="trailing" constant="12" id="JeA-lu-Knh"/>
+                                    <constraint firstItem="cqv-Cq-gLW" firstAttribute="top" secondItem="aYe-xI-bLF" secondAttribute="topMargin" constant="12" id="SYh-GD-xfu"/>
+                                    <constraint firstItem="fOs-Sx-Pw0" firstAttribute="top" secondItem="cqv-Cq-gLW" secondAttribute="bottom" constant="8" id="bHi-d3-j7F"/>
                                     <constraint firstItem="fOs-Sx-Pw0" firstAttribute="centerY" secondItem="aYe-xI-bLF" secondAttribute="centerY" id="cm3-Zg-rks"/>
                                 </constraints>
                                 <connections>
+                                    <outlet property="imageView" destination="cqv-Cq-gLW" id="Yvh-gs-9Qj"/>
                                     <outlet property="nameLabel" destination="fOs-Sx-Pw0" id="zDa-Nd-YO0"/>
                                 </connections>
                             </collectionViewCell>
@@ -53,7 +62,7 @@
                             <outlet property="delegate" destination="I6Z-Y2-dGy" id="Lwc-9y-JCx"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="635-Ev-hVz">
+                    <navigationItem key="navigationItem" title="Players" id="635-Ev-hVz">
                         <barButtonItem key="leftBarButtonItem" style="done" systemItem="done" id="D0g-2s-hWL">
                             <connections>
                                 <segue destination="53p-wH-4Cf" kind="unwind" identifier="done" unwindAction="unwindFromPlayerChooserWithSegue:" id="aGr-D9-nDH"/>
@@ -69,12 +78,12 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eje-7X-cNw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="53p-wH-4Cf" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-86" y="566"/>
+            <point key="canvasLocation" x="-87.200000000000003" y="565.36731634182911"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4X5-UW-B6P">
             <objects>
-                <navigationController id="R6a-Nz-bq3" sceneMemberID="viewController">
+                <navigationController useStoryboardIdentifierAsRestorationIdentifier="YES" id="R6a-Nz-bq3" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vEp-Ff-vn3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -86,106 +95,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vlj-aU-Jao" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-927" y="567"/>
-        </scene>
-        <!--Opponents View Controller-->
-        <scene sceneID="kX5-k7-rvB">
-            <objects>
-                <collectionViewController id="Qcf-x3-aNQ" customClass="OpponentsViewController" customModule="Dart_Scorer" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" id="rZW-ne-DJv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="HXs-cg-8y3">
-                            <size key="itemSize" width="150" height="150"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="playerCell" id="9yb-Ks-ZWj" customClass="PlayerCollectionViewCell" customModule="Dart_Scorer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="-1" width="150" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X4f-yU-Oyf">
-                                            <rect key="frame" x="51.5" y="65" width="47" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="X4f-yU-Oyf" firstAttribute="centerY" secondItem="9yb-Ks-ZWj" secondAttribute="centerY" id="VLq-G8-BxR"/>
-                                    <constraint firstItem="X4f-yU-Oyf" firstAttribute="centerX" secondItem="9yb-Ks-ZWj" secondAttribute="centerX" id="ugv-rr-jXs"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="nameLabel" destination="X4f-yU-Oyf" id="mbJ-re-trr"/>
-                                </connections>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="teamCell" id="tyz-YG-Ucg" customClass="TeamCollectionViewCell" customModule="Dart_Scorer" customModuleProvider="target">
-                                <rect key="frame" x="160" y="-1" width="150" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYH-jO-gPd">
-                                            <rect key="frame" x="54" y="65" width="42" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="ZYH-jO-gPd" firstAttribute="centerX" secondItem="tyz-YG-Ucg" secondAttribute="centerX" id="fbz-fd-JgJ"/>
-                                    <constraint firstItem="ZYH-jO-gPd" firstAttribute="centerY" secondItem="tyz-YG-Ucg" secondAttribute="centerY" id="onk-Zn-WgC"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="nameLabel" destination="ZYH-jO-gPd" id="OAu-7I-v6n"/>
-                                </connections>
-                            </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="addPlayerCell" id="5nu-EL-Lwe" customClass="AddPlayerCollectionViewCell" customModule="Dart_Scorer" customModuleProvider="target">
-                                <rect key="frame" x="320" y="-1" width="150" height="150"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Dt-s2-ild">
-                                            <rect key="frame" x="34" y="65" width="82" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="6Dt-s2-ild" firstAttribute="centerY" secondItem="5nu-EL-Lwe" secondAttribute="centerY" id="Hdp-ZC-zE2"/>
-                                    <constraint firstItem="6Dt-s2-ild" firstAttribute="centerX" secondItem="5nu-EL-Lwe" secondAttribute="centerX" id="hsS-wo-PJp"/>
-                                </constraints>
-                                <connections>
-                                    <segue destination="R6a-Nz-bq3" kind="presentation" identifier="addPlayer" modalPresentationStyle="formSheet" id="saa-FA-P1x"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="Qcf-x3-aNQ" id="Qgm-6V-Xe2"/>
-                            <outlet property="delegate" destination="Qcf-x3-aNQ" id="mpm-tC-ZcZ"/>
-                        </connections>
-                    </collectionView>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <fixedSimulatedSizeMetrics key="simulatedDestinationMetrics">
-                        <size key="portraitSize" width="375" height="148"/>
-                        <size key="landscapeSize" width="148" height="375"/>
-                    </fixedSimulatedSizeMetrics>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8xv-d4-Nls" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1913" y="567"/>
         </scene>
     </scenes>
 </document>

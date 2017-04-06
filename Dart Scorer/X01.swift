@@ -76,7 +76,7 @@ extension X01Game: Game {
         return .initial
     }
     
-    func score(forRound roundScore: Score, total totalScore: Score) -> String {
+    func score(forPlayer player: GamePlayer, forRound roundScore: Score, total totalScore: Score) -> String? {
         let roundTotal = roundScore.sum()
         let total = totalScore.sum()
         
@@ -86,8 +86,8 @@ extension X01Game: Game {
         return "\(goal - total)"
     }
     
-    func score(for score: Score) -> Int {
-        return goal - score.sum()
+    func score(forPlayer player: GamePlayer) -> Int? {
+        return goal - player.score().sum()
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {

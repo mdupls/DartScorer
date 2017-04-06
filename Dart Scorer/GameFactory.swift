@@ -17,26 +17,28 @@ class GameFactory {
     }
     
     func createGame(config: String) -> CoreGame? {
-        let parser = GameParser(config: config)
-        let model = parser.model()
+        let config = GameConfig(config: config)
+        let model = config.model()
         var game: Game?
         
-        let config = Config(json: parser.json, slices: parser.slices)
+        let wrappedConfig = Config(json: config.json, slices: config.slices)
         
         // TODO: Swift 3 reflection APIs seem to be lacking. For now, just hard-code a mapping.
-        switch parser.name {
+        switch config.name {
         case "Cricket":
-            game = CricketGame(config: config)
-        case "X01":
-            game = X01Game(config: config, goal: 101)
+            game = CricketGame(config: wrappedConfig)
+        case "x01":
+            game = X01Game(config: wrappedConfig, goal: 301)
         case "Shanghai":
-            game = ShanghaiGame(config: config)
+            game = ShanghaiGame(config: wrappedConfig)
+        case "Around the World":
+            game = AroundTheWorldGame(config: wrappedConfig)
         default:
             game = nil
         }
         
         if let game = game {
-            return CoreGame(game: game, model: model, players: players, config: config)
+            return CoreGame(game: game, model: model, players: players, config: wrappedConfig)
         }
         
         return nil

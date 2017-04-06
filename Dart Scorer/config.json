@@ -5,12 +5,16 @@
             "config": "cricket.json"
         },
         {
-            "name": "X01",
+            "name": "x01",
             "config": "x01.json"
         },
         {
             "name": "Shanghai",
             "config": "shanghai.json"
+        },
+        {
+            "name": "Around the World",
+            "config": "aroundtheworld.json"
         }
     ]
 }

@@ -19,7 +19,7 @@ class OpponentsViewController: UICollectionViewController, UICollectionViewDeleg
     }
     
     var count: Int {
-        return (players?.count ?? 0) + 1
+        return max(1, players?.count ?? 0)
     }
     
     override func viewDidLoad() {
@@ -36,6 +36,18 @@ class OpponentsViewController: UICollectionViewController, UICollectionViewDeleg
         collectionView?.collectionViewLayout.invalidateLayout()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addPlayer" {
+            if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PlayerChooserViewController {
+                viewController.players = players
+            }
+        } else if segue.identifier == "players" {
+            if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PlayerChooserViewController {
+                viewController.players = players
+            }
+        }
+    }
+    
     // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -45,12 +57,14 @@ class OpponentsViewController: UICollectionViewController, UICollectionViewDeleg
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: UICollectionViewCell
         
-        if indexPath.row < players?.count ?? 0 {
+        let playerCount = players?.count ?? 0
+        
+        if playerCount == 0 {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addPlayerCell", for: indexPath)
+        } else if indexPath.row < playerCount {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "playerCell", for: indexPath)
             
             populate(cell: cell as? PlayerCollectionViewCell, indexPath: indexPath)
-        } else if true {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addPlayerCell", for: indexPath)
         } else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath)
             
@@ -86,7 +100,7 @@ class OpponentsViewController: UICollectionViewController, UICollectionViewDeleg
     }
     
     private func size() -> CGSize {
-        let dimension = min(view.frame.width / CGFloat(visibleItems + 1), view.frame.height / CGFloat(visibleItems - 1))
+        let dimension = view.frame.height
         
         return CGSize(width: dimension, height: dimension)
     }
@@ -94,7 +108,7 @@ class OpponentsViewController: UICollectionViewController, UICollectionViewDeleg
     private func inset() -> UIEdgeInsets {
         let spacing = lineSpacing()
         let size = self.size()
-        let horizontalInset = (view.frame.width - (size.width * CGFloat(count) + spacing * CGFloat(count - 1))) / 2
+        let horizontalInset = max(spacing, (view.frame.width - (size.width * CGFloat(count) + spacing * CGFloat(count - 1))) / 2)
         let verticalInset = (view.frame.height - size.height) / 2
         
         return UIEdgeInsetsMake(verticalInset, horizontalInset, verticalInset, horizontalInset)

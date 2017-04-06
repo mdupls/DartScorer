@@ -29,7 +29,7 @@ extension BoardDataSource: BoardViewDataSource {
     }
     
     func boardView(_ boardView: BoardView, targetAt index: Int, for section: Section) -> Target? {
-        return game.model.target(forIndex: index, section: section)
+        return game.model.slice(forIndex: index, section: section)
     }
     
     func boardView(_ boardView: BoardView, bullsEyeTargetFor section: Section) -> Target? {

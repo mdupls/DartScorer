@@ -28,6 +28,10 @@ class ViewController: UIViewController {
         players = (segue.source as? PlayerChooserViewController)?.players
     }
     
+    @IBAction func unwindFromGameOptions(segue: UIStoryboardSegue) {
+        
+    }
+    
     // MARK: Lifcycle
     
     override func viewDidLoad() {

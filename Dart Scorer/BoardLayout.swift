@@ -88,7 +88,7 @@ class BoardLayout {
             }
         }
         
-        return model.target(forIndex: index)
+        return model.slice(forIndex: index)
     }
     
 }

@@ -27,12 +27,8 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     // MARK: IBActions
     
     @IBAction func didTapCreatePlayer(sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: "Create Player", message: "", preferredStyle: .alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: {
-            alert -> Void in
-            
-            if let name = alertController.textFields?.first?.text {
+        askForName() {
+            if let name = $0 {
                 let player = Player(name: name)
                 
                 let persitence = PlayerPersistence(storage: CoreDataStorage())
@@ -40,21 +36,7 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
                 
                 self.players?.append(player)
             }
-        })
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
-            (action : UIAlertAction!) -> Void in
-            
-        })
-        
-        alertController.addTextField { (textField : UITextField!) -> Void in
-            textField.placeholder = "Player Name"
         }
-        
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
     }
     
     // MARK: Lifcycle
@@ -89,7 +71,7 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "playerCell", for: indexPath)
-            
+        
         populate(cell: cell as? PlayerCollectionViewCell, indexPath: indexPath)
         
         return cell
@@ -101,9 +83,9 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
         return size()
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return inset()
-    }
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        return inset()
+//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return lineSpacing()
@@ -121,16 +103,14 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     }
     
     private func size() -> CGSize {
-        let dimension = min(view.frame.width / CGFloat(visibleItems + 1), view.frame.height / CGFloat(visibleItems - 1))
+        let dimension = 100
         
         return CGSize(width: dimension, height: dimension)
     }
     
     private func inset() -> UIEdgeInsets {
-        let spacing = lineSpacing()
-        let size = self.size()
-        let horizontalInset = (view.frame.width - (size.width * CGFloat(count) + spacing * CGFloat(count - 1))) / 2
-        let verticalInset = (view.frame.height - size.height) / 2
+        let horizontalInset: CGFloat = lineSpacing()
+        let verticalInset: CGFloat = lineSpacing()
         
         return UIEdgeInsetsMake(verticalInset, horizontalInset, verticalInset, horizontalInset)
     }
@@ -140,13 +120,77 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     }
     
     private func spacing() -> CGFloat {
-        return 0
+        return 20
     }
     
     private func populate(cell: PlayerCollectionViewCell?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         
         cell.nameLabel.text = players?[indexPath.row].name
+    }
+    
+    private func askForName(completion: @escaping (_ name: String?) -> ()) {
+        let alertController = UIAlertController(title: "Create Player", message: "", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: {
+            alert -> Void in
+            
+            if let name = alertController.textFields?.first?.text {
+                if name.isEmpty {
+                    self.displayMessage(title: "Unable to Create Player", message: "A player must have a name.") {
+                        self.askForName(completion: completion)
+                    }
+                } else {
+                    let contains = self.players?.contains(where: { (player) -> Bool in
+                        return player.name == name
+                    })
+                    
+                    if contains ?? false {
+                        self.displayMessage(title: "Unable to Create Player", message: "A player with that name already exists.") {
+                            self.askForName(completion: completion)
+                        }
+                    } else {
+                        completion(name)
+                    }
+                }
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (action : UIAlertAction!) -> Void in
+            
+        })
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Player Name"
+            textField.keyboardType = .default
+            textField.autocapitalizationType = .words
+        }
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func displayMessage(title: String, message: String, completion: @escaping () -> ()) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: {
+            alert -> Void in
+            
+            completion()
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (action : UIAlertAction!) -> Void in
+            
+        })
+        
+        alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
     
 }

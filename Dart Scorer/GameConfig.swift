@@ -9,7 +9,7 @@
 import Foundation
 import CoreGraphics
 
-class GameParser {
+class GameConfig {
     
     private let _bullseye: Int = 25
     private let _slices: [Int] = [ 20, 1, 18, 4, 13, 6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5 ]
@@ -76,6 +76,10 @@ class GameParser {
         let model = BoardModel(slices: slices, bullseye: bullseye ?? self.bullseye)
         
         return model
+    }
+    
+    var properties: Properties {
+        return Properties(json: _json?["properties"] as? [Any])
     }
     
     // MARK: Private

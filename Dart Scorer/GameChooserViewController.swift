@@ -10,7 +10,7 @@ import UIKit
 
 class GameChooserViewController: UITableViewController {
     
-    private var config: GamesParser?
+    private var config: GamesConfig?
     
     var players: [Player]? {
         didSet {
@@ -18,10 +18,15 @@ class GameChooserViewController: UITableViewController {
         }
     }
     
+    var count: Int {
+        return config?.games.count ?? 0
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        config = GamesParser()
+        tableView.hideEmptyRows()
+        config = GamesConfig()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -36,12 +41,26 @@ class GameChooserViewController: UITableViewController {
                 
                 viewController.game = GameFactory(players: players!).createGame(config: config)
             }
+        } else if segue.identifier == "addPlayers" {
+            if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PlayerChooserViewController {
+                viewController.players = players
+            }
+        } else if segue.identifier == "gameOptions" {
+            if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PropertiesViewController {
+                if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
+                    if let name = config?.games[indexPath.row]["config"] as? String {
+                        viewController.config = GameConfig(config: name)
+                    }
+                }
+            }
         }
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "playGame" {
             guard let players = players, !players.isEmpty else {
+                performSegue(withIdentifier: "addPlayers", sender: nil)
+                
                 return false
             }
             guard let indexPath = tableView.indexPathForSelectedRow else {
@@ -56,15 +75,23 @@ class GameChooserViewController: UITableViewController {
     
     // MARK: UITableViewDelegate
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
     // MARK: UITableViewDataSource
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return config?.games.count ?? 0
+        return count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath)
-        
+            
         populate(cell: cell as? GameViewCell, for: indexPath)
         
         return cell

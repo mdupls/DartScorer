@@ -26,11 +26,13 @@ class BoardModel {
     
     private let _bullseye: Target
     private let _doubleBullseye: Target
-    private var _slices: [[Section : Target]] = []
+    private let _slices: [[Section : Target]]
     
     init(slices: [Int], bullseye: Int) {
         self.slices = slices
         self.values = [bullseye] + slices
+        
+        var sectionSlices: [[Section: Target]] = []
         
         for value in slices {
             var slice: [Section : Target] = [:]
@@ -38,9 +40,10 @@ class BoardModel {
             slice[.double] = Target(value: value, section: .double)
             slice[.triple] = Target(value: value, section: .triple)
             
-            _slices.append(slice)
+            sectionSlices.append(slice)
         }
         
+        _slices = sectionSlices
         _bullseye = Target(value: bullseye, section: .single)
         _doubleBullseye = Target(value: bullseye, section: .double)
     }
@@ -55,13 +58,29 @@ class BoardModel {
         return slices.index(of: target.value)
     }
     
-    func target(forIndex index: Int, section: Section = .single) -> Target? {
+    func slice(forIndex index: Int, section: Section = .single) -> Target? {
         return _slices[index][section]
+    }
+    
+    func slice(forValue value: Int, section: Section = .single) -> Target? {
+        if let index = slices.index(of: value) {
+            return slice(forIndex: index, section: section)
+        }
+        return nil
     }
     
     func target(forValue value: Int, section: Section = .single) -> Target? {
         if let index = slices.index(of: value) {
-            return target(forIndex: index, section: section)
+            return slice(forIndex: index, section: section)
+        } else if value == _bullseye.value {
+            switch section {
+            case .single:
+                return _bullseye
+            case .double:
+                return _doubleBullseye
+            default:
+                return nil
+            }
         }
         return nil
     }

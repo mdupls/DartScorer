@@ -79,7 +79,7 @@ extension CricketGame: Game {
         return .initial
     }
     
-    func score(forRound roundScore: Score, total totalScore: Score) -> String {
+    func score(forPlayer player: GamePlayer, forRound roundScore: Score, total totalScore: Score) -> String? {
         let result = totalScore.cricketSum(round: roundScore, hitsRequired: targetHitsRequired)
         
         let roundTotal = result.round
@@ -91,8 +91,8 @@ extension CricketGame: Game {
         return "\(total)"
     }
     
-    func score(for score: Score) -> Int {
-        return score.cricketSum(hitsRequired: targetHitsRequired)
+    func score(forPlayer player: GamePlayer) -> Int? {
+        return player.score().cricketSum(hitsRequired: targetHitsRequired)
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {

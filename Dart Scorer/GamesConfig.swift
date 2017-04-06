@@ -8,7 +8,7 @@
 
 import Foundation
 
-class GamesParser {
+class GamesConfig {
     
     private var _json: [String: Any]?
     
