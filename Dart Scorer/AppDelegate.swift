@@ -12,9 +12,21 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var storage: CoreDataStorage?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        let config = GamesConfig()
+        let storage = CoreDataStorage()
+        self.storage = storage
+        
+        let persistence = GamePersistence(storage: storage)
+        
+        for game in config.games {
+            if let name = game["name"] as? String {
+                persistence.save(game: name)
+            }
+        }
+        
         // Override point for customization after application launch.
         return true
     }

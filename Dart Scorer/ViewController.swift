@@ -19,6 +19,10 @@ class ViewController: UIViewController {
         }
     }
     
+    var storage: CoreDataStorage {
+        return ((UIApplication.shared.delegate as? AppDelegate)?.storage)!
+    }
+    
     weak var opponentsViewController: OpponentsViewController?
     weak var gameChooserViewController: GameChooserViewController?
     
@@ -37,8 +41,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let persitence = PlayerPersistence(storage: CoreDataStorage())
-        players = persitence.getPlayers()
+        let persitence = PlayerPersistence(storage: storage)
+        players = persitence.players()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

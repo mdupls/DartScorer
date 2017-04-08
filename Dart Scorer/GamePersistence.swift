@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class GamePersitence {
+class GamePersistence {
     
     private static let entityName = "Game"
     
@@ -19,29 +19,19 @@ class GamePersitence {
         self.storage = storage
     }
     
-    func save(game: CoreGame?) {
-        // Ensure only 1 entry exists in storage.
-        reset()
-        
-        if let game = game, let managedObject = storage.writer(entityName: GamePersitence.entityName) as? GameEntity {
-            managedObject.name = game.name
-            
-            storage.save()
-        }
-    }
-    
-    func get() -> Game? {
-//        if let managedObject = storage.reader(entityName: GamePersitence.entityName).last as? GameEntity {
-//            if let name = managedObject.name {
-//                return Player(name: name)
-//            }
+    func save(game: String) {
+//        if let managedObject = storage.writer(entityName: GamePersistence.entityName) as? GameEntity {
+//            managedObject.name = game
+//            
+//            storage.save()
 //        }
-        return nil
     }
     
-    func reset() {
-        storage.delete(entityName: GamePersitence.entityName)
-        storage.save()
+    func game(with name: String) -> GameEntity? {
+        let predicate = NSPredicate(format: "name == %@", name)
+        let managedObjects = storage.reader(entityName: GamePersistence.entityName, predicate: predicate)
+        
+        return managedObjects.first as? GameEntity
     }
     
 }

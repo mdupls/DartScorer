@@ -14,13 +14,15 @@ class PropertiesViewController: UITableViewController {
     
     var config: GameConfig?
     
-    var properties: [Property] {
-        return config?.properties.properties ?? []
+    var properties: [GameProperty] {
+        return config?.properties ?? []
     }
     
     var count: Int {
         return properties.count
     }
+    
+    // MARK: IBAction
     
     // MARK: Lifecycle
     
@@ -28,6 +30,12 @@ class PropertiesViewController: UITableViewController {
         super.viewDidLoad()
         
         title = config?.name
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -81,6 +89,12 @@ class PropertiesViewController: UITableViewController {
         let property = properties[indexPath.row]
         
         cell.textLabel?.text = property.name
+        
+        if let value = property.value {
+            cell.detailTextLabel?.text = "\(value)"
+        } else {
+            cell.detailTextLabel?.text = nil
+        }
     }
     
 }

@@ -12,7 +12,7 @@ class PropertyViewController: UITableViewController {
     
     // MARK: Variables
     
-    var property: Property?
+    var property: GameProperty?
     
     var values: [Any] {
         return property?.values ?? []
@@ -54,7 +54,7 @@ class PropertyViewController: UITableViewController {
         if count > 0, let index = selectedIndex {
             let indexPath = IndexPath(row: index, section: 0)
             
-            tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+            tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
         }
     }
     
@@ -71,6 +71,9 @@ class PropertyViewController: UITableViewController {
             // Check the newly selected row.
             tableView.reloadRows(at: [indexPath], with: .automatic)
         }
+        
+        // Update the property.
+        property?.value = values[indexPath.row]
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

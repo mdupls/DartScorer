@@ -16,9 +16,9 @@ class X01Game {
     
     private var _finished: Bool = false
     
-    init(config: Config, goal: Int) {
+    init(config: Config) {
         self.config = config
-        self.goal = goal
+        self.goal = config.properties.property(id: "starting_score")?.value as? Int ?? 501
         
         var targets: [Int: Bool] = [:]
         for value in config.targets {
@@ -44,6 +44,10 @@ class X01Game {
 }
 
 extension X01Game: Game {
+    
+    var rounds: Int? {
+        return nil
+    }
     
     func game(_ game: CoreGame, hit target: Target, player: GamePlayer, round: Int) -> ScoreResult? {
         let score = player.scores[round]!

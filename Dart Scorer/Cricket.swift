@@ -39,6 +39,10 @@ class CricketGame {
 
 extension CricketGame: Game {
     
+    var rounds: Int? {
+        return nil
+    }
+    
     func game(_ game: CoreGame, hit target: Target, player: GamePlayer, round: Int) -> ScoreResult? {
         var result: ScoreResult?
         let score = player.scores[round]!

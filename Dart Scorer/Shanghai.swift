@@ -10,61 +10,42 @@ import Foundation
 
 class ShanghaiGame {
     
-    let config: Config
-    let targets: [[Int: Bool]]
-    let rounds: Int
+    fileprivate let config: Config
+    private let targets: [Int]
+    private let startingIndex: Int
+    private let endingIndex: Int
+    private let clockwise: Bool
+    fileprivate let _rounds: Int
     
     init(config: Config) {
         self.config = config
+        self.targets = config.targets
         
-        var targets: [[Int: Bool]] = []
-        if let sequentialTargets = config.sequentialTargets {
-            for round in sequentialTargets {
-                var targetsForRound: [Int: Bool] = [:]
-                for value in round {
-                    targetsForRound[value] = true
-                }
-                targets.append(targetsForRound)
-            }
-        }
-        self.targets = targets
-        self.rounds = config.rounds ?? 0
+        let startingTarget = config.properties.property(id: "starting_target")?.value as? Int ?? 1
+        let endingTarget = config.properties.property(id: "ending_target")?.value as? Int ?? 25
+        
+        startingIndex = targets.index(of: startingTarget) ?? 0
+        endingIndex = targets.index(of: endingTarget) ?? max(0, config.targets.count - 1)
+        
+        clockwise = startingIndex <= endingIndex
+        _rounds = abs(endingIndex - startingIndex) + 1
     }
     
-    // MARK: Private
-    
-    func maximumPointsPossible(from round: Int) -> Int {
-        var sum = 0
-        if let sequentialTargets = config.sequentialTargets {
-            for r in round ..< rounds {
-                let targets = sequentialTargets[r]
-                
-                let maxTarget = targets.reduce(0, { (result, value) -> Int in
-                    if value > result {
-                        return value
-                    }
-                    return result
-                })
-                
-                let multiplier = config.isBullseye(value: maxTarget) ? Section.double.rawValue : Section.triple.rawValue
-                
-                sum += maxTarget * multiplier * config.throwsPerTurn
-            }
-        }
-        return sum
+    func isInPlay(target: Target, player: GamePlayer, round: Int) -> Bool {
+        return target.value == self.target(forRound: round)
     }
     
     func hasWon(game: CoreGame, player: GamePlayer, round: Int) -> ScoreResult? {
         let players = rank(players: game.players)
         
-        let remainingMaxPoints = maximumPointsPossible(from: round)
+        let remainingPointsPossible = self.remainingPointsPossible(from: round)
         
         if players.count == 1 {
-            if round == rounds - 1 {
+            if round == _rounds - 1 {
                 return .won
             }
         } else {
-            if players[0].score().sum() > players[1].score().sum() + remainingMaxPoints {
+            if players[0].score().sum() > players[1].score().sum() + remainingPointsPossible {
                 return .won
             }
         }
@@ -72,9 +53,39 @@ class ShanghaiGame {
         return .ok
     }
     
+    // MARK: Private
+    
+    private func target(forRound round: Int) -> Int {
+        if clockwise {
+            return targets[min(endingIndex, max(startingIndex, startingIndex + round))]
+        } else {
+            return targets[min(startingIndex, max(endingIndex, startingIndex - round))]
+        }
+    }
+    
+    private func remainingPointsPossible(from round: Int) -> Int {
+        var sum = 0
+        let start = clockwise ? startingIndex + round : endingIndex - round
+        let end = clockwise ? endingIndex : startingIndex
+        
+        for r in start ... end {
+            let target = targets[r]
+            
+            let maxMultiplier = config.isBullseye(value: target) ? Section.double.rawValue : Section.triple.rawValue
+            
+            sum += target * maxMultiplier * config.throwsPerTurn
+        }
+        
+        return sum
+    }
+    
 }
 
 extension ShanghaiGame: Game {
+    
+    var rounds: Int? {
+        return _rounds
+    }
     
     func game(_ game: CoreGame, hit target: Target, player: GamePlayer, round: Int) -> ScoreResult? {
         let score = player.scores[round]!
@@ -100,7 +111,7 @@ extension ShanghaiGame: Game {
     }
     
     func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState {
-        guard target.isInPlay(in: self, round: round) else {
+        guard isInPlay(target: target, player: player, round: round) else {
             return .closed
         }
         
@@ -125,14 +136,6 @@ extension ShanghaiGame: Game {
         return players.sorted(by: { (player1, player2) -> Bool in
             return player1.score().sum() > player2.score().sum()
         })
-    }
-    
-}
-
-fileprivate extension Target {
-    
-    func isInPlay(in game: ShanghaiGame, round: Int) -> Bool {
-        return game.targets[round][value] ?? false
     }
     
 }

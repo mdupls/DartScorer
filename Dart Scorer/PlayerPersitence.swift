@@ -19,35 +19,28 @@ class PlayerPersistence {
         self.storage = storage
     }
     
-    func save(player: Player?) {
-        if let player = player, let managedObject = storage.writer(entityName: PlayerPersistence.entityName) as? PlayerEntity {
-            managedObject.name = player.name
+    func createPlayer(with name: String) -> Player? {
+        if let managedObject = storage.writer(entityName: PlayerPersistence.entityName) as? Player {
+            managedObject.name = name
             
             storage.save()
-        }
-    }
-    
-    func get() -> Player? {
-        if let managedObject = storage.reader(entityName: PlayerPersistence.entityName).last as? PlayerEntity {
-            if let name = managedObject.name {
-                return Player(name: name)
-            }
+            
+            return managedObject
         }
         return nil
     }
     
-    func getPlayers() -> [Player] {
+    func players() -> [Player] {
         let managedObjects = storage.reader(entityName: PlayerPersistence.entityName)
         
-        var players: [Player] = []
-        managedObjects.forEach {
-            if let player = $0 as? PlayerEntity {
-                if let name = player.name {
-                    players.append(Player(name: name))
-                }
-            }
-        }
-        return players
+        return managedObjects as? [Player] ?? []
+    }
+    
+    func player(with name: String) -> Player? {
+        let predicate = NSPredicate(format: "name == %@", name)
+        let managedObjects = storage.reader(entityName: PlayerPersistence.entityName, predicate: predicate)
+        
+        return managedObjects.first as? Player
     }
     
 }

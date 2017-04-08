@@ -12,6 +12,9 @@ class AroundTheWorldGame {
     
     let config: Config
     let targets: [Int]
+    let startingIndex: Int
+    let endingIndex: Int
+    let clockwise: Bool
     
     // Mapping of player names to current index in the array of targets.
     private var playerCursor: [String : Int] = [:]
@@ -21,49 +24,73 @@ class AroundTheWorldGame {
     init(config: Config) {
         self.config = config
         self.targets = config.targets
+        
+        let startingTarget = config.properties.property(id: "starting_target")?.value as? Int ?? 1
+        let endingTarget = config.properties.property(id: "ending_target")?.value as? Int ?? 25
+        
+        startingIndex = targets.index(of: startingTarget) ?? 0
+        endingIndex = targets.index(of: endingTarget) ?? max(0, config.targets.count - 1)
+        
+        clockwise = startingIndex <= endingIndex
     }
     
     func isInPlay(target: Target, player: GamePlayer) -> Bool {
-        guard let value = self.target(forPlayer: player) else { return false }
-        
-        return target.value == value
+        return target.value == self.target(forPlayer: player)
     }
     
     func hit(target: Target, player: GamePlayer) {
-        let index = playerCursor[player.name] ?? 0
+        let index = self.index(forPlayer: player)
         
-        playerCursor[player.name] = index + 1
+        if clockwise {
+            playerCursor[player.name] = index + 1
+        } else {
+            playerCursor[player.name] = index - 1
+        }
     }
     
     func unHit(target: Target, player: GamePlayer) {
-        let index = playerCursor[player.name] ?? 0
+        let index = self.index(forPlayer: player)
         
-        playerCursor[player.name] = max(0, index - 1)
+        if clockwise {
+            playerCursor[player.name] = max(startingIndex, index - 1)
+        } else {
+            playerCursor[player.name] = min(startingIndex, index + 1)
+        }
     }
     
     func hasWon(player: GamePlayer) -> Bool {
-        let index = playerCursor[player.name] ?? 0
+        let index = self.index(forPlayer: player)
         
-        return index >= targets.count
+        if clockwise {
+            return index > endingIndex
+        } else {
+            return index < endingIndex
+        }
     }
     
-    func target(forPlayer player: GamePlayer) -> Int? {
-        let index = playerCursor[player.name] ?? 0
+    func target(forPlayer player: GamePlayer) -> Int {
+        let index = self.index(forPlayer: player)
         
-        return target(forIndex: index)
+        if clockwise {
+            return targets[min(endingIndex, max(startingIndex, index))]
+        } else {
+            return targets[min(startingIndex, max(endingIndex, index))]
+        }
     }
     
     // MARK: Private
     
-    private func target(forIndex index: Int) -> Int? {
-        guard index < targets.count && index >= 0 else { return nil }
-        
-        return targets[index]
+    private func index(forPlayer player: GamePlayer) -> Int {
+        return playerCursor[player.name] ?? startingIndex
     }
     
 }
 
 extension AroundTheWorldGame: Game {
+    
+    var rounds: Int? {
+        return nil
+    }
     
     func game(_ game: CoreGame, hit target: Target, player: GamePlayer, round: Int) -> ScoreResult? {
         let score = player.scores[round]!
@@ -110,10 +137,6 @@ extension AroundTheWorldGame: Game {
     }
     
     func score(forPlayer player: GamePlayer) -> Int? {
-        if hasWon(player: player) {
-            return targets.last
-        }
-        
         return target(forPlayer: player)
     }
     

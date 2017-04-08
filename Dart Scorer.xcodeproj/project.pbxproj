@@ -11,6 +11,7 @@
 		19203A6D1E93275100158AC1 /* PlayerCollectionViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19203A6C1E93275100158AC1 /* PlayerCollectionViewCells.swift */; };
 		19203A701E932DFB00158AC1 /* PlayerChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19203A6F1E932DFB00158AC1 /* PlayerChooserViewController.swift */; };
 		19203A721E932FEA00158AC1 /* Players.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19203A711E932FEA00158AC1 /* Players.storyboard */; };
+		193317871E99ABE5001C84BB /* CricketTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193317861E99ABE5001C84BB /* CricketTest.swift */; };
 		19460B521E947C1B00FBFAE0 /* aroundtheworld.json in Resources */ = {isa = PBXBuildFile; fileRef = 19460B511E947C1B00FBFAE0 /* aroundtheworld.json */; };
 		19460B541E947C4700FBFAE0 /* AroundTheWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19460B531E947C4700FBFAE0 /* AroundTheWorld.swift */; };
 		1955ACDA1E909C3B0069FA8F /* ActiveScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1955ACD91E909C3B0069FA8F /* ActiveScoreViewController.swift */; };
@@ -60,7 +61,7 @@
 		19EA7F0B1E9563A7002AECC7 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19EA7F0A1E9563A7002AECC7 /* UITableView+Extensions.swift */; };
 		19EA7F0D1E95998B002AECC7 /* PropertiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19EA7F0C1E95998B002AECC7 /* PropertiesViewController.swift */; };
 		19EA7F0F1E95D1B4002AECC7 /* PropertyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19EA7F0E1E95D1B4002AECC7 /* PropertyViewController.swift */; };
-		19EA7F121E95D3C1002AECC7 /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19EA7F111E95D3C1002AECC7 /* Properties.swift */; };
+		19EA7F121E95D3C1002AECC7 /* GameProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19EA7F111E95D3C1002AECC7 /* GameProperty.swift */; };
 		19EA7F151E95D551002AECC7 /* Properties.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19EA7F131E95D551002AECC7 /* Properties.storyboard */; };
 		19F07DA21E246A0400C7AB32 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19F07DA11E246A0400C7AB32 /* AppDelegate.swift */; };
 		19F07DA71E246A0400C7AB32 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19F07DA51E246A0400C7AB32 /* Main.storyboard */; };
@@ -93,6 +94,7 @@
 		19203A6C1E93275100158AC1 /* PlayerCollectionViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCells.swift; sourceTree = "<group>"; };
 		19203A6F1E932DFB00158AC1 /* PlayerChooserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerChooserViewController.swift; sourceTree = "<group>"; };
 		19203A711E932FEA00158AC1 /* Players.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Players.storyboard; sourceTree = "<group>"; };
+		193317861E99ABE5001C84BB /* CricketTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CricketTest.swift; sourceTree = "<group>"; };
 		19460B511E947C1B00FBFAE0 /* aroundtheworld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aroundtheworld.json; sourceTree = "<group>"; };
 		19460B531E947C4700FBFAE0 /* AroundTheWorld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AroundTheWorld.swift; sourceTree = "<group>"; };
 		1955ACD91E909C3B0069FA8F /* ActiveScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveScoreViewController.swift; sourceTree = "<group>"; };
@@ -142,7 +144,7 @@
 		19EA7F0A1E9563A7002AECC7 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		19EA7F0C1E95998B002AECC7 /* PropertiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertiesViewController.swift; sourceTree = "<group>"; };
 		19EA7F0E1E95D1B4002AECC7 /* PropertyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyViewController.swift; sourceTree = "<group>"; };
-		19EA7F111E95D3C1002AECC7 /* Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
+		19EA7F111E95D3C1002AECC7 /* GameProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameProperty.swift; sourceTree = "<group>"; };
 		19EA7F141E95D551002AECC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Properties.storyboard; sourceTree = "<group>"; };
 		19F07D9E1E246A0400C7AB32 /* Dart Scorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Dart Scorer.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		19F07DA11E246A0400C7AB32 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -317,7 +319,7 @@
 		19EA7F101E95D27F002AECC7 /* Properties */ = {
 			isa = PBXGroup;
 			children = (
-				19EA7F111E95D3C1002AECC7 /* Properties.swift */,
+				19EA7F111E95D3C1002AECC7 /* GameProperty.swift */,
 				19EA7F0C1E95998B002AECC7 /* PropertiesViewController.swift */,
 				19EA7F0E1E95D1B4002AECC7 /* PropertyViewController.swift */,
 			);
@@ -373,6 +375,7 @@
 			children = (
 				19F07DB61E246A0400C7AB32 /* Dart_ScorerTests.swift */,
 				19F07DB81E246A0400C7AB32 /* Info.plist */,
+				193317861E99ABE5001C84BB /* CricketTest.swift */,
 			);
 			path = "Dart ScorerTests";
 			sourceTree = "<group>";
@@ -551,7 +554,7 @@
 				198EE4691E931A9100CEA09B /* PlayerPersitence.swift in Sources */,
 				19203A6D1E93275100158AC1 /* PlayerCollectionViewCells.swift in Sources */,
 				1979DF8E1E7B31DE00A667FC /* Target.swift in Sources */,
-				19EA7F121E95D3C1002AECC7 /* Properties.swift in Sources */,
+				19EA7F121E95D3C1002AECC7 /* GameProperty.swift in Sources */,
 				1972CA431E7A216200A257D9 /* Score.swift in Sources */,
 				19C32B821E8F13380039EE23 /* TargetSelectionView.swift in Sources */,
 				19B18AB51E84A36300923D8A /* GameChooserViewController.swift in Sources */,
@@ -586,6 +589,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19F07DB71E246A0400C7AB32 /* Dart_ScorerTests.swift in Sources */,
+				193317871E99ABE5001C84BB /* CricketTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -19,30 +19,19 @@ class CoreDataStorage {
             fatalError("Error loading model from bundle")
         }
         // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
-        guard let mom = NSManagedObjectModel(contentsOf: modelURL) else {
-            fatalError("Error initializing mom from: \(modelURL)")
+        guard let objectModel = NSManagedObjectModel(contentsOf: modelURL) else {
+            fatalError("Error initializing object model from: \(modelURL)")
         }
-        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: mom)
+        let coordinator = NSPersistentStoreCoordinator(managedObjectModel: objectModel)
         managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         
         load(coordinator: coordinator)
     }
     
-    private func load(coordinator: NSPersistentStoreCoordinator) {
-        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        guard let docUrl = urls.last else { return }
-        
-        let url = docUrl.appendingPathComponent("Model.sqlite")
-        do {
-            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
-        } catch {
-            fatalError("Error migrating store: \(error)")
-        }
-    }
-    
-    func reader(entityName: String) -> [AnyObject] {
+    func reader(entityName: String, predicate: NSPredicate? = nil) -> [AnyObject] {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
+        fetchRequest.predicate = predicate
         
         do {
             return try managedObjectContext.fetch(fetchRequest)
@@ -70,6 +59,20 @@ class CoreDataStorage {
             try managedObjectContext.save()
         } catch let error as NSError {
             fatalError("Failure to save context: \(error)")
+        }
+    }
+    
+    // MARK: Private
+    
+    private func load(coordinator: NSPersistentStoreCoordinator) {
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        guard let docUrl = urls.last else { return }
+        
+        let url = docUrl.appendingPathComponent("Model.sqlite")
+        do {
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: nil)
+        } catch {
+            fatalError("Error migrating store: \(error)")
         }
     }
     

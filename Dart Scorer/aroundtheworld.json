@@ -1,4 +1,5 @@
 {
+    "id": "around_the_world",
     "name": "Around the World",
     "board": {
         "targets": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25 ]
@@ -9,26 +10,26 @@
             "id": "starting_target",
             "type": "integer",
             "values": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 25 ],
-            "initial": 1
+            "value": 1
         },
         {
-            "name": "Rounds",
-            "id": "rounds",
+            "name": "Ending Target",
+            "id": "ending_target",
             "type": "integer",
             "values": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21 ],
-            "initial": 20
+            "value": 20
         },
         {
             "name": "Double Out",
             "id": "double_out",
             "type": "boolean",
-            "initial": false
+            "value": false
         },
         {
-           "name": "Triple Out",
-           "id": "triple_out",
+            "name": "Triple Out",
+            "id": "triple_out",
             "type": "boolean",
-            "initial": false
+            "value": false
         }
     ]
 }

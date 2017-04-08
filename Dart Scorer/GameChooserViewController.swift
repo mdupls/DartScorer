@@ -35,7 +35,7 @@ class GameChooserViewController: UITableViewController {
                 guard let index = tableView.indexPathForSelectedRow?.row, let game = config?.games[index] else {
                     return
                 }
-                guard let config = game["config"] as? String else {
+                guard let name = game["config"] as? String, let config = GameConfig(name: name) else {
                     return
                 }
                 
@@ -49,7 +49,7 @@ class GameChooserViewController: UITableViewController {
             if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PropertiesViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
                     if let name = config?.games[indexPath.row]["config"] as? String {
-                        viewController.config = GameConfig(config: name)
+                        viewController.config = GameConfig(name: name)
                     }
                 }
             }

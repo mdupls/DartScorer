@@ -20,14 +20,14 @@ class CoreGame {
     let model: BoardModel
     let players: [GamePlayer]
     
-    private let config: CoreConfig
+    private let config: Config
     
     var throwsPerTurn: Int {
         return config.throwsPerTurn
     }
     
     var rounds: Int? {
-        return config.rounds
+        return game.rounds
     }
     
     var name: String {
@@ -45,7 +45,7 @@ class CoreGame {
     init(game: Game, model: BoardModel, players: [Player], config: Config) {
         self.game = game
         self.model = model
-        self.config = CoreConfig(config: config)
+        self.config = config
         
         self.players = players.map {
             return GamePlayer(player: $0)
@@ -136,43 +136,9 @@ class CoreGame {
     
 }
 
-private class CoreConfig {
-    
-    private let config: Config
-    
-    init(config: Config) {
-        self.config = config
-    }
-    
-    var name: String {
-        return config.name
-    }
-    
-    var rounds: Int? {
-        return config.rounds
-    }
-    
-    var throwsPerTurn: Int {
-        return config.throwsPerTurn
-    }
-    
-    var showHitMarkers: Bool {
-        return config.showHitMarkers
-    }
-    
-    var targetHitsRequired: Int? {
-        return config.targetHitsRequired
-    }
-    
-    // MARK: Private
-    
-    private var _board: [String : Any]? {
-        return config.json?["board"] as? [String : Any]
-    }
-    
-}
-
 protocol Game {
+    
+    var rounds: Int? { get }
     
     func game(_ game: CoreGame, hit target: Target, player: GamePlayer, round: Int) -> ScoreResult?
     

@@ -24,17 +24,20 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
         return players?.count ?? 0
     }
     
+    var storage: CoreDataStorage {
+        return ((UIApplication.shared.delegate as? AppDelegate)?.storage)!
+    }
+    
     // MARK: IBActions
     
     @IBAction func didTapCreatePlayer(sender: UIBarButtonItem) {
         askForName() {
             if let name = $0 {
-                let player = Player(name: name)
-                
-                let persitence = PlayerPersistence(storage: CoreDataStorage())
-                persitence.save(player: player)
-                
-                self.players?.append(player)
+                let persitence = PlayerPersistence(storage: self.storage)
+                if let player = persitence.createPlayer(with: name) {
+                    self.players?.append(player)
+                    self.collectionView?.reloadData()
+                }
             }
         }
     }
