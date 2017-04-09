@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class X01Game {
     
@@ -90,12 +91,16 @@ extension X01Game: Game {
         return "\(goal - total)"
     }
     
-    func score(forPlayer player: GamePlayer) -> Int? {
-        return goal - player.score().sum()
+    func score(forPlayer player: GamePlayer, score: Score) -> Int? {
+        return goal - score.sum()
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players
+    }
+    
+    func scoreViewController() -> UIViewController? {
+        return nil
     }
     
 }

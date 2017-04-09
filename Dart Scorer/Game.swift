@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum GameState {
     case finished
@@ -123,15 +124,24 @@ class CoreGame {
         }
     }
     
-    func score(forPlayer player: GamePlayer, round: Int) -> String? {
+    func scoreTitle(forPlayer player: GamePlayer, round: Int) -> String? {
         let totalScore = player.score(at: round)
         let roundScore = player.score(for: round) ?? Score()
         
         return game.score(forPlayer: player, forRound: roundScore, total: totalScore)
     }
     
-    func score(forPlayer player: GamePlayer) -> Int? {
-        return game.score(forPlayer: player)
+    func score(forPlayer player: GamePlayer, round: Int? = nil) -> Int? {
+        let score = player.score(at: round)
+        
+        return game.score(forPlayer: player, score: score)
+    }
+    
+    func state(for targetValue: Int, player: GamePlayer, round: Int) -> TargetState {
+        if let target = model.target(forValue: targetValue) {
+            return game.game(self, stateFor: target, player: player, round: round)
+        }
+        return .closed
     }
     
 }
@@ -148,8 +158,10 @@ protocol Game {
     
     func score(forPlayer player: GamePlayer, forRound roundScore: Score, total totalScore: Score) -> String?
     
-    func score(forPlayer player: GamePlayer) -> Int?
+    func score(forPlayer player: GamePlayer, score: Score) -> Int?
     
     func rank(players: [GamePlayer]) -> [GamePlayer]
+    
+    func scoreViewController() -> UIViewController?
     
 }

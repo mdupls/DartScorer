@@ -15,7 +15,7 @@ fileprivate enum DoneType {
     case none
 }
 
-class GameViewController: UIViewController {
+class GameViewController: UIPageViewController {
     
     // MARK: Variables
     
@@ -23,12 +23,29 @@ class GameViewController: UIViewController {
     var round: Int = 0
     var currentIndex: Int = 0
     
+    weak var pagingDelegate: PageViewControllerDelegate?
+    
     private var doneType: DoneType = .nextRound
     
-    // MARK: IBOutlets
+    private(set) lazy var orderedViewControllers: [UIViewController] = {
+        var viewControllers: [UIViewController] = []
+        
+        for player in self.game.players {
+            viewControllers.append(self.newViewController(withIdentifier: "player", player: player))
+        }
+        
+        let viewController = self.game.game.scoreViewController() ?? UIStoryboard(name: "Score", bundle: nil).instantiateViewController(withIdentifier: "score")
+        if let scoreViewController = viewController as? ScoreView {
+            scoreViewController.game = self.game
+            scoreViewController.round = self.round
+            viewControllers.append(viewController)
+        }
+        
+        // The view controllers will be shown in this order
+        return viewControllers
+    }()
     
-    @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var pageControl: UIPageControl!
+    // MARK: IBOutlets
     
     @IBOutlet var nextRoundBarButtonItem: UIBarButtonItem! // explicit strong reference
     @IBOutlet var doneBarButtonItem: UIBarButtonItem! // explicit strong reference
@@ -38,9 +55,6 @@ class GameViewController: UIViewController {
     
     @IBAction func didTapNextRound(sender: UIBarButtonItem) {
         updateRound(from: round, to: bound(round: round + 1))
-        
-        // Scroll to the first player.
-        scroll(to: 0)
         
         childViewControllers.forEach {
             ($0 as? PlayerViewController)?.round = round
@@ -70,38 +84,17 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        updateRound()
-        
+        dataSource = self
+        delegate = self
         title = game.name
-        pageControl.numberOfPages = game.players.count
         
-        scrollView.canCancelContentTouches = false
-        
-        let contentView = scrollView.subviews[0]
-        
-        for (index, player) in game.players.enumerated() {
-            let viewController = newViewController(withIdentifier: "board", index: index, player: player)
-            
-            addChildViewController(viewController)
-            contentView.addSubview(viewController.view)
-            
-            viewController.view.translatesAutoresizingMaskIntoConstraints = false
-            viewController.view.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-            viewController.view.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-            viewController.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-            
-            if index == 0 {
-                viewController.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor).isActive = true
-            } else {
-                viewController.view.leadingAnchor.constraint(equalTo: childViewControllers[index - 1].view.trailingAnchor).isActive = true
-            }
-            
-            if index == game.players.count - 1 {
-                viewController.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor).isActive = true
-            }
-            
-            viewController.didMove(toParentViewController: self)
+        if let initialViewController = orderedViewControllers.first {
+            scrollTo(viewController: initialViewController)
         }
+        
+        pagingDelegate?.pageViewController(self, didUpdatePageCount: orderedViewControllers.count)
+        
+        updateRound()
         
         NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didGameFinish(sender:)), name: Notification.Name("GameFinished"), object: nil)
@@ -113,12 +106,8 @@ class GameViewController: UIViewController {
         statsBarButtonItem = nil
     }
     
-    override func viewDidLayoutSubviews() {
-        scroll(to: currentIndex)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "stats" {
+        if segue.identifier == "score" {
             if let viewController = segue.destination as? ScoreViewController {
                 viewController.game = game
             }
@@ -127,7 +116,7 @@ class GameViewController: UIViewController {
     
     // MARK: Private
     
-    private func newViewController(withIdentifier identifier: String, index: Int, player: GamePlayer) -> UIViewController {
+    private func newViewController(withIdentifier identifier: String, player: GamePlayer) -> UIViewController {
         let viewController = UIStoryboard(name: "Game", bundle: nil).instantiateViewController(withIdentifier: identifier)
         
         if let playerViewController = viewController as? PlayerViewController {
@@ -137,12 +126,6 @@ class GameViewController: UIViewController {
         }
         
         return viewController
-    }
-    
-    private func scroll(to index: Int) {
-        currentIndex = index
-        
-        scrollView.contentOffset = CGPoint(x: CGFloat(index) * scrollView.frame.width, y: 0)
     }
     
     private func updateRound(from fromRound: Int, to toRound: Int) {
@@ -184,20 +167,135 @@ class GameViewController: UIViewController {
         return boundedRound
     }
     
-}
-
-extension GameViewController: UIScrollViewDelegate {
+    // MARK: ALKJFSLKDJFKJSD
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating {
-            currentIndex = Int((scrollView.contentOffset.x + scrollView.frame.width / 2) / scrollView.frame.width)
-            
-            pageControl.currentPage = currentIndex
+    /**
+     Scrolls to the next view controller.
+     */
+    func scrollToNextViewController() {
+        if let visibleViewController = viewControllers?.first, let nextViewController = pageViewController(self, viewControllerAfter: visibleViewController) {
+            scrollTo(viewController: nextViewController)
         }
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("\(currentIndex)")
+    /**
+     Scrolls to the view controller at the given index. Automatically calculates
+     the direction.
+     
+     - parameter newIndex: the new index to scroll to
+     */
+    func scrollToViewController(index newIndex: Int) {
+        if let firstViewController = viewControllers?.first,
+            let currentIndex = orderedViewControllers.index(of: firstViewController) {
+            let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .forward : .reverse
+            let nextViewController = orderedViewControllers[newIndex]
+            scrollTo(viewController: nextViewController, direction: direction)
+        }
     }
+    
+    /**
+     Scrolls to the given 'viewController' page.
+     
+     - parameter viewController: the view controller to show.
+     */
+    private func scrollTo(viewController: UIViewController,
+                                        direction: UIPageViewControllerNavigationDirection = .forward) {
+        setViewControllers([viewController], direction: direction, animated: true, completion: { (finished) -> Void in
+            self.notifyTutorialDelegateOfNewIndex()
+        })
+    }
+    
+    /**
+     Notifies '_tutorialDelegate' that the current page index was updated.
+     */
+    fileprivate func notifyTutorialDelegateOfNewIndex() {
+        if let firstViewController = viewControllers?.first,
+            let index = orderedViewControllers.index(of: firstViewController) {
+            pagingDelegate?.pageViewController(self, didUpdatePageIndex: index)
+        }
+    }
+    
+}
+
+// MARK: UIPageViewControllerDataSource
+
+extension GameViewController: UIPageViewControllerDataSource {
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
+            return nil
+        }
+        
+        let previousIndex = viewControllerIndex - 1
+        
+        // User is on the first view controller and swiped left to loop to
+        // the last view controller.
+        guard previousIndex >= 0 else {
+            return orderedViewControllers.last
+        }
+        
+        guard orderedViewControllers.count > previousIndex else {
+            return nil
+        }
+        
+        return orderedViewControllers[previousIndex]
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        guard let viewControllerIndex = orderedViewControllers.index(of: viewController) else {
+            return nil
+        }
+        
+        let nextIndex = viewControllerIndex + 1
+        let orderedViewControllersCount = orderedViewControllers.count
+        
+        // User is on the last view controller and swiped right to loop to
+        // the first view controller.
+        guard orderedViewControllersCount != nextIndex else {
+            return orderedViewControllers.first
+        }
+        
+        guard orderedViewControllersCount > nextIndex else {
+            return nil
+        }
+        
+        return orderedViewControllers[nextIndex]
+    }
+    
+}
+
+// MARK: UIPageViewControllerDelegate
+
+extension GameViewController: UIPageViewControllerDelegate {
+    
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        pendingViewControllers.forEach {
+            if let viewController = $0 as? PlayerViewController {
+                viewController.round = round
+            } else if let viewController = $0 as? ScoreView {
+                viewController.round = round
+            }
+            
+            ($0 as? PageViewControllerPage)?.didBecomeActive(in: self)
+        }
+    }
+    
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        notifyTutorialDelegateOfNewIndex()
+    }
+    
+}
+
+protocol PageViewControllerDelegate: class {
+    
+    func pageViewController(_ pageViewController: GameViewController, didUpdatePageCount count: Int)
+    
+    func pageViewController(_ pageViewController: GameViewController, didUpdatePageIndex index: Int)
+    
+}
+
+protocol PageViewControllerPage: class {
+    
+    func didBecomeActive(in pageViewController: GameViewController)
     
 }

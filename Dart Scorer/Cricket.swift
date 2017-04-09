@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CricketGame {
     
@@ -95,12 +96,20 @@ extension CricketGame: Game {
         return "\(total)"
     }
     
-    func score(forPlayer player: GamePlayer) -> Int? {
-        return player.score().cricketSum(hitsRequired: targetHitsRequired)
+    func score(forPlayer player: GamePlayer, score: Score) -> Int? {
+        return score.cricketSum(hitsRequired: targetHitsRequired)
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players
+    }
+    
+    func scoreViewController() -> UIViewController? {
+        let viewController = UIStoryboard(name: "Score", bundle: nil).instantiateViewController(withIdentifier: "cricketScore")
+        
+        (viewController as? CricketScoreViewController)?.config = config
+        
+        return viewController
     }
     
 }

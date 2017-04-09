@@ -32,6 +32,21 @@ class GamePlayer {
         self.player = player
     }
     
+    func hits(for targetValue: Int, upTo round: Int? = nil) -> Int {
+        if let round = round {
+            var hits: Int = 0
+            for r in 0 ... round {
+                if let roundHits = scores[r]?.hits(for: targetValue) {
+                    hits += roundHits
+                }
+            }
+            return hits
+        }
+        return scores.reduce(0) { (result, item: (key: Int, value: Score)) -> Int in
+            return result + item.value.hits(for: targetValue)
+        }
+    }
+    
     func score(at round: Int? = nil) -> Score {
         let score = Score()
         

@@ -21,6 +21,15 @@ class Score {
         
     }
     
+    func hits(for targetValue: Int) -> Int {
+        return targets.reduce(0) { (result, target) -> Int in
+            if target.value == targetValue {
+                return result + target.section.rawValue
+            }
+            return result
+        }
+    }
+    
     func hit(target: Target) {
         targets.append(target)
         

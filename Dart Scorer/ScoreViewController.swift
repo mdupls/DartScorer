@@ -8,35 +8,79 @@
 
 import UIKit
 
-class ScoreViewController: UITableViewController {
+protocol ScoreView: class {
+    
+    var game: CoreGame? { get set }
+    
+    var round: Int? { get set }
+    
+}
+
+class ScoreViewController: UIViewController, ScoreView {
     
     // MARK: Variables
     
     var game: CoreGame?
     
-    private var count: Int {
+    var count: Int {
         return game?.players.count ?? 0
     }
+    
+    var round: Int? {
+        didSet {
+            tableView?.reloadData()
+        }
+    }
+    
+    // MARK: IBOutlets
+    
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.hideEmptyRows()
+        tableView.backgroundColor = UIColor(hex: 0xffffff55)
+        
+        tableView.layer.cornerRadius = 10
+        tableView.layer.masksToBounds = true
     }
     
-    // MARK: UITableViewDelegate
+    // MARK: Private
     
-    // MARK: UITableViewDataSource
+    fileprivate func populate(cell: ScoreCellView?, indexPath: IndexPath) {
+        guard let cell = cell else { return }
+        guard let player = game?.players[indexPath.row] else { return }
+        
+        let score = game?.score(forPlayer: player, round: round)
+        
+        cell.nameLabel.text = player.name
+        cell.scoreLabel.text = "\(score ?? 0)"
+    }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+}
+
+// MARK: UITableViewDelegate
+
+extension ScoreViewController: UITableViewDelegate {
+    
+}
+
+// MARK: UITableViewDataSource
+
+extension ScoreViewController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "playerScoreCell", for: indexPath)
         
         populate(cell: cell as? ScoreCellView, indexPath: indexPath)
@@ -44,16 +88,14 @@ class ScoreViewController: UITableViewController {
         return cell
     }
     
-    // MARK: Private
+}
+
+// MARK: PageViewControllerPage
+
+extension ScoreViewController: PageViewControllerPage {
     
-    private func populate(cell: ScoreCellView?, indexPath: IndexPath) {
-        guard let cell = cell else { return }
-        guard let player = game?.players[indexPath.row] else { return }
-        
-        let score = game?.score(forPlayer: player)
-        
-        cell.nameLabel.text = player.name
-        cell.scoreLabel.text = "\(score ?? 0)"
+    func didBecomeActive(in pageViewController: GameViewController) {
+        tableView?.reloadData()
     }
     
 }

@@ -57,7 +57,7 @@ class ActiveScoreViewController: UIViewController {
     private func update() {
         guard let player = player else { return }
         
-        scoreLabel?.text = game?.score(forPlayer: player, round: round)
+        scoreLabel?.text = game?.scoreTitle(forPlayer: player, round: round)
     }
     
 }

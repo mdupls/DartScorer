@@ -170,6 +170,10 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     private func inset() -> UIEdgeInsets {
+        guard count > 0 else {
+            return UIEdgeInsets.zero
+        }
+        
         let spacing = lineSpacing()
         let width = size().width
         let inset = (view.frame.width - (width * CGFloat(count) + spacing * CGFloat(count - 1))) / 2

@@ -12,6 +12,8 @@
 		19203A701E932DFB00158AC1 /* PlayerChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19203A6F1E932DFB00158AC1 /* PlayerChooserViewController.swift */; };
 		19203A721E932FEA00158AC1 /* Players.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19203A711E932FEA00158AC1 /* Players.storyboard */; };
 		193317871E99ABE5001C84BB /* CricketTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193317861E99ABE5001C84BB /* CricketTest.swift */; };
+		193317891E99DC48001C84BB /* CricketScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193317881E99DC48001C84BB /* CricketScoreViewController.swift */; };
+		1933178B1E9AA17F001C84BB /* CricketHitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1933178A1E9AA17F001C84BB /* CricketHitView.swift */; };
 		19460B521E947C1B00FBFAE0 /* aroundtheworld.json in Resources */ = {isa = PBXBuildFile; fileRef = 19460B511E947C1B00FBFAE0 /* aroundtheworld.json */; };
 		19460B541E947C4700FBFAE0 /* AroundTheWorld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19460B531E947C4700FBFAE0 /* AroundTheWorld.swift */; };
 		1955ACDA1E909C3B0069FA8F /* ActiveScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1955ACD91E909C3B0069FA8F /* ActiveScoreViewController.swift */; };
@@ -55,7 +57,7 @@
 		19C32B801E8EDF8B0039EE23 /* HitCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */; };
 		19C32B821E8F13380039EE23 /* TargetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B811E8F13380039EE23 /* TargetSelectionView.swift */; };
 		19C32B841E9022CB0039EE23 /* ScoreGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B831E9022CB0039EE23 /* ScoreGestureRecognizer.swift */; };
-		19C606611E8839ED0077E2CC /* Stats.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C6065F1E8839ED0077E2CC /* Stats.storyboard */; };
+		19C606611E8839ED0077E2CC /* Score.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C6065F1E8839ED0077E2CC /* Score.storyboard */; };
 		19C606631E883A0E0077E2CC /* Game.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C606621E883A0E0077E2CC /* Game.storyboard */; };
 		19DCF5B41E8B0C2000C00442 /* BoardDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19DCF5B31E8B0C2000C00442 /* BoardDataSource.swift */; };
 		19EA7F0B1E9563A7002AECC7 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19EA7F0A1E9563A7002AECC7 /* UITableView+Extensions.swift */; };
@@ -95,6 +97,8 @@
 		19203A6F1E932DFB00158AC1 /* PlayerChooserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerChooserViewController.swift; sourceTree = "<group>"; };
 		19203A711E932FEA00158AC1 /* Players.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Players.storyboard; sourceTree = "<group>"; };
 		193317861E99ABE5001C84BB /* CricketTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CricketTest.swift; sourceTree = "<group>"; };
+		193317881E99DC48001C84BB /* CricketScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CricketScoreViewController.swift; sourceTree = "<group>"; };
+		1933178A1E9AA17F001C84BB /* CricketHitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CricketHitView.swift; sourceTree = "<group>"; };
 		19460B511E947C1B00FBFAE0 /* aroundtheworld.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = aroundtheworld.json; sourceTree = "<group>"; };
 		19460B531E947C4700FBFAE0 /* AroundTheWorld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AroundTheWorld.swift; sourceTree = "<group>"; };
 		1955ACD91E909C3B0069FA8F /* ActiveScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActiveScoreViewController.swift; sourceTree = "<group>"; };
@@ -138,7 +142,7 @@
 		19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitCellView.swift; sourceTree = "<group>"; };
 		19C32B811E8F13380039EE23 /* TargetSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetSelectionView.swift; sourceTree = "<group>"; };
 		19C32B831E9022CB0039EE23 /* ScoreGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreGestureRecognizer.swift; sourceTree = "<group>"; };
-		19C606601E8839ED0077E2CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Stats.storyboard; sourceTree = "<group>"; };
+		19C606601E8839ED0077E2CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Score.storyboard; sourceTree = "<group>"; };
 		19C606621E883A0E0077E2CC /* Game.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Game.storyboard; sourceTree = "<group>"; };
 		19DCF5B31E8B0C2000C00442 /* BoardDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardDataSource.swift; sourceTree = "<group>"; };
 		19EA7F0A1E9563A7002AECC7 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 				19A3F2BF1E79AD4100D660B5 /* BoardViewController.swift */,
 				1955ACD91E909C3B0069FA8F /* ActiveScoreViewController.swift */,
 				195A3D381E7F726500CE1215 /* ScoreViewController.swift */,
+				193317881E99DC48001C84BB /* CricketScoreViewController.swift */,
 				1971206C1E834BC70024259C /* RoundViewController.swift */,
 			);
 			name = ViewControllers;
@@ -219,6 +224,7 @@
 				198EE4621E92F5A400CEA09B /* RoundView.swift */,
 				195A3D321E7D703100CE1215 /* BoardView.swift */,
 				195A3D341E7D8AE200CE1215 /* MarkerView.swift */,
+				1933178A1E9AA17F001C84BB /* CricketHitView.swift */,
 				19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */,
 			);
 			name = Views;
@@ -362,7 +368,7 @@
 				19203A711E932FEA00158AC1 /* Players.storyboard */,
 				19C606621E883A0E0077E2CC /* Game.storyboard */,
 				19590D1B1E89E1F800CDB946 /* Round.storyboard */,
-				19C6065F1E8839ED0077E2CC /* Stats.storyboard */,
+				19C6065F1E8839ED0077E2CC /* Score.storyboard */,
 				19F07DAA1E246A0400C7AB32 /* LaunchScreen.storyboard */,
 				19F07DA81E246A0400C7AB32 /* Assets.xcassets */,
 				19F07DAD1E246A0400C7AB32 /* Info.plist */,
@@ -505,7 +511,7 @@
 				19F07DA91E246A0400C7AB32 /* Assets.xcassets in Resources */,
 				1972CA301E79C03F00A257D9 /* x01.json in Resources */,
 				1972CA321E79C05200A257D9 /* shanghai.json in Resources */,
-				19C606611E8839ED0077E2CC /* Stats.storyboard in Resources */,
+				19C606611E8839ED0077E2CC /* Score.storyboard in Resources */,
 				19460B521E947C1B00FBFAE0 /* aroundtheworld.json in Resources */,
 				19F07DA71E246A0400C7AB32 /* Main.storyboard in Resources */,
 				19590D1C1E89E1F800CDB946 /* Round.storyboard in Resources */,
@@ -571,7 +577,9 @@
 				195A3D351E7D8AE200CE1215 /* MarkerView.swift in Sources */,
 				19EA7F0D1E95998B002AECC7 /* PropertiesViewController.swift in Sources */,
 				19203A691E93223600158AC1 /* OpponentsViewController.swift in Sources */,
+				1933178B1E9AA17F001C84BB /* CricketHitView.swift in Sources */,
 				19C32B841E9022CB0039EE23 /* ScoreGestureRecognizer.swift in Sources */,
+				193317891E99DC48001C84BB /* CricketScoreViewController.swift in Sources */,
 				19B18AB91E84A7AE00923D8A /* GamesConfig.swift in Sources */,
 				1979DF8A1E7B313F00A667FC /* Shanghai.swift in Sources */,
 				19F07DA21E246A0400C7AB32 /* AppDelegate.swift in Sources */,
@@ -617,12 +625,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		19C6065F1E8839ED0077E2CC /* Stats.storyboard */ = {
+		19C6065F1E8839ED0077E2CC /* Score.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				19C606601E8839ED0077E2CC /* Base */,
 			);
-			name = Stats.storyboard;
+			name = Score.storyboard;
 			sourceTree = "<group>";
 		};
 		19EA7F131E95D551002AECC7 /* Properties.storyboard */ = {

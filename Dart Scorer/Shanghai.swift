@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ShanghaiGame {
     
@@ -128,14 +129,18 @@ extension ShanghaiGame: Game {
         return "\(total)"
     }
     
-    func score(forPlayer player: GamePlayer) -> Int? {
-        return player.score().sum()
+    func score(forPlayer player: GamePlayer, score: Score) -> Int? {
+        return score.sum()
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {
         return players.sorted(by: { (player1, player2) -> Bool in
             return player1.score().sum() > player2.score().sum()
         })
+    }
+    
+    func scoreViewController() -> UIViewController? {
+        return nil
     }
     
 }

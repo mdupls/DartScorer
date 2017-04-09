@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class AroundTheWorldGame {
     
@@ -130,13 +131,10 @@ extension AroundTheWorldGame: Game {
     }
     
     func score(forPlayer player: GamePlayer, forRound roundScore: Score, total totalScore: Score) -> String? {
-        if let score = score(forPlayer: player) {
-            return "Target: \(score)"
-        }
-        return nil
+        return "Target: \(target(forPlayer: player))"
     }
     
-    func score(forPlayer player: GamePlayer) -> Int? {
+    func score(forPlayer player: GamePlayer, score: Score) -> Int? {
         return target(forPlayer: player)
     }
     
@@ -144,6 +142,10 @@ extension AroundTheWorldGame: Game {
         return players.sorted(by: { (player1, player2) -> Bool in
             return player1.score().sum() > player2.score().sum()
         })
+    }
+    
+    func scoreViewController() -> UIViewController? {
+        return nil
     }
     
 }
