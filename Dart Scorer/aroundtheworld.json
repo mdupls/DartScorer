@@ -31,5 +31,6 @@
             "type": "boolean",
             "value": false
         }
-    ]
+    ],
+    "showMultipliers": false
 }

@@ -43,6 +43,10 @@ class CoreGame {
         return config.targetHitsRequired
     }
     
+    var showMultipliers: Bool {
+        return config.showMultipliers
+    }
+    
     init(game: Game, model: BoardModel, players: [Player], config: Config) {
         self.game = game
         self.model = model

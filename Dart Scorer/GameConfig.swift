@@ -139,6 +139,10 @@ class Config {
         return wrapped.json["targetHitsRequired"] as? Int
     }
     
+    var showMultipliers: Bool {
+        return wrapped.json["showMultipliers"] as? Bool ?? true
+    }
+    
     var targets: [Int] {
         return board?["targets"] as? [Int] ?? []
     }

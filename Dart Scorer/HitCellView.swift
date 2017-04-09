@@ -12,6 +12,12 @@ class HitCellView: UICollectionViewCell {
     
     private let markerRatio: CGFloat = 0.1
     
+    var showMultipliers: Bool = true {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     var hits: Int? {
         didSet {
             setNeedsDisplay()
@@ -28,6 +34,13 @@ class HitCellView: UICollectionViewCell {
         didSet {
             setNeedsDisplay()
         }
+    }
+    
+    private var targetSection: Section? {
+        if showMultipliers {
+            return nil
+        }
+        return .single
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,13 +71,17 @@ class HitCellView: UICollectionViewCell {
         if let target = target {
             let valueHeight = ceil(centerRect.height / 3)
             let spacing = ceil(valueHeight / 5)
-            let multiplierHeight = ceil(valueHeight / 2)
+            let multiplierHeight = showMultipliers ? ceil(valueHeight / 2) : 0
             
             let valueFrame = CGRect(x: centerRect.minX, y: centerRect.minY + ceil((centerRect.height - valueHeight - spacing - multiplierHeight) / 2), width: centerRect.width, height: valueHeight)
-            let multiplierFrame = CGRect(x: centerRect.minX, y: valueFrame.maxY + spacing, width: centerRect.width, height: multiplierHeight)
             
             drawValue(target: target, rect: valueFrame)
-            drawMultiplier(target: target, rect: multiplierFrame)
+            
+            if showMultipliers {
+                let multiplierFrame = CGRect(x: centerRect.minX, y: valueFrame.maxY + spacing, width: centerRect.width, height: multiplierHeight)
+                
+                drawMultiplier(target: target, rect: multiplierFrame)
+            }
         }
         
         if let hits = hits {
@@ -80,8 +97,8 @@ class HitCellView: UICollectionViewCell {
         ctx.saveGState()
         
         ctx.addEllipse(in: rect)
-        ctx.setFillColor((target?.section ?? .single).color.cgColor)
-        ctx.setAlpha((target?.section ?? .single).alpha)
+        ctx.setFillColor((targetSection ?? target?.section ?? .single).color.cgColor)
+        ctx.setAlpha((targetSection ?? target?.section ?? .single).alpha)
         ctx.fillPath()
         
         ctx.restoreGState()
@@ -95,7 +112,7 @@ class HitCellView: UICollectionViewCell {
         let font = UIFont(name: "HelveticaNeue", size: rect.height * 1.4)!
         
         let attributes = [
-            NSForegroundColorAttributeName: target.section.textColor,
+            NSForegroundColorAttributeName: (targetSection ?? target.section).textColor,
             NSFontAttributeName: font
         ]
         

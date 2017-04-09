@@ -150,14 +150,16 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     private func populate(cell: HitCellView?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         guard let targets = targets else { return }
+        guard let game = game else { return }
         
         let target = targets[indexPath.row]
         
         cell.target = target
+        cell.showMultipliers = game.showMultipliers
         
-        if game?.showHitMarkers ?? false {
+        if game.showHitMarkers {
             cell.hits = player?.score().totalHits(for: target.value)
-            cell.requiredHits = game?.targetHitsRequired
+            cell.requiredHits = game.targetHitsRequired
         }
     }
     
