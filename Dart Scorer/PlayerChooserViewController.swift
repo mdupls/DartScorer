@@ -66,6 +66,12 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
         }
     }
     
+    // MARK: UICollectionViewDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+//        collectionView.moveItem(at: destinationIndexPath, to: sourceIndexPath)
+    }
+    
     // MARK: UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

@@ -12,10 +12,15 @@
         <attribute name="losses" attributeType="Integer 32" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" minValueString="1" indexed="YES" syncable="YES"/>
         <attribute name="wins" attributeType="Integer 32" minValueString="0" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="newRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Team" inverseName="players" inverseEntity="Team" syncable="YES"/>
+    </entity>
+    <entity name="Team" representedClassName="Team" syncable="YES" codeGenerationType="class">
+        <relationship name="players" toMany="YES" minCount="1" deletionRule="Nullify" destinationEntity="Player" inverseName="newRelationship" inverseEntity="Player" syncable="YES"/>
     </entity>
     <elements>
         <element name="Game" positionX="-389" positionY="-135" width="128" height="73"/>
         <element name="GameType" positionX="-387" positionY="-270" width="128" height="58"/>
-        <element name="Player" positionX="-389" positionY="50" width="128" height="103"/>
+        <element name="Player" positionX="-389" positionY="50" width="128" height="118"/>
+        <element name="Team" positionX="-182" positionY="90" width="128" height="58"/>
     </elements>
 </model>

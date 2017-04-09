@@ -115,6 +115,8 @@ class CricketScoreViewController: UIViewController, ScoreView {
         guard let game = game else { return }
         guard let round = round else { return }
         
+        let count = game.players.count
+        
         if count >= 1 {
             let player = game.players[0]
             let score = game.score(forPlayer: player, round: round) ?? 0
