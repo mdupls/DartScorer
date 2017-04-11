@@ -36,25 +36,24 @@ class GamePlayer {
         if let round = round {
             var hits: Int = 0
             for r in 0 ... round {
-                if let roundHits = scores[r]?.hits(for: targetValue) {
+                if let roundHits = scores[r]?.totalHits(for: targetValue) {
                     hits += roundHits
                 }
             }
             return hits
         }
         return scores.reduce(0) { (result, item: (key: Int, value: Score)) -> Int in
-            return result + item.value.hits(for: targetValue)
+            return result + item.value.totalHits(for: targetValue)
         }
     }
     
-    func score(at round: Int? = nil) -> Score {
+    func score() -> Score {
         let score = Score()
         
         return scores.reduce(score, { (result, item: (key: Int, value: Score)) -> Score in
-            if item.key == round || !item.value.bust {
+            if !item.value.bust {
                 result.add(score: item.value)
             }
-            
             return result
         })
     }

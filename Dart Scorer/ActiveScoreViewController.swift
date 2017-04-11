@@ -54,10 +54,19 @@ class ActiveScoreViewController: UIViewController {
     
     // MARK: Private
     
-    private func update() {
+    fileprivate func update() {
         guard let player = player else { return }
+        guard let scoreLabel = scoreLabel else { return }
         
-        scoreLabel?.text = game?.scoreTitle(forPlayer: player, round: round)
+        scoreLabel.text = game?.scoreTitle(player: player, round: round)
+    }
+    
+}
+
+extension ActiveScoreViewController: PageViewControllerPage {
+    
+    func didBecomeActive(in pageViewController: GameViewController) {
+        update()
     }
     
 }

@@ -22,7 +22,7 @@ class AroundTheWorldGame {
     // Mapping of target values to players
     private var playerMap: [Int: GamePlayer] = [:]
     
-    init(config: Config) {
+    init(config: Config, players: [GamePlayer]) {
         self.config = config
         self.targets = config.targets
         
@@ -130,11 +130,11 @@ extension AroundTheWorldGame: Game {
         return .initial
     }
     
-    func score(forPlayer player: GamePlayer, forRound roundScore: Score, total totalScore: Score) -> String? {
+    func scoreTitle(forPlayer player: GamePlayer, forRound round: Int?) -> String? {
         return "Target: \(target(forPlayer: player))"
     }
     
-    func score(forPlayer player: GamePlayer, score: Score) -> Int? {
+    func score(forPlayer player: GamePlayer, forRound round: Int?) -> Int {
         return target(forPlayer: player)
     }
     

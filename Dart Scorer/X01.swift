@@ -17,7 +17,7 @@ class X01Game {
     
     private var _finished: Bool = false
     
-    init(config: Config) {
+    init(config: Config, players: [GamePlayer]) {
         self.config = config
         self.goal = config.properties.property(id: "starting_score")?.value as? Int ?? 501
         
@@ -60,7 +60,7 @@ extension X01Game: Game {
                 score.hit(target: target)
             }
             
-            return check(score: player.score(at: round))
+            return check(score: player.score())
         }
         return nil
     }
@@ -70,7 +70,7 @@ extension X01Game: Game {
         
         score.unHit(target: target)
         
-        return check(score: player.score(at: round))
+        return check(score: player.score())
     }
     
     func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState {
@@ -81,18 +81,23 @@ extension X01Game: Game {
         return .initial
     }
     
-    func score(forPlayer player: GamePlayer, forRound roundScore: Score, total totalScore: Score) -> String? {
-        let roundTotal = roundScore.sum()
-        let total = totalScore.sum()
-        
-        if roundTotal > 0 {
-            return "\(goal - (total - roundTotal)) - \(roundTotal) = \(goal - total)"
+    func scoreTitle(forPlayer player: GamePlayer, forRound round: Int?) -> String? {
+        var roundTotal: Int
+        if let round = round {
+            roundTotal = player.score(for: round)?.sum() ?? 0
+        } else {
+            roundTotal = 0
         }
-        return "\(goal - total)"
+        
+        let total = score(forPlayer: player)
+        if roundTotal > 0 {
+            return "\((total + roundTotal)) - \(roundTotal) = \(total)"
+        }
+        return "\(total)"
     }
     
-    func score(forPlayer player: GamePlayer, score: Score) -> Int? {
-        return goal - score.sum()
+    func score(forPlayer player: GamePlayer, forRound round: Int? = nil) -> Int {
+        return goal - player.score().sum()
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {

@@ -18,7 +18,7 @@ class ShanghaiGame {
     private let clockwise: Bool
     fileprivate let _rounds: Int
     
-    init(config: Config) {
+    init(config: Config, players: [GamePlayer]) {
         self.config = config
         self.targets = config.targets
         
@@ -119,9 +119,14 @@ extension ShanghaiGame: Game {
         return .initial
     }
     
-    func score(forPlayer player: GamePlayer, forRound roundScore: Score, total totalScore: Score) -> String? {
-        let roundTotal = roundScore.sum()
-        let total = totalScore.sum()
+    func scoreTitle(forPlayer player: GamePlayer, forRound round: Int?) -> String? {
+        var roundTotal: Int
+        if let round = round {
+            roundTotal = player.score(for: round)?.sum() ?? 0
+        } else {
+            roundTotal = 0
+        }
+        let total = player.score().sum()
         
         if roundTotal > 0 {
             return "\(total - roundTotal) + \(roundTotal) = \(total)"
@@ -129,8 +134,11 @@ extension ShanghaiGame: Game {
         return "\(total)"
     }
     
-    func score(forPlayer player: GamePlayer, score: Score) -> Int? {
-        return score.sum()
+    func score(forPlayer player: GamePlayer, forRound round: Int?) -> Int {
+        if let round = round {
+            return player.score(for: round)?.sum() ?? 0
+        }
+        return player.score().sum()
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {

@@ -47,14 +47,11 @@ class CoreGame {
         return config.showMultipliers
     }
     
-    init(game: Game, model: BoardModel, players: [Player], config: Config) {
+    init(game: Game, model: BoardModel, players: [GamePlayer], config: Config) {
         self.game = game
         self.model = model
+        self.players = players
         self.config = config
-        
-        self.players = players.map {
-            return GamePlayer(player: $0)
-        }
     }
     
     func isLast(round: Int) -> Bool {
@@ -128,17 +125,12 @@ class CoreGame {
         }
     }
     
-    func scoreTitle(forPlayer player: GamePlayer, round: Int) -> String? {
-        let totalScore = player.score(at: round)
-        let roundScore = player.score(for: round) ?? Score()
-        
-        return game.score(forPlayer: player, forRound: roundScore, total: totalScore)
+    func scoreTitle(player: GamePlayer, round: Int? = nil) -> String? {
+        return game.scoreTitle(forPlayer: player, forRound: round)
     }
     
     func score(forPlayer player: GamePlayer, round: Int? = nil) -> Int? {
-        let score = player.score(at: round)
-        
-        return game.score(forPlayer: player, score: score)
+        return game.score(forPlayer: player, forRound: round)
     }
     
     func state(for targetValue: Int, player: GamePlayer, round: Int) -> TargetState {
@@ -160,9 +152,9 @@ protocol Game {
     
     func game(_ game: CoreGame, stateFor target: Target, player: GamePlayer, round: Int) -> TargetState
     
-    func score(forPlayer player: GamePlayer, forRound roundScore: Score, total totalScore: Score) -> String?
+    func scoreTitle(forPlayer player: GamePlayer, forRound round: Int?) -> String?
     
-    func score(forPlayer player: GamePlayer, score: Score) -> Int?
+    func score(forPlayer player: GamePlayer, forRound round: Int?) -> Int
     
     func rank(players: [GamePlayer]) -> [GamePlayer]
     

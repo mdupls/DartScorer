@@ -22,16 +22,20 @@ class GameFactory {
         
         let wrappedConfig = Config(config: config)
         
+        var players = self.players.map {
+            return GamePlayer(player: $0)
+        }
+        
         // TODO: Swift 3 reflection APIs seem to be lacking. For now, just hard-code a mapping.
         switch config.name {
         case "Cricket":
-            game = CricketGame(config: wrappedConfig)
+            game = CricketGame(config: wrappedConfig, players: players)
         case "x01":
-            game = X01Game(config: wrappedConfig)
+            game = X01Game(config: wrappedConfig, players: players)
         case "Shanghai":
-            game = ShanghaiGame(config: wrappedConfig)
+            game = ShanghaiGame(config: wrappedConfig, players: players)
         case "Around the World":
-            game = AroundTheWorldGame(config: wrappedConfig)
+            game = AroundTheWorldGame(config: wrappedConfig, players: players)
         default:
             game = nil
         }
