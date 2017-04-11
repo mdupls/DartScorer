@@ -68,7 +68,7 @@ class CricketGame {
         
         // Mapping of target value to another map of player names to # of hits
         var hits = CricketGame.createHitsMap(targets: self.targets, players: players)
-        
+        // Mapping of round to another map of player names to points
         points = CricketGame.createPointsMap(round: round, players: players)
         
         for round in 0 ... round {

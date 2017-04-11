@@ -23,7 +23,7 @@ class CricketScoreViewController: UIViewController, ScoreView {
         return game?.players.count ?? 0
     }
     
-    var round: Int? {
+    var round: Int = 0 {
         didSet {
             tableView?.reloadData()
         }
@@ -50,7 +50,6 @@ class CricketScoreViewController: UIViewController, ScoreView {
     fileprivate func populate(cell: CricketScoreCellView?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         guard let game = game else { return }
-        guard let round = round else { return }
         guard let target = config?.targets[indexPath.row] else { return }
         
         let count = game.players.count
@@ -113,9 +112,10 @@ class CricketScoreViewController: UIViewController, ScoreView {
     fileprivate func populate(header: CricketHeaderCellView?) {
         guard let header = header else { return }
         guard let game = game else { return }
-        guard let round = round else { return }
         
         let count = game.players.count
+        
+        header.targetScoreLabel.text = "\(round + 1)"
         
         if count >= 1 {
             let player = game.players[0]

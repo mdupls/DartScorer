@@ -25,7 +25,7 @@ enum StatusMessage {
     }
 }
 
-class PlayerViewController: UIViewController {
+class PlayerViewController: UIViewController, ScoreView {
     
     // MARK: Variables
     

@@ -20,12 +20,11 @@ class GameViewController: UIPageViewController {
     // MARK: Variables
     
     var game: CoreGame!
-    var round: Int = 0
-    var currentIndex: Int = 0
     
     weak var pagingDelegate: PageViewControllerDelegate?
     
     private var doneType: DoneType = .nextRound
+    var round: Int = 0
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         var viewControllers: [UIViewController] = []
@@ -37,7 +36,6 @@ class GameViewController: UIPageViewController {
         let viewController = self.game.game.scoreViewController() ?? UIStoryboard(name: "Score", bundle: nil).instantiateViewController(withIdentifier: "score")
         if let scoreViewController = viewController as? ScoreView {
             scoreViewController.game = self.game
-            scoreViewController.round = self.round
             viewControllers.append(viewController)
         }
         
@@ -55,10 +53,6 @@ class GameViewController: UIPageViewController {
     
     @IBAction func didTapNextRound(sender: UIBarButtonItem) {
         updateRound(from: round, to: bound(round: round + 1))
-        
-        childViewControllers.forEach {
-            ($0 as? PlayerViewController)?.round = round
-        }
     }
     
     @IBAction func didTapDoneGame(sender: UIBarButtonItem) {
@@ -227,16 +221,17 @@ extension GameViewController: UIPageViewControllerDataSource {
         }
         
         let previousIndex = viewControllerIndex - 1
+        let round = (viewController as? ScoreView)?.round ?? 0
         
-        // User is on the first view controller and swiped left to loop to
-        // the last view controller.
         guard previousIndex >= 0 else {
+            guard round > 0 else {
+                return nil
+            }
+            (orderedViewControllers.last as? ScoreView)?.round = round - 1
             return orderedViewControllers.last
         }
         
-        guard orderedViewControllers.count > previousIndex else {
-            return nil
-        }
+        (orderedViewControllers[previousIndex] as? ScoreView)?.round = round
         
         return orderedViewControllers[previousIndex]
     }
@@ -247,17 +242,20 @@ extension GameViewController: UIPageViewControllerDataSource {
         }
         
         let nextIndex = viewControllerIndex + 1
-        let orderedViewControllersCount = orderedViewControllers.count
+        let round = (viewController as? ScoreView)?.round ?? 0
         
-        // User is on the last view controller and swiped right to loop to
-        // the first view controller.
-        guard orderedViewControllersCount != nextIndex else {
+        guard orderedViewControllers.count != nextIndex else {
+            if let rounds = game.rounds {
+                guard round < rounds - 1 else {
+                    return nil
+                }
+            }
+            
+            (orderedViewControllers.first as? ScoreView)?.round = round + 1
             return orderedViewControllers.first
         }
         
-        guard orderedViewControllersCount > nextIndex else {
-            return nil
-        }
+        (orderedViewControllers[nextIndex] as? ScoreView)?.round = round
         
         return orderedViewControllers[nextIndex]
     }
@@ -269,19 +267,25 @@ extension GameViewController: UIPageViewControllerDataSource {
 extension GameViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        pendingViewControllers.forEach {
-            if let viewController = $0 as? PlayerViewController {
-                viewController.round = round
-            } else if let viewController = $0 as? ScoreView {
-                viewController.round = round
-            }
-            
-            ($0 as? PageViewControllerPage)?.didBecomeActive(in: self)
-        }
+        
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         notifyTutorialDelegateOfNewIndex()
+        
+        (viewControllers?.first as? PageViewControllerPage)?.didBecomeActive(in: self)
+    }
+    
+    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
+        if let firstViewController = viewControllers?.first,
+            let index = orderedViewControllers.index(of: firstViewController){
+            return index
+        }
+        return 0
+    }
+    
+    func presentationCount(for pageViewController: UIPageViewController) -> Int {
+        return orderedViewControllers.count
     }
     
 }

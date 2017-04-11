@@ -12,7 +12,7 @@ protocol ScoreView: class {
     
     var game: CoreGame? { get set }
     
-    var round: Int? { get set }
+    var round: Int { get set }
     
 }
 
@@ -26,7 +26,7 @@ class ScoreViewController: UIViewController, ScoreView {
         return game?.players.count ?? 0
     }
     
-    var round: Int? {
+    var round: Int = 0 {
         didSet {
             tableView?.reloadData()
         }
