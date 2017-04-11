@@ -135,6 +135,7 @@ extension PlayerViewController: PageViewControllerPage {
     
     func didBecomeActive(in pageViewController: GameViewController) {
         scoreViewController?.didBecomeActive(in: pageViewController)
+        boardViewController?.didBecomeActive(in: pageViewController)
     }
     
 }

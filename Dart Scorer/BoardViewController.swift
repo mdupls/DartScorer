@@ -175,3 +175,11 @@ extension BoardViewController: TargetSelectionViewDelegate {
     }
     
 }
+
+extension BoardViewController: PageViewControllerPage {
+    
+    func didBecomeActive(in pageViewController: GameViewController) {
+        
+    }
+    
+}
