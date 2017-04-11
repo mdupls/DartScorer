@@ -9,7 +9,6 @@
 import UIKit
 
 fileprivate enum DoneType {
-    case nextRound
     case done
     case stats
     case none
@@ -23,8 +22,7 @@ class GameViewController: UIPageViewController {
     
     weak var pagingDelegate: PageViewControllerDelegate?
     
-    private var doneType: DoneType = .nextRound
-    var round: Int = 0
+    private var doneType: DoneType = .none
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         var viewControllers: [UIViewController] = []
@@ -51,10 +49,6 @@ class GameViewController: UIPageViewController {
     
     // MARK: IBActions
     
-    @IBAction func didTapNextRound(sender: UIBarButtonItem) {
-        updateRound(from: round, to: bound(round: round + 1))
-    }
-    
     @IBAction func didTapDoneGame(sender: UIBarButtonItem) {
         let _ = game?.winner()
     }
@@ -68,7 +62,7 @@ class GameViewController: UIPageViewController {
     }
     
     func didUnhitTarget(sender: Notification) {
-        doneType = .nextRound
+        doneType = .none
         
         updateRound()
     }
@@ -114,7 +108,6 @@ class GameViewController: UIPageViewController {
         let viewController = UIStoryboard(name: "Game", bundle: nil).instantiateViewController(withIdentifier: identifier)
         
         if let playerViewController = viewController as? PlayerViewController {
-            playerViewController.round = round
             playerViewController.player = player
             playerViewController.game = game
         }
@@ -122,26 +115,14 @@ class GameViewController: UIPageViewController {
         return viewController
     }
     
-    private func updateRound(from fromRound: Int, to toRound: Int) {
-        round = toRound
-        doneType = fromRound == toRound ? .done : .nextRound
-        
-        updateRound()
-    }
-    
     private func updateRound() {
-        if doneType == .nextRound, let rounds = game?.rounds, round == rounds - 1 {
+        let round = (viewControllers?.first as? ScoreView)?.round ?? 0
+        
+        if doneType == .none, let rounds = game?.rounds, round == rounds - 1 {
             doneType = .done
         }
         
         switch doneType {
-        case .nextRound:
-            var canPlayNextRound: Bool?
-            if let rounds = game?.rounds {
-                canPlayNextRound = round < rounds - 1
-            }
-            navigationItem.rightBarButtonItems = [ nextRoundBarButtonItem ]
-            nextRoundBarButtonItem?.isEnabled = canPlayNextRound ?? true
         case .done:
             navigationItem.rightBarButtonItems = [ doneBarButtonItem ]
         case .stats:
