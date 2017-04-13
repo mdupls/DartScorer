@@ -22,14 +22,20 @@ public extension Player {
 
 class GamePlayer {
     
-    let player: Player
+    let team: Team
     
     var scores: [Int: Score] = [:] // Each round has a score
     
-    var name: String { return player.name! }
+    var name: String { return team.name ?? "" }
     
-    init(player: Player) {
-        self.player = player
+    init(team: Team) {
+        self.team = team
+    }
+    
+    func player(for round: Int) -> Player? {
+        let index = round % (team.players?.count ?? 1)
+        
+        return team.players?.object(at: index) as? Player
     }
     
     func hits(for targetValue: Int, upTo round: Int? = nil) -> Int {

@@ -54,6 +54,12 @@ class CoreDataStorage {
         }
     }
     
+    func delete(managedObjects: [NSManagedObject]) {
+        managedObjects.forEach {
+            self.managedObjectContext.delete($0)
+        }
+    }
+    
     func save() {
         do {
             try managedObjectContext.save()

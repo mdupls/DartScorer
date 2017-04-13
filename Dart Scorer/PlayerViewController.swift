@@ -40,6 +40,8 @@ class PlayerViewController: UIViewController, ScoreView {
             boardViewController?.round = round
             roundViewController?.round = round
             scoreViewController?.round = round
+            
+            playerName?.name = player?.player(for: round)?.name
         }
     }
     

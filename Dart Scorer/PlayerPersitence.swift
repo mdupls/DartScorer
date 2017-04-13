@@ -43,4 +43,9 @@ class PlayerPersistence {
         return managedObjects.first as? Player
     }
     
+    func delete(players: [Player]) {
+        storage.delete(managedObjects: players)
+        storage.save()
+    }
+    
 }

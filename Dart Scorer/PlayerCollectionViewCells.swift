@@ -55,6 +55,12 @@ class PlayerCollectionViewCell: UICollectionViewCell {
         super.draw(rect)
     }
     
+    override var isSelected: Bool {
+        didSet {
+            backgroundColor = isSelected ? UIColor.black : UIColor.clear
+        }
+    }
+    
 }
 
 class TeamCollectionViewCell: UICollectionViewCell {
@@ -88,5 +94,20 @@ class TeamCollectionViewCell: UICollectionViewCell {
         imageView4.layer.borderColor = UIColor.gray.cgColor
         imageView4.layer.borderWidth = 1
     }
+    
+    override func draw(_ rect: CGRect) {
+        imageView1.layer.cornerRadius = imageView1.bounds.size.width / 2
+        imageView2.layer.cornerRadius = imageView2.bounds.size.width / 2
+        imageView3.layer.cornerRadius = imageView3.bounds.size.width / 2
+        imageView4.layer.cornerRadius = imageView4.bounds.size.width / 2
+        
+        super.draw(rect)
+    }
+    
+}
+
+class PlayersHeaderCell: UICollectionReusableView {
+    
+    @IBOutlet weak var nameLabel: UILabel!
     
 }

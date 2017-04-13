@@ -12,10 +12,10 @@ class ViewController: UIViewController {
     
     // MARK: Variables
     
-    var players: [Player]? {
+    var teams: [Team]? {
         didSet {
-            opponentsViewController?.players = players
-            gameChooserViewController?.players = players
+            opponentsViewController?.teams = teams
+            gameChooserViewController?.teams = teams
         }
     }
     
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     // MARK: Unwind Segues
     
     @IBAction func unwindFromPlayerChooser(segue: UIStoryboardSegue) {
-        players = (segue.source as? PlayerChooserViewController)?.players
+        retrieveItems()
     }
     
     @IBAction func unwindFromGameOptions(segue: UIStoryboardSegue) {
@@ -41,8 +41,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let persitence = PlayerPersistence(storage: storage)
-        players = persitence.players()
+        retrieveItems()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -51,6 +50,13 @@ class ViewController: UIViewController {
         } else if segue.identifier == "embedGameChooser" {
             gameChooserViewController = segue.destination as? GameChooserViewController
         }
+    }
+    
+    // MARK: Private
+    
+    private func retrieveItems() {
+        let persitence = TeamPersistence(storage: storage)
+        teams = persitence.teams()
     }
     
 }

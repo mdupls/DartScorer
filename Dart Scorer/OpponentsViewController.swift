@@ -10,17 +10,21 @@ import UIKit
 
 class OpponentsViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
+    // MARK: Variables
+
     private let visibleItems: Int = 3
     
-    var players: [Player]? {
+    var teams: [Team]? {
         didSet {
             collectionView?.reloadData()
         }
     }
     
     var count: Int {
-        return max(1, players?.count ?? 0)
+        return max(1, teams?.count ?? 0)
     }
+    
+    // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,16 +40,12 @@ class OpponentsViewController: UICollectionViewController, UICollectionViewDeleg
         collectionView?.collectionViewLayout.invalidateLayout()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "addPlayer" {
-            if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PlayerChooserViewController {
-                viewController.players = players
-            }
-        } else if segue.identifier == "players" {
-            if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PlayerChooserViewController {
-                viewController.players = players
-            }
-        }
+    // MARK: UICollectionViewDelegate
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: true)
+        
+        performSegue(withIdentifier: "players", sender: collectionView)
     }
     
     // MARK: UICollectionViewDataSource
@@ -57,18 +57,20 @@ class OpponentsViewController: UICollectionViewController, UICollectionViewDeleg
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: UICollectionViewCell
         
-        let playerCount = players?.count ?? 0
+        let teamCount = teams?.count ?? 0
         
-        if playerCount == 0 {
+        if teamCount == 0 {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "addPlayerCell", for: indexPath)
-        } else if indexPath.row < playerCount {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "playerCell", for: indexPath)
-            
-            populate(cell: cell as? PlayerCollectionViewCell, indexPath: indexPath)
         } else {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath)
-            
-            populate(cell: cell as? TeamCollectionViewCell, indexPath: indexPath)
+            if (teams?[indexPath.row].players?.count ?? 1) == 1 {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "playerCell", for: indexPath)
+                
+                populate(cell: cell as? PlayerCollectionViewCell, indexPath: indexPath)
+            } else {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath)
+                
+                populate(cell: cell as? TeamCollectionViewCell, indexPath: indexPath)
+            }
         }
         
         return cell
@@ -125,13 +127,13 @@ class OpponentsViewController: UICollectionViewController, UICollectionViewDeleg
     private func populate(cell: PlayerCollectionViewCell?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         
-        cell.nameLabel.text = players?[indexPath.row].name
+        cell.nameLabel.text = teams?[indexPath.row].name
     }
     
     private func populate(cell: TeamCollectionViewCell?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         
-        cell.nameLabel.text = players?[indexPath.row].name
+        cell.nameLabel.text = teams?[indexPath.row].name
     }
     
 }

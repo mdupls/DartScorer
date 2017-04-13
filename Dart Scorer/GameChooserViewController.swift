@@ -12,7 +12,7 @@ class GameChooserViewController: UITableViewController {
     
     private var config: GamesConfig?
     
-    var players: [Player]? {
+    var teams: [Team]? {
         didSet {
             
         }
@@ -39,12 +39,12 @@ class GameChooserViewController: UITableViewController {
                     return
                 }
                 
-                viewController.game = GameFactory(players: players!).createGame(config: config)
+                viewController.game = GameFactory(teams: teams!).createGame(config: config)
             }
         } else if segue.identifier == "addPlayers" {
-            if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PlayerChooserViewController {
-                viewController.players = players
-            }
+//            if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PlayerChooserViewController {
+//                viewController.players = players
+//            }
         } else if segue.identifier == "gameOptions" {
             if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PropertiesViewController {
                 if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell) {
@@ -58,7 +58,7 @@ class GameChooserViewController: UITableViewController {
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "playGame" {
-            guard let players = players, !players.isEmpty else {
+            guard let teams = teams, !teams.isEmpty else {
                 performSegue(withIdentifier: "addPlayers", sender: nil)
                 
                 return false

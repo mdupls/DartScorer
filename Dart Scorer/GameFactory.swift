@@ -10,10 +10,10 @@ import Foundation
 
 class GameFactory {
     
-    private let players: [Player]
+    private let teams: [Team]
     
-    init(players: [Player]) {
-        self.players = players
+    init(teams: [Team]) {
+        self.teams = teams
     }
     
     func createGame(config: GameConfig) -> CoreGame? {
@@ -22,8 +22,8 @@ class GameFactory {
         
         let wrappedConfig = Config(config: config)
         
-        var players = self.players.map {
-            return GamePlayer(player: $0)
+        let players = self.teams.map {
+            return GamePlayer(team: $0)
         }
         
         // TODO: Swift 3 reflection APIs seem to be lacking. For now, just hard-code a mapping.

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1914970E1E9DA811003C5060 /* TeamPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1914970D1E9DA811003C5060 /* TeamPersistence.swift */; };
 		19203A691E93223600158AC1 /* OpponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19203A681E93223600158AC1 /* OpponentsViewController.swift */; };
 		19203A6D1E93275100158AC1 /* PlayerCollectionViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19203A6C1E93275100158AC1 /* PlayerCollectionViewCells.swift */; };
 		19203A701E932DFB00158AC1 /* PlayerChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19203A6F1E932DFB00158AC1 /* PlayerChooserViewController.swift */; };
@@ -92,6 +93,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1914970D1E9DA811003C5060 /* TeamPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPersistence.swift; sourceTree = "<group>"; };
 		19203A681E93223600158AC1 /* OpponentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpponentsViewController.swift; sourceTree = "<group>"; };
 		19203A6C1E93275100158AC1 /* PlayerCollectionViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCells.swift; sourceTree = "<group>"; };
 		19203A6F1E932DFB00158AC1 /* PlayerChooserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerChooserViewController.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 			children = (
 				198EE4641E9319E200CEA09B /* Model.xcdatamodeld */,
 				198EE4681E931A9100CEA09B /* PlayerPersitence.swift */,
+				1914970D1E9DA811003C5060 /* TeamPersistence.swift */,
 				198EE46C1E931FFE00CEA09B /* GamePersistence.swift */,
 				198EE46A1E931D4A00CEA09B /* CoreDataStorage.swift */,
 			);
@@ -568,6 +571,7 @@
 				1972CA3E1E7A1FDF00A257D9 /* Game.swift in Sources */,
 				19C32B7E1E8DEFDD0039EE23 /* NameView.swift in Sources */,
 				198EE46B1E931D4A00CEA09B /* CoreDataStorage.swift in Sources */,
+				1914970E1E9DA811003C5060 /* TeamPersistence.swift in Sources */,
 				19B18AB71E84A37000923D8A /* ViewController.swift in Sources */,
 				1972CA3B1E79D72900A257D9 /* CGPoint+Extensions.swift in Sources */,
 				19C32B801E8EDF8B0039EE23 /* HitCellView.swift in Sources */,
