@@ -8,25 +8,13 @@
 
 import Foundation
 
-public extension Player {
-    
-//    public var description: String {
-//        if gamesPlayed > 0 {
-//            let winRatio: Int = Int((wins / gamesPlayed) * 100)
-//            return "Player: \(name) win ratio: \(winRatio)"
-//        }
-//        return "Player: \(name)"
-//    }
-    
-}
-
 class GamePlayer {
     
     let team: Team
     
     var scores: [Int: Score] = [:] // Each round has a score
     
-    var name: String { return team.name ?? "" }
+    var name: String { return team.teamName ?? "" }
     
     init(team: Team) {
         self.team = team
@@ -78,6 +66,17 @@ class GamePlayer {
     
     func score(for round: Int) -> Score? {
         return scores[round]
+    }
+    
+}
+
+extension Team {
+    
+    var teamName: String? {
+        if (players?.count ?? 0) == 1 {
+            return (players?.firstObject as? Player)?.name
+        }
+        return self.name
     }
     
 }

@@ -289,7 +289,7 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     private func populate(cell: TeamCollectionViewCell?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         
-        cell.nameLabel.text = teams?[indexPath.row].name
+        cell.nameLabel.text = teams?[indexPath.row].teamName
     }
     
     private func populate(cell: PlayerCollectionViewCell?, player: Player?, indexPath: IndexPath) {

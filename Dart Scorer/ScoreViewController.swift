@@ -35,6 +35,7 @@ class ScoreViewController: UIViewController, ScoreView {
     // MARK: IBOutlets
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableViewHeightConstraint: NSLayoutConstraint!
     
     // MARK: Lifecycle
     
@@ -48,6 +49,12 @@ class ScoreViewController: UIViewController, ScoreView {
         tableView.layer.masksToBounds = true
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        tableViewHeightConstraint.constant = 150
+    }
+    
     // MARK: Private
     
     fileprivate func populate(cell: ScoreCellView?, indexPath: IndexPath) {
@@ -58,6 +65,16 @@ class ScoreViewController: UIViewController, ScoreView {
         
         cell.nameLabel.text = player.name
         cell.scoreLabel.text = "\(score ?? 0)"
+        
+        if (player.team.players?.count ?? 0) > 1 {
+            let playerNames = player.team.players?.map({ (item) -> String in
+                return (item as? Player)?.name ?? ""
+            })
+            
+            cell.playersLabel?.text = playerNames?.joined(separator: ", ")
+        } else {
+            cell.playersLabel?.text = nil
+        }
     }
     
 }
@@ -81,7 +98,15 @@ extension ScoreViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "playerScoreCell", for: indexPath)
+        var cell: UITableViewCell
+        
+        let player = game?.players[indexPath.row]
+        
+        if (player?.team.players?.count ?? 1) == 1 {
+            cell = tableView.dequeueReusableCell(withIdentifier: "playerScoreCell", for: indexPath)
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "teamScoreCell", for: indexPath)
+        }
         
         populate(cell: cell as? ScoreCellView, indexPath: indexPath)
         
@@ -104,5 +129,6 @@ class ScoreCellView: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var playersLabel: UILabel?
     
 }
