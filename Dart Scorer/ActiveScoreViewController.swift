@@ -23,7 +23,6 @@ class ActiveScoreViewController: UIViewController {
     // MARK: IBOutlets
     
     @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var scoreBackground: UIView!
     @IBOutlet weak var placeIndicator: UIImageView!
     
     // MARK: Events
@@ -45,12 +44,14 @@ class ActiveScoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        scoreBackground.layer.cornerRadius = 8
-        
         NotificationCenter.default.addObserver(self, selector: #selector(didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
         
         update()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
     }
     
     // MARK: Private

@@ -65,7 +65,7 @@ class RoundView: UIView {
         context.scaleBy (x: 1, y: -1)
         
         let height = layout.diameter / 33
-        let font = UIFont(name: "HelveticaNeue-Thin", size: height)!
+        let font = UIFont(name: "HelveticaNeue", size: height)!
         
         centreArcPerpendicular(text: name, context: context, radius: layout.radius + (height * 3) / 4, angle: -CGFloat.pi / 4, colour: UIColor.white, font: font, clockwise: false)
     }

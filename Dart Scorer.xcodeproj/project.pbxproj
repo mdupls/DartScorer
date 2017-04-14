@@ -54,6 +54,7 @@
 		19B18AB51E84A36300923D8A /* GameChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B18AB41E84A36300923D8A /* GameChooserViewController.swift */; };
 		19B18AB71E84A37000923D8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B18AB61E84A37000923D8A /* ViewController.swift */; };
 		19B18AB91E84A7AE00923D8A /* GamesConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B18AB81E84A7AE00923D8A /* GamesConfig.swift */; };
+		19B4234A1EA10DA800C1ED1E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B423491EA10DA800C1ED1E /* GradientView.swift */; };
 		19C32B7E1E8DEFDD0039EE23 /* NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B7D1E8DEFDD0039EE23 /* NameView.swift */; };
 		19C32B801E8EDF8B0039EE23 /* HitCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */; };
 		19C32B821E8F13380039EE23 /* TargetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B811E8F13380039EE23 /* TargetSelectionView.swift */; };
@@ -140,6 +141,7 @@
 		19B18AB41E84A36300923D8A /* GameChooserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameChooserViewController.swift; sourceTree = "<group>"; };
 		19B18AB61E84A37000923D8A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		19B18AB81E84A7AE00923D8A /* GamesConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesConfig.swift; sourceTree = "<group>"; };
+		19B423491EA10DA800C1ED1E /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		19C32B7D1E8DEFDD0039EE23 /* NameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameView.swift; sourceTree = "<group>"; };
 		19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitCellView.swift; sourceTree = "<group>"; };
 		19C32B811E8F13380039EE23 /* TargetSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetSelectionView.swift; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 				195A3D341E7D8AE200CE1215 /* MarkerView.swift */,
 				1933178A1E9AA17F001C84BB /* CricketHitView.swift */,
 				19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */,
+				19B423491EA10DA800C1ED1E /* GradientView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -548,6 +551,7 @@
 				195A3D391E7F726500CE1215 /* ScoreViewController.swift in Sources */,
 				195A3D331E7D703100CE1215 /* BoardView.swift in Sources */,
 				19920FF31E802C5A00E2381C /* PlayerViewController.swift in Sources */,
+				19B4234A1EA10DA800C1ED1E /* GradientView.swift in Sources */,
 				19A3F2BC1E78C8CA00D660B5 /* BoardLayout.swift in Sources */,
 				1979DF881E7B313300A667FC /* Cricket.swift in Sources */,
 				19A3F2C21E79ADF200D660B5 /* CGMutablePath+Extensions.swift in Sources */,

@@ -53,6 +53,7 @@ class PlayerViewController: UIViewController, ScoreView {
     
     @IBOutlet weak var playerName: NameView!
     @IBOutlet weak var statusLabel: UILabel!
+    @IBOutlet weak var gradientBackgroundView: GradientView!
     
     // MARK: Events
     
@@ -92,6 +93,9 @@ class PlayerViewController: UIViewController, ScoreView {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        gradientBackgroundView.startColor = UIColor.board.withAlphaComponent(0.5)
+        gradientBackgroundView.endColor = UIColor.clear
         
         statusLabel.isHidden = true
         playerName.name = player?.name
