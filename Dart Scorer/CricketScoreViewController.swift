@@ -38,7 +38,6 @@ class CricketScoreViewController: UIViewController, ScoreView {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.hideEmptyRows()
         tableView.backgroundColor = UIColor(hex: 0xffffff55)
     }
     

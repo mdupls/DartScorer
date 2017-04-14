@@ -70,9 +70,14 @@ class BoardView: UIView {
     private func drawBoard(rect: CGRect) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
-        ctx.addEllipse(in: rect)
+        ctx.saveGState()
+        
         ctx.setFillColor(UIColor.board.cgColor)
+        ctx.setShadow(offset: CGSize.zero, blur: 20, color: UIColor.black.cgColor)
+        ctx.addEllipse(in: rect)
         ctx.fillPath()
+        
+        ctx.restoreGState()
     }
     
     private func drawSlices(rect: CGRect) {
