@@ -98,7 +98,7 @@ class PlayerViewController: UIViewController, ScoreView {
         gradientBackgroundView.endColor = UIColor.clear
         
         statusLabel.isHidden = true
-        playerName.name = player?.name
+        playerName.name = player?.player(for: round)?.name
         
         NotificationCenter.default.addObserver(self, selector: #selector(didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)

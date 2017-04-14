@@ -61,7 +61,7 @@ class ScoreViewController: UIViewController, ScoreView {
         guard let cell = cell else { return }
         guard let player = game?.players[indexPath.row] else { return }
         
-        let score = game?.score(forPlayer: player, round: round)
+        let score = game?.score(forPlayer: player)
         
         cell.nameLabel.text = player.name
         cell.scoreLabel.text = "\(score ?? 0)"

@@ -28,6 +28,9 @@ class GameChooserViewController: UITableViewController {
         return ((UIApplication.shared.delegate as? AppDelegate)?.storage)!
     }
     
+    private var gameForSegue: CoreGame?
+    private var cutOpponentsIfNecessary: Bool?
+    
     // MARK: Unwind Segues
     
     @IBAction func unwindFromPlayerChooser(segue: UIStoryboardSegue) {
@@ -62,14 +65,9 @@ class GameChooserViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "playGame" {
             if let viewController = segue.destination as? GameViewController {
-                guard let index = tableView.indexPathForSelectedRow?.row, let game = config?.games[index] else {
-                    return
-                }
-                guard let name = game["config"] as? String, let config = GameConfig(name: name) else {
-                    return
-                }
-                
-                viewController.game = GameFactory(teams: teams!).createGame(config: config)
+                viewController.game = gameForSegue
+                gameForSegue = nil
+                cutOpponentsIfNecessary = nil
             }
         } else if segue.identifier == "gameOptions" {
             if let viewController = (segue.destination as? UINavigationController)?.childViewControllers.first as? PropertiesViewController {
@@ -92,9 +90,27 @@ class GameChooserViewController: UITableViewController {
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return false
             }
-            guard let _ = config?.games[indexPath.row]["name"] as? String else {
+            guard let gameConfig = config?.games[indexPath.row] else {
                 return false
             }
+            guard let file = gameConfig["config"] as? String else {
+                return false
+            }
+            guard let config = GameConfig(name: file) else {
+                return false
+            }
+            guard let game = GameFactory(teams: teams).createGame(config: config) else {
+                return false
+            }
+//            guard (cutOpponentsIfNecessary ?? false) || game.players.count == teams.count else {
+//                display(title: "Do you want to continue?", message: "Only \(game.players.count) opponents can play \(game.name) at a time.") {
+//                    self.cutOpponentsIfNecessary = true
+//                    self.performSegue(withIdentifier: "playGame", sender: nil)
+//                }
+//                return false
+//            }
+            
+            gameForSegue = game
         }
         return true
     }
@@ -225,6 +241,20 @@ class GameChooserViewController: UITableViewController {
     private func retrieveItems() {
         let persitence = TeamPersistence(storage: storage)
         teams = persitence.teams()
+    }
+    
+    private func display(title: String, message: String, completion: @escaping () -> ()) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
+            completion()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(cancelAction)
+        alertController.addAction(okAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
     
 }

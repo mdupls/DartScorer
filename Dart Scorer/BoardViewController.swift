@@ -28,11 +28,7 @@ class BoardViewController: UIViewController {
             targetSelectionView?.round = round
             dataSource?.round = round
             
-            let bust = player?.score(for: round)?.bust ?? false
-            
-            boardView?.enabled = !bust
-            
-            markerView?.setNeedsDisplay()
+            update()
         }
     }
     
@@ -51,27 +47,15 @@ class BoardViewController: UIViewController {
     // MARK: Events
     
     func didHitTarget(sender: Notification) {
-        guard let game = game else { return }
         guard player === sender.object as? GamePlayer else { return }
-        guard let score = sender.userInfo?["score"] as? Score else { return }
         
-        let enabled = !score.bust && score.hits < game.throwsPerTurn
-        
-        boardView?.enabled = enabled
-        targetSelectionView?.isUserInteractionEnabled = enabled
-        
-        markerView?.setNeedsDisplay()
+        update()
     }
     
     func didUnhitTarget(sender: Notification) {
         guard player === sender.object as? GamePlayer else { return }
         
-        let bust = (sender.userInfo?["score"] as? Score)?.bust ?? false
-        
-        boardView?.enabled = !bust
-        targetSelectionView?.isUserInteractionEnabled = true
-        
-        markerView?.setNeedsDisplay()
+        update()
     }
     
     func didOpenTarget(sender: Notification) {
@@ -84,6 +68,7 @@ class BoardViewController: UIViewController {
     
     func didGameFinish(sender: Notification) {
         boardView?.enabled = false
+        targetSelectionView?.isUserInteractionEnabled = false
     }
     
     // MARK: Lifecycle
@@ -142,6 +127,20 @@ class BoardViewController: UIViewController {
             
             markerView.setNeedsDisplay()
         }
+    }
+    
+    private func update() {
+        guard let game = game else { return }
+        guard let player = player else { return }
+        
+        let score = player.score(for: round)
+        
+        let enabled = !(score?.bust ?? false) && (score?.hits ?? 0) < game.throwsPerTurn
+        
+        targetSelectionView?.isUserInteractionEnabled = enabled
+        boardView?.enabled = enabled
+        
+        markerView?.setNeedsDisplay()
     }
     
 }

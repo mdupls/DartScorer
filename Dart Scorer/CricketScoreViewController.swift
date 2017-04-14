@@ -68,7 +68,7 @@ class CricketScoreViewController: UIViewController, ScoreView {
             let hits = player.hits(for: target)
             let state = game.state(for: target, player: player, round: round)
             
-            cell.player2View.hits = hits
+            cell.player2View?.hits = hits
             state.apply(view: cell.player2View)
             
             if state != .closed {
@@ -80,7 +80,7 @@ class CricketScoreViewController: UIViewController, ScoreView {
             let hits = player.hits(for: target)
             let state = game.state(for: target, player: player, round: round)
             
-            cell.player3View.hits = hits
+            cell.player3View?.hits = hits
             state.apply(view: cell.player3View)
             
             if state != .closed {
@@ -92,8 +92,32 @@ class CricketScoreViewController: UIViewController, ScoreView {
             let hits = player.hits(for: target)
             let state = game.state(for: target, player: player, round: round)
             
-            cell.player4View.hits = hits
+            cell.player4View?.hits = hits
             state.apply(view: cell.player4View)
+            
+            if state != .closed {
+                overallState = .initial
+            }
+        }
+        if count >= 5 {
+            let player = game.players[4]
+            let hits = player.hits(for: target)
+            let state = game.state(for: target, player: player, round: round)
+            
+            cell.player5View?.hits = hits
+            state.apply(view: cell.player5View)
+            
+            if state != .closed {
+                overallState = .initial
+            }
+        }
+        if count >= 6 {
+            let player = game.players[5]
+            let hits = player.hits(for: target)
+            let state = game.state(for: target, player: player, round: round)
+            
+            cell.player6View?.hits = hits
+            state.apply(view: cell.player6View)
             
             if state != .closed {
                 overallState = .initial
@@ -115,27 +139,39 @@ class CricketScoreViewController: UIViewController, ScoreView {
         
         if count >= 1 {
             let player = game.players[0]
-            let score = game.score(forPlayer: player, round: round) ?? 0
+            let score = game.score(forPlayer: player) ?? 0
             header.player1ScoreLabel.text = "\(score)"
             header.player1Label.text = player.name
         }
         if count >= 2 {
             let player = game.players[1]
-            let score = game.score(forPlayer: player, round: round) ?? 0
-            header.player2ScoreLabel.text = "\(score)"
-            header.player2Label.text = player.name
+            let score = game.score(forPlayer: player) ?? 0
+            header.player2ScoreLabel?.text = "\(score)"
+            header.player2Label?.text = player.name
         }
         if count >= 3 {
             let player = game.players[2]
-            let score = game.score(forPlayer: player, round: round) ?? 0
-            header.player3ScoreLabel.text = "\(score)"
-            header.player3Label.text = player.name
+            let score = game.score(forPlayer: player) ?? 0
+            header.player3ScoreLabel?.text = "\(score)"
+            header.player3Label?.text = player.name
         }
         if count >= 4 {
             let player = game.players[3]
-            let score = game.score(forPlayer: player, round: round) ?? 0
-            header.player4ScoreLabel.text = "\(score)"
-            header.player4Label.text = player.name
+            let score = game.score(forPlayer: player) ?? 0
+            header.player4ScoreLabel?.text = "\(score)"
+            header.player4Label?.text = player.name
+        }
+        if count >= 5 {
+            let player = game.players[4]
+            let score = game.score(forPlayer: player) ?? 0
+            header.player5ScoreLabel?.text = "\(score)"
+            header.player5Label?.text = player.name
+        }
+        if count >= 6 {
+            let player = game.players[5]
+            let score = game.score(forPlayer: player) ?? 0
+            header.player6ScoreLabel?.text = "\(score)"
+            header.player6Label?.text = player.name
         }
     }
     
@@ -159,6 +195,10 @@ extension CricketScoreViewController: UITableViewDelegate {
             cell = tableView.dequeueReusableCell(withIdentifier: "threePlayerHeaderCell")
         case 4:
             cell = tableView.dequeueReusableCell(withIdentifier: "fourPlayerHeaderCell")
+        case 5:
+            cell = tableView.dequeueReusableCell(withIdentifier: "fivePlayerHeaderCell")
+        case 6:
+            cell = tableView.dequeueReusableCell(withIdentifier: "sixPlayerHeaderCell")
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: "onePlayerHeaderCell")
         }
@@ -192,6 +232,10 @@ extension CricketScoreViewController: UITableViewDataSource {
             cell = tableView.dequeueReusableCell(withIdentifier: "threePlayerScoreCell", for: indexPath)
         case 4:
             cell = tableView.dequeueReusableCell(withIdentifier: "fourPlayerScoreCell", for: indexPath)
+        case 5:
+            cell = tableView.dequeueReusableCell(withIdentifier: "fivePlayerScoreCell", for: indexPath)
+        case 6:
+            cell = tableView.dequeueReusableCell(withIdentifier: "sixPlayerScoreCell", for: indexPath)
         default:
             cell = tableView.dequeueReusableCell(withIdentifier: "onePlayerScoreCell", for: indexPath)
         }
@@ -219,9 +263,11 @@ class CricketScoreCellView: UITableViewCell {
     @IBOutlet weak var targetView: UIView!
     
     @IBOutlet weak var player1View: CricketHitView!
-    @IBOutlet weak var player2View: CricketHitView!
-    @IBOutlet weak var player3View: CricketHitView!
-    @IBOutlet weak var player4View: CricketHitView!
+    @IBOutlet weak var player2View: CricketHitView?
+    @IBOutlet weak var player3View: CricketHitView?
+    @IBOutlet weak var player4View: CricketHitView?
+    @IBOutlet weak var player5View: CricketHitView?
+    @IBOutlet weak var player6View: CricketHitView?
     
 }
 
@@ -229,21 +275,27 @@ class CricketHeaderCellView: UITableViewCell {
     
     @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet weak var player1Label: UILabel!
-    @IBOutlet weak var player2Label: UILabel!
-    @IBOutlet weak var player3Label: UILabel!
-    @IBOutlet weak var player4Label: UILabel!
+    @IBOutlet weak var player2Label: UILabel?
+    @IBOutlet weak var player3Label: UILabel?
+    @IBOutlet weak var player4Label: UILabel?
+    @IBOutlet weak var player5Label: UILabel?
+    @IBOutlet weak var player6Label: UILabel?
     
     @IBOutlet weak var targetScoreLabel: UILabel!
     @IBOutlet weak var player1ScoreLabel: UILabel!
-    @IBOutlet weak var player2ScoreLabel: UILabel!
-    @IBOutlet weak var player3ScoreLabel: UILabel!
-    @IBOutlet weak var player4ScoreLabel: UILabel!
+    @IBOutlet weak var player2ScoreLabel: UILabel?
+    @IBOutlet weak var player3ScoreLabel: UILabel?
+    @IBOutlet weak var player4ScoreLabel: UILabel?
+    @IBOutlet weak var player5ScoreLabel: UILabel?
+    @IBOutlet weak var player6ScoreLabel: UILabel?
     
 }
 
 fileprivate extension TargetState {
     
-    func apply(view: UIView) {
+    func apply(view: UIView?) {
+        guard let view = view else { return }
+        
         switch self {
         case .closed:
             view.alpha = 0.2
