@@ -43,6 +43,12 @@ class HitCellView: UICollectionViewCell {
         return .single
     }
     
+    override var isHighlighted: Bool {
+        didSet {
+            self.alpha = isHighlighted ? 0.4 : 1
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
