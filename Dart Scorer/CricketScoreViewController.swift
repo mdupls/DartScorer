@@ -40,9 +40,6 @@ class CricketScoreViewController: UIViewController, ScoreView {
         
         tableView.hideEmptyRows()
         tableView.backgroundColor = UIColor(hex: 0xffffff55)
-        
-        tableView.layer.cornerRadius = 10
-        tableView.layer.masksToBounds = true
     }
     
     // MARK: Private

@@ -157,6 +157,15 @@ extension AroundTheWorldGame: Game {
     }
     
     func isWinning(player: GamePlayer) -> Bool {
+        if clockwise {
+            guard score(forPlayer: player) > startingIndex + 1 else {
+                return false
+            }
+        } else {
+            guard score(forPlayer: player) < startingIndex + 1 else {
+                return false
+            }
+        }
         return player === rank(players: players).first
     }
     

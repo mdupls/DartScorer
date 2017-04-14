@@ -55,6 +55,12 @@
 		19B18AB71E84A37000923D8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B18AB61E84A37000923D8A /* ViewController.swift */; };
 		19B18AB91E84A7AE00923D8A /* GamesConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B18AB81E84A7AE00923D8A /* GamesConfig.swift */; };
 		19B4234A1EA10DA800C1ED1E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B423491EA10DA800C1ED1E /* GradientView.swift */; };
+		19B4234C1EA1165600C1ED1E /* shanghai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19B4234B1EA1165600C1ED1E /* shanghai.ttf */; };
+		19B4234E1EA11C5700C1ED1E /* UIColor+HexExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B4234D1EA11C5700C1ED1E /* UIColor+HexExtensions.swift */; };
+		19B423501EA11E1900C1ED1E /* Days Later.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19B4234F1EA11E1900C1ED1E /* Days Later.ttf */; };
+		19B423561EA1228300C1ED1E /* Venetian.otf in Resources */ = {isa = PBXBuildFile; fileRef = 19B423551EA1228300C1ED1E /* Venetian.otf */; };
+		19B423581EA122E700C1ED1E /* California.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19B423571EA122E700C1ED1E /* California.ttf */; };
+		19B4235B1EA142CE00C1ED1E /* Square Chalk.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19B4235A1EA142CE00C1ED1E /* Square Chalk.ttf */; };
 		19C32B7E1E8DEFDD0039EE23 /* NameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B7D1E8DEFDD0039EE23 /* NameView.swift */; };
 		19C32B801E8EDF8B0039EE23 /* HitCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */; };
 		19C32B821E8F13380039EE23 /* TargetSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19C32B811E8F13380039EE23 /* TargetSelectionView.swift */; };
@@ -142,6 +148,12 @@
 		19B18AB61E84A37000923D8A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		19B18AB81E84A7AE00923D8A /* GamesConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GamesConfig.swift; sourceTree = "<group>"; };
 		19B423491EA10DA800C1ED1E /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		19B4234B1EA1165600C1ED1E /* shanghai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shanghai.ttf; sourceTree = "<group>"; };
+		19B4234D1EA11C5700C1ED1E /* UIColor+HexExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+HexExtensions.swift"; sourceTree = "<group>"; };
+		19B4234F1EA11E1900C1ED1E /* Days Later.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Days Later.ttf"; sourceTree = "<group>"; };
+		19B423551EA1228300C1ED1E /* Venetian.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Venetian.otf; sourceTree = "<group>"; };
+		19B423571EA122E700C1ED1E /* California.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = California.ttf; sourceTree = "<group>"; };
+		19B4235A1EA142CE00C1ED1E /* Square Chalk.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Square Chalk.ttf"; sourceTree = "<group>"; };
 		19C32B7D1E8DEFDD0039EE23 /* NameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NameView.swift; sourceTree = "<group>"; };
 		19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitCellView.swift; sourceTree = "<group>"; };
 		19C32B811E8F13380039EE23 /* TargetSelectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetSelectionView.swift; sourceTree = "<group>"; };
@@ -324,8 +336,21 @@
 				19EA7F0A1E9563A7002AECC7 /* UITableView+Extensions.swift */,
 				1972CA251E79B42400A257D9 /* String+Extensions.swift */,
 				1972CA3A1E79D72900A257D9 /* CGPoint+Extensions.swift */,
+				19B4234D1EA11C5700C1ED1E /* UIColor+HexExtensions.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		19B423591EA1236500C1ED1E /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				19B4235A1EA142CE00C1ED1E /* Square Chalk.ttf */,
+				19B4234F1EA11E1900C1ED1E /* Days Later.ttf */,
+				19B4234B1EA1165600C1ED1E /* shanghai.ttf */,
+				19B423551EA1228300C1ED1E /* Venetian.otf */,
+				19B423571EA122E700C1ED1E /* California.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		19EA7F101E95D27F002AECC7 /* Properties */ = {
@@ -376,6 +401,7 @@
 				19590D1B1E89E1F800CDB946 /* Round.storyboard */,
 				19C6065F1E8839ED0077E2CC /* Score.storyboard */,
 				19F07DAA1E246A0400C7AB32 /* LaunchScreen.storyboard */,
+				19B423591EA1236500C1ED1E /* Fonts */,
 				19F07DA81E246A0400C7AB32 /* Assets.xcassets */,
 				19F07DAD1E246A0400C7AB32 /* Info.plist */,
 			);
@@ -509,6 +535,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19B423581EA122E700C1ED1E /* California.ttf in Resources */,
+				19B423501EA11E1900C1ED1E /* Days Later.ttf in Resources */,
 				1972CA371E79C2FB00A257D9 /* config.json in Resources */,
 				19EA7F151E95D551002AECC7 /* Properties.storyboard in Resources */,
 				19F07DAC1E246A0400C7AB32 /* LaunchScreen.storyboard in Resources */,
@@ -521,7 +549,10 @@
 				19460B521E947C1B00FBFAE0 /* aroundtheworld.json in Resources */,
 				19F07DA71E246A0400C7AB32 /* Main.storyboard in Resources */,
 				19590D1C1E89E1F800CDB946 /* Round.storyboard in Resources */,
+				19B4235B1EA142CE00C1ED1E /* Square Chalk.ttf in Resources */,
 				19203A721E932FEA00158AC1 /* Players.storyboard in Resources */,
+				19B423561EA1228300C1ED1E /* Venetian.otf in Resources */,
+				19B4234C1EA1165600C1ED1E /* shanghai.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +600,7 @@
 				1979DF8E1E7B31DE00A667FC /* Target.swift in Sources */,
 				19EA7F121E95D3C1002AECC7 /* GameProperty.swift in Sources */,
 				1972CA431E7A216200A257D9 /* Score.swift in Sources */,
+				19B4234E1EA11C5700C1ED1E /* UIColor+HexExtensions.swift in Sources */,
 				19C32B821E8F13380039EE23 /* TargetSelectionView.swift in Sources */,
 				19B18AB51E84A36300923D8A /* GameChooserViewController.swift in Sources */,
 				198EE46D1E931FFE00CEA09B /* GamePersistence.swift in Sources */,

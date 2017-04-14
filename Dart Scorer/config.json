@@ -2,19 +2,31 @@
     "games": [
         {
             "name": "Cricket",
-            "config": "cricket.json"
+            "config": "cricket.json",
+            "font": "California",
+            "backgroundColor": "#7D8D2C",
+            "foregroundColor": "#FFFFFF"
         },
         {
             "name": "x01",
-            "config": "x01.json"
+            "config": "x01.json",
+            "font": "28DaysLater",
+            "backgroundColor": "#2D2D2D",
+            "foregroundColor": "#FFFFFF"
         },
         {
             "name": "Shanghai",
-            "config": "shanghai.json"
+            "config": "shanghai.json",
+            "font": "Shanghai",
+            "backgroundColor": "#FF0000",
+            "foregroundColor": "#EEEEEE"
         },
         {
             "name": "Around the World",
-            "config": "aroundtheworld.json"
+            "config": "aroundtheworld.json",
+            "font": "Venetian",
+            "backgroundColor": "#F5F5F5",
+            "foregroundColor": "#444444"
         }
     ]
 }
