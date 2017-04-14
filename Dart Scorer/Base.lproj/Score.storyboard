@@ -216,12 +216,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wood3" translatesAutoresizingMaskIntoConstraints="NO" id="pfV-eB-S2d">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WQf-sP-puN">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="onePlayerHeaderCell" rowHeight="75" id="Dq6-rX-PEy" customClass="CricketHeaderCellView" customModule="Dart_Scorer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="768" height="75"/>
@@ -1173,12 +1170,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="WQf-sP-puN" firstAttribute="top" secondItem="O49-cw-Hb2" secondAttribute="top" id="2uI-27-2SU"/>
-                            <constraint firstItem="RVY-ac-7a7" firstAttribute="top" secondItem="pfV-eB-S2d" secondAttribute="bottom" id="Ogw-bZ-WZU"/>
                             <constraint firstItem="RVY-ac-7a7" firstAttribute="top" secondItem="WQf-sP-puN" secondAttribute="bottom" id="cB5-ru-bKm"/>
-                            <constraint firstItem="pfV-eB-S2d" firstAttribute="top" secondItem="O49-cw-Hb2" secondAttribute="top" id="dVn-1b-EhV"/>
-                            <constraint firstAttribute="trailing" secondItem="pfV-eB-S2d" secondAttribute="trailing" id="gHw-Ag-YZT"/>
                             <constraint firstAttribute="trailing" secondItem="WQf-sP-puN" secondAttribute="trailing" id="nbS-2r-w0j"/>
-                            <constraint firstItem="pfV-eB-S2d" firstAttribute="leading" secondItem="O49-cw-Hb2" secondAttribute="leading" id="s2S-rb-1yu"/>
                             <constraint firstItem="WQf-sP-puN" firstAttribute="leading" secondItem="O49-cw-Hb2" secondAttribute="leading" id="wFO-iT-3U2"/>
                         </constraints>
                     </view>
