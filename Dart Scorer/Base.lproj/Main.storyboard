@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xF3-Pm-aeY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xF3-Pm-aeY">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -94,7 +94,7 @@
                                 <rect key="frame" x="0.0" y="1" width="414" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BFx-PO-SGR" id="ehB-iL-LU2">
-                                    <rect key="frame" x="0.0" y="0.0" width="367" height="100"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="367" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R1C-op-2ge">
@@ -151,7 +151,7 @@
         <scene sceneID="pog-rQ-aK6">
             <objects>
                 <collectionViewController id="SOK-nE-qcR" customClass="OpponentsViewController" customModule="Dart_Scorer" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceHorizontal="YES" dataMode="prototypes" id="E1H-nl-07C">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" id="E1H-nl-07C">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="148"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -201,60 +201,24 @@
                                     <segue destination="Bn2-Vm-hzI" kind="presentation" identifier="players" modalPresentationStyle="formSheet" id="LuX-fP-F1S"/>
                                 </connections>
                             </collectionViewCell>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="teamCell" id="fq0-Rt-yiR" customClass="TeamCollectionViewCell" customModule="Dart_Scorer" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="teamCell" id="OXO-Xc-0pd" customClass="TeamCollectionViewCell" customModule="Dart_Scorer" customModuleProvider="target">
                                 <rect key="frame" x="160" y="-1" width="150" height="150"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Ur-b1-Knz">
-                                            <rect key="frame" x="31.000000000000007" y="20" width="89.666666666666686" height="89"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wOG-ZF-r2G">
-                                                    <rect key="frame" x="47.666666666666671" y="5" width="37" height="37.666666666666664"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="wOG-ZF-r2G" secondAttribute="height" multiplier="1:1" id="6bf-vF-KLm"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pmT-12-QeT">
-                                                    <rect key="frame" x="47.666666666666671" y="47.666666666666679" width="37" height="36.333333333333321"/>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="J2T-3y-XYP">
-                                                    <rect key="frame" x="5.6666666666666643" y="47.666666666666679" width="37.000000000000007" height="36.333333333333321"/>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HVj-rq-jq9">
-                                                    <rect key="frame" x="5.6666666666666643" y="5" width="37.000000000000007" height="37.666666666666664"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="HVj-rq-jq9" secondAttribute="height" multiplier="1:1" id="11o-Vx-O0L"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ayH-fx-YcM" customClass="TeamIconView" customModule="Dart_Scorer" customModuleProvider="target">
+                                            <rect key="frame" x="31.333333333333329" y="20" width="89" height="89"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="pmT-12-QeT" secondAttribute="bottom" constant="5" id="4L8-yr-HmT"/>
-                                                <constraint firstItem="pmT-12-QeT" firstAttribute="leading" secondItem="J2T-3y-XYP" secondAttribute="trailing" constant="5" id="7yg-rA-W3J"/>
-                                                <constraint firstItem="wOG-ZF-r2G" firstAttribute="top" secondItem="3Ur-b1-Knz" secondAttribute="top" constant="5" id="91K-mI-E1q"/>
-                                                <constraint firstItem="pmT-12-QeT" firstAttribute="top" secondItem="wOG-ZF-r2G" secondAttribute="bottom" constant="5" id="B7S-21-t1H"/>
-                                                <constraint firstAttribute="trailing" secondItem="wOG-ZF-r2G" secondAttribute="trailing" constant="5" id="Bn5-Gq-NA0"/>
-                                                <constraint firstItem="HVj-rq-jq9" firstAttribute="width" secondItem="wOG-ZF-r2G" secondAttribute="width" id="LG8-L5-rUC"/>
-                                                <constraint firstItem="wOG-ZF-r2G" firstAttribute="leading" secondItem="HVj-rq-jq9" secondAttribute="trailing" constant="5" id="Mkp-nY-wYj"/>
-                                                <constraint firstItem="HVj-rq-jq9" firstAttribute="width" secondItem="J2T-3y-XYP" secondAttribute="width" id="NFB-hb-FMz"/>
-                                                <constraint firstItem="J2T-3y-XYP" firstAttribute="leading" secondItem="3Ur-b1-Knz" secondAttribute="leading" constant="5" id="OiY-VT-OYN"/>
-                                                <constraint firstItem="HVj-rq-jq9" firstAttribute="leading" secondItem="3Ur-b1-Knz" secondAttribute="leading" constant="5" id="XLM-lD-6Fq"/>
-                                                <constraint firstItem="J2T-3y-XYP" firstAttribute="top" secondItem="HVj-rq-jq9" secondAttribute="bottom" constant="5" id="aw8-mu-8sa"/>
-                                                <constraint firstItem="HVj-rq-jq9" firstAttribute="width" secondItem="3Ur-b1-Knz" secondAttribute="width" priority="750" id="eh9-ab-JdY"/>
-                                                <constraint firstItem="HVj-rq-jq9" firstAttribute="top" secondItem="3Ur-b1-Knz" secondAttribute="top" constant="5" id="epf-PH-bOH"/>
-                                                <constraint firstAttribute="bottom" secondItem="J2T-3y-XYP" secondAttribute="bottom" constant="5" id="mJW-cY-OxK"/>
-                                                <constraint firstItem="J2T-3y-XYP" firstAttribute="width" secondItem="J2T-3y-XYP" secondAttribute="height" multiplier="1:1" id="mkG-Pw-h1Q"/>
-                                                <constraint firstItem="HVj-rq-jq9" firstAttribute="width" secondItem="pmT-12-QeT" secondAttribute="width" id="sOy-Mt-JQV"/>
-                                                <constraint firstAttribute="trailing" secondItem="pmT-12-QeT" secondAttribute="trailing" constant="5" id="zLe-PM-9hh"/>
+                                                <constraint firstAttribute="width" secondItem="ayH-fx-YcM" secondAttribute="height" multiplier="1:1" id="9B1-Rw-eXH"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DCM-Uv-dAC">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rJf-cC-PPy">
                                             <rect key="frame" x="8" y="117" width="134" height="25"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="cQk-IC-9ih"/>
+                                                <constraint firstAttribute="height" constant="25" id="5Kh-oa-Zxt"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -263,19 +227,16 @@
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="3Ur-b1-Knz" firstAttribute="top" secondItem="fq0-Rt-yiR" secondAttribute="topMargin" constant="12" id="1h2-4z-y4L"/>
-                                    <constraint firstItem="DCM-Uv-dAC" firstAttribute="bottom" secondItem="fq0-Rt-yiR" secondAttribute="bottomMargin" id="MLu-LH-xhg"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="DCM-Uv-dAC" secondAttribute="trailing" id="Qjd-Ug-5Dg"/>
-                                    <constraint firstItem="DCM-Uv-dAC" firstAttribute="top" secondItem="3Ur-b1-Knz" secondAttribute="bottom" constant="8" symbolic="YES" id="S0I-pz-ewU"/>
-                                    <constraint firstItem="DCM-Uv-dAC" firstAttribute="leading" secondItem="fq0-Rt-yiR" secondAttribute="leadingMargin" id="g0n-pG-GtR"/>
-                                    <constraint firstItem="3Ur-b1-Knz" firstAttribute="centerX" secondItem="fq0-Rt-yiR" secondAttribute="centerX" id="lJe-eF-4tB"/>
+                                    <constraint firstItem="rJf-cC-PPy" firstAttribute="top" secondItem="ayH-fx-YcM" secondAttribute="bottom" constant="8" symbolic="YES" id="2ly-eQ-Af5"/>
+                                    <constraint firstItem="ayH-fx-YcM" firstAttribute="centerX" secondItem="OXO-Xc-0pd" secondAttribute="centerX" id="GQH-W6-jGZ"/>
+                                    <constraint firstItem="ayH-fx-YcM" firstAttribute="top" secondItem="OXO-Xc-0pd" secondAttribute="topMargin" constant="12" id="GQp-G8-FHz"/>
+                                    <constraint firstItem="rJf-cC-PPy" firstAttribute="leading" secondItem="OXO-Xc-0pd" secondAttribute="leadingMargin" id="JxW-Zp-0aL"/>
+                                    <constraint firstItem="rJf-cC-PPy" firstAttribute="bottom" secondItem="OXO-Xc-0pd" secondAttribute="bottomMargin" id="LVA-s8-r0a"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="rJf-cC-PPy" secondAttribute="trailing" id="SY2-xE-eeM"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="imageView1" destination="HVj-rq-jq9" id="FZE-Nm-5lh"/>
-                                    <outlet property="imageView2" destination="wOG-ZF-r2G" id="qsF-HF-Nfr"/>
-                                    <outlet property="imageView3" destination="J2T-3y-XYP" id="9ja-eW-SeE"/>
-                                    <outlet property="imageView4" destination="pmT-12-QeT" id="ln2-sl-RoZ"/>
-                                    <outlet property="nameLabel" destination="DCM-Uv-dAC" id="Aq8-CS-TYs"/>
+                                    <outlet property="iconView" destination="ayH-fx-YcM" id="Cku-b8-fpf"/>
+                                    <outlet property="nameLabel" destination="rJf-cC-PPy" id="rlC-bB-zM7"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="addPlayerCell" id="sSA-Io-RPy" customClass="AddPlayerCollectionViewCell" customModule="Dart_Scorer" customModuleProvider="target">

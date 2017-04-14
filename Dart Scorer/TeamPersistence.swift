@@ -44,4 +44,9 @@ class TeamPersistence {
         return managedObjects.first as? Player
     }
     
+    func delete(teams: [Team]) {
+        storage.delete(managedObjects: teams)
+        storage.save()
+    }
+    
 }

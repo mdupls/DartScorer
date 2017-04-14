@@ -70,6 +70,8 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     
     @IBAction func didTapNewPlayer(sender: UIBarButtonItem) {
         askForName(title: "Create Player") {
+            self.isEditing = false
+            
             if let name = $0, !name.isEmpty {
                 let persitence = PlayerPersistence(storage: self.storage)
                 if let player = persitence.createPlayer(with: name) {
@@ -85,6 +87,8 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     @IBAction func didTapNewTeam(sender: UIBarButtonItem) {
         if let players = selectedBench() {
             askForName(title: "Create Team") {
+                self.isEditing = false
+                
                 if let name = $0, !name.isEmpty {
                     let teamPersistence = TeamPersistence(storage: self.storage)
                     if let team = teamPersistence.createTeam(name: name, players: players) {
@@ -111,8 +115,8 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
         }
         
         if let teams = teams, !teams.isEmpty {
-            //                let teamPersistence = TeamPersistence(storage: storage)
-            //                teamPersistence.delete(teams: teams)
+            let teamPersistence = TeamPersistence(storage: storage)
+            teamPersistence.delete(teams: teams)
             
             hasDeleted = true
         }
@@ -158,18 +162,10 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
         collectionView?.collectionViewLayout.invalidateLayout()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "done" {
-//            if let destination = segue.destination as? ViewController {
-//                destination.players = players
-//            }
-//        }
-    }
-    
     // MARK: UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-//        collectionView.moveItem(at: destinationIndexPath, to: sourceIndexPath)
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -289,7 +285,10 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     private func populate(cell: TeamCollectionViewCell?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         
-        cell.nameLabel.text = teams?[indexPath.row].teamName
+        let team = teams?[indexPath.row]
+        
+        cell.team = team
+        cell.nameLabel.text = team?.teamName
     }
     
     private func populate(cell: PlayerCollectionViewCell?, player: Player?, indexPath: IndexPath) {

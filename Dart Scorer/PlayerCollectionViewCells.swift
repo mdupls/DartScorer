@@ -66,42 +66,84 @@ class PlayerCollectionViewCell: UICollectionViewCell {
 class TeamCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var imageView1: UIImageView!
-    @IBOutlet weak var imageView2: UIImageView!
-    @IBOutlet weak var imageView3: UIImageView!
-    @IBOutlet weak var imageView4: UIImageView!
+    @IBOutlet weak var iconView: TeamIconView!
+    
+    var team: Team? {
+        didSet {
+            iconView.count = team?.players?.count ?? 0
+        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        imageView1.layer.cornerRadius = frame.size.width / 2
-        imageView1.layer.borderColor = UIColor.gray.cgColor
-        imageView1.layer.borderWidth = 1
-        
-        imageView2.layer.cornerRadius = frame.size.width / 2
-        imageView2.layer.borderColor = UIColor.gray.cgColor
-        imageView2.layer.borderWidth = 1
-        
-        imageView3.layer.cornerRadius = frame.size.width / 2
-        imageView3.layer.borderColor = UIColor.gray.cgColor
-        imageView3.layer.borderWidth = 1
-        
-        imageView4.layer.cornerRadius = frame.size.width / 2
-        imageView4.layer.borderColor = UIColor.gray.cgColor
-        imageView4.layer.borderWidth = 1
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
     }
     
+    override var isSelected: Bool {
+        didSet {
+            backgroundColor = isSelected ? UIColor.black : UIColor.clear
+        }
+    }
+    
+}
+
+class TeamIconView: UIView {
+    
+    var count: Int = 0
+    
     override func draw(_ rect: CGRect) {
-        imageView1.layer.cornerRadius = imageView1.bounds.size.width / 2
-        imageView2.layer.cornerRadius = imageView2.bounds.size.width / 2
-        imageView3.layer.cornerRadius = imageView3.bounds.size.width / 2
-        imageView4.layer.cornerRadius = imageView4.bounds.size.width / 2
-        
         super.draw(rect)
+        
+        drawBackground(rect: rect)
+        drawCells(rect: rect)
+    }
+    
+    private func drawBackground(rect: CGRect) {
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        
+        context.setFillColor(UIColor.board.cgColor)
+        context.setAlpha(0.7)
+        context.addEllipse(in: rect)
+        context.fillPath()
+    }
+    
+    private func drawCells(rect: CGRect) {
+        let columns = Int(ceil(sqrt(Double(count))))
+        let rows = count > columns ? columns : 1
+        
+        let diameter = rect.width / CGFloat(columns)
+        
+        var cursor: Int = 0
+        
+        let offsetY = (rect.height - CGFloat(rows) * diameter) / 2
+        
+        for row in 0 ..< rows {
+            let y = diameter * CGFloat(row) + offsetY
+            
+            for column in 0 ..< columns {
+                let cellRect = CGRect(x: diameter * CGFloat(column), y: y, width: diameter, height: diameter)
+                
+                drawCell(rect: cellRect)
+                
+                if cursor == count - 1 {
+                    return
+                }
+                
+                cursor += 1
+            }
+        }
+    }
+    
+    private func drawCell(rect: CGRect) {
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        
+        context.setFillColor(UIColor.hit.cgColor)
+        context.setAlpha(0.7)
+        context.addEllipse(in: rect)
+        context.fillPath()
     }
     
 }

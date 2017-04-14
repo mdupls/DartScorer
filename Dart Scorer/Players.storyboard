@@ -16,7 +16,7 @@
         <scene sceneID="z6X-JM-s4i">
             <objects>
                 <collectionViewController id="I6Z-Y2-dGy" customClass="PlayerChooserViewController" customModule="Dart_Scorer" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" id="u4H-Lz-wC6">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="u4H-Lz-wC6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -69,47 +69,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qry-ta-lay">
-                                            <rect key="frame" x="31" y="20" width="89.5" height="89"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ch0-79-hmw">
-                                                    <rect key="frame" x="47.5" y="5" width="37" height="37.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="Ch0-79-hmw" secondAttribute="height" multiplier="1:1" id="hJc-yb-p4K"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kSX-LY-TyI">
-                                                    <rect key="frame" x="47.5" y="47.5" width="37" height="36.5"/>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TkE-cR-ptD">
-                                                    <rect key="frame" x="5.5" y="47.5" width="37" height="36.5"/>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kTa-Tu-5q4">
-                                                    <rect key="frame" x="5.5" y="5" width="37" height="37.5"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="kTa-Tu-5q4" secondAttribute="height" multiplier="1:1" id="TbQ-Vf-67C"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qry-ta-lay" customClass="TeamIconView" customModule="Dart_Scorer" customModuleProvider="target">
+                                            <rect key="frame" x="30.5" y="20" width="89" height="89"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="Ch0-79-hmw" firstAttribute="leading" secondItem="kTa-Tu-5q4" secondAttribute="trailing" constant="5" id="0sa-qB-xQe"/>
-                                                <constraint firstItem="kSX-LY-TyI" firstAttribute="leading" secondItem="TkE-cR-ptD" secondAttribute="trailing" constant="5" id="4ie-ng-G4c"/>
-                                                <constraint firstAttribute="bottom" secondItem="TkE-cR-ptD" secondAttribute="bottom" constant="5" id="7Rv-iG-1GN"/>
-                                                <constraint firstItem="kTa-Tu-5q4" firstAttribute="leading" secondItem="qry-ta-lay" secondAttribute="leading" constant="5" id="8TM-uO-6re"/>
-                                                <constraint firstAttribute="bottom" secondItem="kSX-LY-TyI" secondAttribute="bottom" constant="5" id="IeB-36-c3P"/>
-                                                <constraint firstItem="kTa-Tu-5q4" firstAttribute="width" secondItem="kSX-LY-TyI" secondAttribute="width" id="JT9-GK-ytf"/>
-                                                <constraint firstItem="kTa-Tu-5q4" firstAttribute="top" secondItem="qry-ta-lay" secondAttribute="top" constant="5" id="KtO-Et-pZz"/>
-                                                <constraint firstItem="TkE-cR-ptD" firstAttribute="leading" secondItem="qry-ta-lay" secondAttribute="leading" constant="5" id="N5B-OY-AMq"/>
-                                                <constraint firstItem="kTa-Tu-5q4" firstAttribute="width" secondItem="TkE-cR-ptD" secondAttribute="width" id="N9Y-hW-rcY"/>
-                                                <constraint firstAttribute="trailing" secondItem="kSX-LY-TyI" secondAttribute="trailing" constant="5" id="Weq-xe-Mlr"/>
-                                                <constraint firstItem="kTa-Tu-5q4" firstAttribute="width" secondItem="qry-ta-lay" secondAttribute="width" priority="750" id="aes-4s-zUh"/>
-                                                <constraint firstItem="kSX-LY-TyI" firstAttribute="top" secondItem="Ch0-79-hmw" secondAttribute="bottom" constant="5" id="awN-jt-0nv"/>
-                                                <constraint firstAttribute="trailing" secondItem="Ch0-79-hmw" secondAttribute="trailing" constant="5" id="li0-Bc-iFz"/>
-                                                <constraint firstItem="Ch0-79-hmw" firstAttribute="top" secondItem="qry-ta-lay" secondAttribute="top" constant="5" id="pWD-qJ-eno"/>
-                                                <constraint firstItem="kTa-Tu-5q4" firstAttribute="width" secondItem="Ch0-79-hmw" secondAttribute="width" id="sbi-eL-O8P"/>
-                                                <constraint firstItem="TkE-cR-ptD" firstAttribute="width" secondItem="TkE-cR-ptD" secondAttribute="height" multiplier="1:1" id="uew-qO-LUE"/>
-                                                <constraint firstItem="TkE-cR-ptD" firstAttribute="top" secondItem="kTa-Tu-5q4" secondAttribute="bottom" constant="5" id="xEz-Em-Fqx"/>
+                                                <constraint firstAttribute="width" secondItem="qry-ta-lay" secondAttribute="height" multiplier="1:1" id="BkW-sY-Dlz"/>
                                             </constraints>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rig-PY-Grt">
@@ -132,10 +96,7 @@
                                     <constraint firstItem="qry-ta-lay" firstAttribute="centerX" secondItem="L8J-oE-2na" secondAttribute="centerX" id="zbX-Cx-rgI"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="imageView1" destination="kTa-Tu-5q4" id="mBL-eW-xpi"/>
-                                    <outlet property="imageView2" destination="Ch0-79-hmw" id="SZ9-iS-Sn0"/>
-                                    <outlet property="imageView3" destination="TkE-cR-ptD" id="dF8-gw-EYQ"/>
-                                    <outlet property="imageView4" destination="kSX-LY-TyI" id="V2a-ek-xXK"/>
+                                    <outlet property="iconView" destination="qry-ta-lay" id="8qg-ej-ijr"/>
                                     <outlet property="nameLabel" destination="Rig-PY-Grt" id="8b4-un-HcL"/>
                                 </connections>
                             </collectionViewCell>

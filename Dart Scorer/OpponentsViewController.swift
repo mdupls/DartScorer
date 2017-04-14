@@ -127,13 +127,18 @@ class OpponentsViewController: UICollectionViewController, UICollectionViewDeleg
     private func populate(cell: PlayerCollectionViewCell?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         
-        cell.nameLabel.text = teams?[indexPath.row].teamName
+        let team = teams?[indexPath.row]
+        
+        cell.nameLabel.text = team?.teamName
     }
     
     private func populate(cell: TeamCollectionViewCell?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         
-        cell.nameLabel.text = teams?[indexPath.row].teamName
+        let team = teams?[indexPath.row]
+        
+        cell.team = team
+        cell.nameLabel.text = team?.teamName
     }
     
 }
