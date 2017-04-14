@@ -51,11 +51,14 @@ class BoardViewController: UIViewController {
     // MARK: Events
     
     func didHitTarget(sender: Notification) {
+        guard let game = game else { return }
         guard player === sender.object as? GamePlayer else { return }
+        guard let score = sender.userInfo?["score"] as? Score else { return }
         
-        let bust = (sender.userInfo?["score"] as? Score)?.bust ?? false
+        let enabled = !score.bust && score.hits < game.throwsPerTurn
         
-        boardView?.enabled = !bust
+        boardView?.enabled = enabled
+        targetSelectionView?.isUserInteractionEnabled = enabled
         
         markerView?.setNeedsDisplay()
     }
@@ -66,6 +69,7 @@ class BoardViewController: UIViewController {
         let bust = (sender.userInfo?["score"] as? Score)?.bust ?? false
         
         boardView?.enabled = !bust
+        targetSelectionView?.isUserInteractionEnabled = true
         
         markerView?.setNeedsDisplay()
     }
