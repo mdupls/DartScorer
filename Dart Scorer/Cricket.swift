@@ -225,7 +225,22 @@ extension CricketGame: Game {
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {
-        return players
+        let scores = players.enumerated().map {
+            return (index: $0.offset, score: score(forPlayer: $0.element))
+        }
+        
+        let scoreRank = scores.sorted { (left: (key: Int, value: Int), right: (key: Int, value: Int)) -> Bool in
+            if left.value == right.value {
+                return players[left.key].totalHits > players[right.key].totalHits
+            }
+            return left.value > right.value
+        }
+        
+        return scoreRank.map { players[$0.index] }
+    }
+    
+    func isWinning(player: GamePlayer) -> Bool {
+        return score(forPlayer: player) > 0 && player === rank(players: players).first
     }
     
     func scoreViewController() -> UIViewController? {

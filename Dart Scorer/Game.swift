@@ -61,6 +61,10 @@ class CoreGame {
         return false
     }
     
+    func isWinning(player: GamePlayer) -> Bool {
+        return game.isWinning(player: player)
+    }
+    
     func winner() -> GamePlayer? {
         guard let player = game.rank(players: players).first else { return nil }
         
@@ -157,6 +161,8 @@ protocol Game {
     func score(forPlayer player: GamePlayer, forRound round: Int?) -> Int
     
     func rank(players: [GamePlayer]) -> [GamePlayer]
+    
+    func isWinning(player: GamePlayer) -> Bool
     
     func scoreViewController() -> UIViewController?
     

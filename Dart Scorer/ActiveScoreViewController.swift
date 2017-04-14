@@ -24,6 +24,7 @@ class ActiveScoreViewController: UIViewController {
     
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreBackground: UIView!
+    @IBOutlet weak var placeIndicator: UIImageView!
     
     // MARK: Events
     
@@ -55,10 +56,16 @@ class ActiveScoreViewController: UIViewController {
     // MARK: Private
     
     fileprivate func update() {
+        guard let game = game else { return }
         guard let player = player else { return }
-        guard let scoreLabel = scoreLabel else { return }
         
-        scoreLabel.text = game?.scoreTitle(player: player, round: round)
+        if let placeIndicator = placeIndicator {
+            placeIndicator.isHidden = !game.isWinning(player: player)
+        }
+        
+        if let scoreLabel = scoreLabel {
+            scoreLabel.text = game.scoreTitle(player: player, round: round)
+        }
     }
     
 }

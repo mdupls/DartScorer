@@ -311,18 +311,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view opaque="NO" alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1fv-mB-cMS">
-                                <rect key="frame" x="458.5" y="8" width="107" height="44"/>
+                                <rect key="frame" x="459" y="8" width="106.5" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="w50-EW-gci"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxy-ss-5PW">
-                                <rect key="frame" x="473.5" y="8" width="77" height="44"/>
+                                <rect key="frame" x="474" y="8" width="76.5" height="44"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gold_medal" translatesAutoresizingMaskIntoConstraints="NO" id="ZNX-x8-Kyv">
+                                <rect key="frame" x="978" y="0.0" width="36" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ZNX-x8-Kyv" secondAttribute="height" multiplier="1:1" id="GpE-jB-0FV"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -332,12 +338,18 @@
                             <constraint firstItem="1fv-mB-cMS" firstAttribute="leading" secondItem="gxy-ss-5PW" secondAttribute="leading" constant="-15" id="Ntt-dG-XF6"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="1fv-mB-cMS" secondAttribute="trailing" id="R8A-3B-l9n"/>
                             <constraint firstAttribute="bottomMargin" secondItem="1fv-mB-cMS" secondAttribute="bottom" constant="8" id="ZIy-s6-bG7"/>
+                            <constraint firstItem="ZNX-x8-Kyv" firstAttribute="top" secondItem="Zfh-pr-WXP" secondAttribute="top" id="ag1-kx-gch"/>
+                            <constraint firstAttribute="trailing" secondItem="ZNX-x8-Kyv" secondAttribute="trailing" constant="10" id="cpJ-9n-xHl"/>
+                            <constraint firstItem="ZNX-x8-Kyv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="1fv-mB-cMS" secondAttribute="trailing" constant="20" id="dOB-CA-gg7"/>
+                            <constraint firstItem="ZNX-x8-Kyv" firstAttribute="height" secondItem="Zfh-pr-WXP" secondAttribute="height" multiplier="0.6" id="ele-Xf-unr"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZNX-x8-Kyv" secondAttribute="bottom" id="evD-As-lv6"/>
                             <constraint firstItem="1fv-mB-cMS" firstAttribute="bottom" secondItem="gxy-ss-5PW" secondAttribute="bottom" id="ws6-K9-7Mg"/>
-                            <constraint firstItem="1fv-mB-cMS" firstAttribute="centerX" secondItem="Zfh-pr-WXP" secondAttribute="centerX" id="yZV-3W-Ufb"/>
+                            <constraint firstItem="1fv-mB-cMS" firstAttribute="centerX" secondItem="Zfh-pr-WXP" secondAttribute="centerX" priority="750" id="yZV-3W-Ufb"/>
                             <constraint firstItem="1fv-mB-cMS" firstAttribute="top" secondItem="gxy-ss-5PW" secondAttribute="top" id="yaQ-yX-Rf1"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="placeIndicator" destination="ZNX-x8-Kyv" id="1pe-wH-ST8"/>
                         <outlet property="scoreBackground" destination="1fv-mB-cMS" id="RNq-ZQ-ab1"/>
                         <outlet property="scoreLabel" destination="gxy-ss-5PW" id="VdK-vC-qGz"/>
                     </connections>
@@ -348,6 +360,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="gold_medal" width="512" height="512"/>
         <image name="wood2" width="4272" height="2352"/>
     </resources>
 </document>

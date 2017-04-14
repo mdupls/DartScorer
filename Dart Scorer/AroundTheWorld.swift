@@ -16,6 +16,7 @@ class AroundTheWorldGame {
     let startingIndex: Int
     let endingIndex: Int
     let clockwise: Bool
+    let players: [GamePlayer]
     
     // Mapping of player names to current index in the array of targets.
     private var playerCursor: [String : Int] = [:]
@@ -25,6 +26,7 @@ class AroundTheWorldGame {
     init(config: Config, players: [GamePlayer]) {
         self.config = config
         self.targets = config.targets
+        self.players = players
         
         let startingTarget = config.properties.property(id: "starting_target")?.value as? Int ?? 1
         let endingTarget = config.properties.property(id: "ending_target")?.value as? Int ?? 25
@@ -134,14 +136,28 @@ extension AroundTheWorldGame: Game {
         return "Target: \(target(forPlayer: player))"
     }
     
-    func score(forPlayer player: GamePlayer, forRound round: Int?) -> Int {
+    func score(forPlayer player: GamePlayer, forRound round: Int? = nil) -> Int {
         return target(forPlayer: player)
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {
-        return players.sorted(by: { (player1, player2) -> Bool in
-            return player1.score().sum() > player2.score().sum()
-        })
+        let scores = players.enumerated().map {
+            return (index: $0.offset, score: score(forPlayer: $0.element))
+        }
+        
+        let scoreRank = scores.sorted { (left: (key: Int, value: Int), right: (key: Int, value: Int)) -> Bool in
+            if clockwise {
+                return left.value > right.value
+            } else {
+                return left.value < right.value
+            }
+        }
+        
+        return scoreRank.map { players[$0.index] }
+    }
+    
+    func isWinning(player: GamePlayer) -> Bool {
+        return player === rank(players: players).first
     }
     
     func scoreViewController() -> UIViewController? {

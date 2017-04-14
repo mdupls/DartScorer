@@ -37,9 +37,9 @@ class Score {
         }
     }
     
-    func totalHits(for value: Int) -> Int {
+    func totalHits(for value: Int? = nil) -> Int {
         return targets.reduce(0) { (result, target) -> Int in
-            if target.value == value {
+            if value == nil || target.value == value {
                 return result + target.section.rawValue
             }
             return result

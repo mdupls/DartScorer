@@ -16,6 +16,10 @@ class GamePlayer {
     
     var name: String { return team.teamName ?? "" }
     
+    var totalHits: Int {
+        return score().totalHits()
+    }
+    
     init(team: Team) {
         self.team = team
     }

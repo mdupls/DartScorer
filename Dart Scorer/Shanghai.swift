@@ -17,10 +17,12 @@ class ShanghaiGame {
     private let endingIndex: Int
     private let clockwise: Bool
     fileprivate let _rounds: Int
+    let players: [GamePlayer]
     
     init(config: Config, players: [GamePlayer]) {
         self.config = config
         self.targets = config.targets
+        self.players = players
         
         let startingTarget = config.properties.property(id: "starting_target")?.value as? Int ?? 1
         let endingTarget = config.properties.property(id: "ending_target")?.value as? Int ?? 25
@@ -134,7 +136,7 @@ extension ShanghaiGame: Game {
         return "\(total)"
     }
     
-    func score(forPlayer player: GamePlayer, forRound round: Int?) -> Int {
+    func score(forPlayer player: GamePlayer, forRound round: Int? = nil) -> Int {
         if let round = round {
             return player.score(for: round)?.sum() ?? 0
         }
@@ -142,9 +144,19 @@ extension ShanghaiGame: Game {
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {
-        return players.sorted(by: { (player1, player2) -> Bool in
-            return player1.score().sum() > player2.score().sum()
-        })
+        let scores = players.enumerated().map {
+            return (index: $0.offset, score: score(forPlayer: $0.element))
+        }
+        
+        let scoreRank = scores.sorted { (left: (key: Int, value: Int), right: (key: Int, value: Int)) -> Bool in
+            return left.value > right.value
+        }
+        
+        return scoreRank.map { players[$0.index] }
+    }
+    
+    func isWinning(player: GamePlayer) -> Bool {
+        return score(forPlayer: player) > 0 && player === rank(players: players).first
     }
     
     func scoreViewController() -> UIViewController? {

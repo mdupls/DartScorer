@@ -12,20 +12,22 @@ import UIKit
 class X01Game {
     
     let config: Config
-    let goal: Int
+    let startingScore: Int
     let targets: [Int: Bool]
+    let players: [GamePlayer]
     
     private var _finished: Bool = false
     
     init(config: Config, players: [GamePlayer]) {
         self.config = config
-        self.goal = config.properties.property(id: "starting_score")?.value as? Int ?? 501
+        self.startingScore = config.properties.property(id: "starting_score")?.value as? Int ?? 501
         
         var targets: [Int: Bool] = [:]
         for value in config.targets {
             targets[value] = true
         }
         self.targets = targets
+        self.players = players
     }
     
     // MARK: Private
@@ -33,9 +35,9 @@ class X01Game {
     func check(score: Score) -> ScoreResult {
         let points = score.sum()
         
-        if points == goal {
+        if points == startingScore {
             return .won
-        } else if points < goal {
+        } else if points < startingScore {
             return .ok
         } else {
             return .bust
@@ -97,11 +99,23 @@ extension X01Game: Game {
     }
     
     func score(forPlayer player: GamePlayer, forRound round: Int? = nil) -> Int {
-        return goal - player.score().sum()
+        return startingScore - player.score().sum()
     }
     
     func rank(players: [GamePlayer]) -> [GamePlayer] {
-        return players
+        let scores = players.enumerated().map {
+            return (index: $0.offset, score: score(forPlayer: $0.element))
+        }
+        
+        let scoreRank = scores.sorted { (left: (key: Int, value: Int), right: (key: Int, value: Int)) -> Bool in
+            return left.value < right.value
+        }
+        
+        return scoreRank.map { players[$0.index] }
+    }
+    
+    func isWinning(player: GamePlayer) -> Bool {
+        return score(forPlayer: player) < startingScore && player === rank(players: players).first
     }
     
     func scoreViewController() -> UIViewController? {
