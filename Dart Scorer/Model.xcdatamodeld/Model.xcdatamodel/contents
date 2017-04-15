@@ -16,7 +16,7 @@
         <relationship name="team" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Team" inverseName="players" inverseEntity="Team" syncable="YES"/>
     </entity>
     <entity name="Team" representedClassName="Team" syncable="YES" codeGenerationType="class">
-        <attribute name="name" attributeType="String" minValueString="1" indexed="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" minValueString="1" indexed="YES" syncable="YES"/>
         <relationship name="players" toMany="YES" minCount="1" deletionRule="No Action" ordered="YES" destinationEntity="Player" inverseName="team" inverseEntity="Player" syncable="YES"/>
     </entity>
     <elements>

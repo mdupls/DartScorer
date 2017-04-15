@@ -104,7 +104,7 @@ class TeamIconView: UIView {
     private func drawBackground(rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
-        context.setFillColor(UIColor.board.cgColor)
+        context.setFillColor(UIColor.board.withAlphaComponent(0.4).cgColor)
         context.setAlpha(0.7)
         context.addEllipse(in: rect)
         context.fillPath()
@@ -140,7 +140,7 @@ class TeamIconView: UIView {
     private func drawCell(rect: CGRect) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
         
-        context.setFillColor(UIColor.hit.cgColor)
+        context.setFillColor(UIColor.hit.withAlphaComponent(0.2).cgColor)
         context.setAlpha(0.7)
         context.addEllipse(in: rect)
         context.fillPath()

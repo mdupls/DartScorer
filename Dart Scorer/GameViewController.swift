@@ -14,13 +14,14 @@ fileprivate enum DoneType {
     case none
 }
 
-class GameViewController: UIPageViewController {
+class GameViewController: UIViewController {
     
     // MARK: Variables
     
     var game: CoreGame!
     
     weak var pagingDelegate: PageViewControllerDelegate?
+    weak var pagingViewController: UIPageViewController?
     
     private var doneType: DoneType = .none
     
@@ -46,8 +47,13 @@ class GameViewController: UIPageViewController {
     @IBOutlet var nextRoundBarButtonItem: UIBarButtonItem! // explicit strong reference
     @IBOutlet var doneBarButtonItem: UIBarButtonItem! // explicit strong reference
     @IBOutlet var statsBarButtonItem: UIBarButtonItem! // explicit strong reference
+    @IBOutlet weak var pageControl: UIPageControl!
     
     // MARK: IBActions
+    
+    @IBAction func didPageControlChanged(sender: UIPageControl) {
+        scrollToViewController(index: sender.currentPage)
+    }
     
     @IBAction func didTapDoneGame(sender: UIBarButtonItem) {
         let _ = game?.winner()
@@ -72,9 +78,9 @@ class GameViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataSource = self
-        delegate = self
         title = game.name
+        
+        pageControl.numberOfPages = orderedViewControllers.count
         
         if let initialViewController = orderedViewControllers.first {
             scrollTo(viewController: initialViewController)
@@ -99,6 +105,10 @@ class GameViewController: UIPageViewController {
             if let viewController = segue.destination as? ScoreViewController {
                 viewController.game = game
             }
+        } else if segue.identifier == "page" {
+            pagingViewController = segue.destination as? UIPageViewController
+            pagingViewController?.dataSource = self
+            pagingViewController?.delegate = self
         }
     }
     
@@ -116,7 +126,7 @@ class GameViewController: UIPageViewController {
     }
     
     private func updateRound() {
-        let round = (viewControllers?.first as? ScoreView)?.round ?? 0
+        let round = (pagingViewController?.viewControllers?.first as? ScoreView)?.round ?? 0
         
         if doneType == .none, let rounds = game?.rounds, round == rounds - 1 {
             doneType = .done
@@ -148,7 +158,9 @@ class GameViewController: UIPageViewController {
      Scrolls to the next view controller.
      */
     func scrollToNextViewController() {
-        if let visibleViewController = viewControllers?.first, let nextViewController = pageViewController(self, viewControllerAfter: visibleViewController) {
+        guard let pagingViewController = pagingViewController else { return }
+        
+        if let visibleViewController = pagingViewController.viewControllers?.first, let nextViewController = pageViewController(pagingViewController, viewControllerAfter: visibleViewController) {
             scrollTo(viewController: nextViewController)
         }
     }
@@ -160,7 +172,7 @@ class GameViewController: UIPageViewController {
      - parameter newIndex: the new index to scroll to
      */
     func scrollToViewController(index newIndex: Int) {
-        if let firstViewController = viewControllers?.first,
+        if let firstViewController = pagingViewController?.viewControllers?.first,
             let currentIndex = orderedViewControllers.index(of: firstViewController) {
             let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .forward : .reverse
             let nextViewController = orderedViewControllers[newIndex]
@@ -175,7 +187,7 @@ class GameViewController: UIPageViewController {
      */
     private func scrollTo(viewController: UIViewController,
                                         direction: UIPageViewControllerNavigationDirection = .forward) {
-        setViewControllers([viewController], direction: direction, animated: true, completion: { (finished) -> Void in
+        pagingViewController?.setViewControllers([viewController], direction: direction, animated: true, completion: { (finished) -> Void in
             self.notifyTutorialDelegateOfNewIndex()
         })
     }
@@ -184,8 +196,9 @@ class GameViewController: UIPageViewController {
      Notifies '_tutorialDelegate' that the current page index was updated.
      */
     fileprivate func notifyTutorialDelegateOfNewIndex() {
-        if let firstViewController = viewControllers?.first,
+        if let firstViewController = pagingViewController?.viewControllers?.first,
             let index = orderedViewControllers.index(of: firstViewController) {
+            pageControl.currentPage = index
             pagingDelegate?.pageViewController(self, didUpdatePageIndex: index)
         }
     }
@@ -254,11 +267,11 @@ extension GameViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         notifyTutorialDelegateOfNewIndex()
         
-        (viewControllers?.first as? PageViewControllerPage)?.didBecomeActive(in: self)
+        (pagingViewController?.viewControllers?.first as? PageViewControllerPage)?.didBecomeActive(in: self)
     }
     
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        if let firstViewController = viewControllers?.first,
+        if let firstViewController = pagingViewController?.viewControllers?.first,
             let index = orderedViewControllers.index(of: firstViewController){
             return index
         }

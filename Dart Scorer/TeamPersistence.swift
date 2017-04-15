@@ -19,7 +19,7 @@ class TeamPersistence {
         self.storage = storage
     }
     
-    func createTeam(name: String, players: [Player]) -> Team? {
+    func createTeam(name: String? = nil, players: [Player]) -> Team? {
         if let managedObject = storage.writer(entityName: TeamPersistence.entityName) as? Team {
             managedObject.name = name
             managedObject.addToPlayers(NSOrderedSet(array: players))

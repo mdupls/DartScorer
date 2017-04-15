@@ -163,7 +163,7 @@ class GameChooserViewController: UITableViewController {
         case 1:
             return gamesCount
         default:
-            return teamsCount
+            return max(1, teamsCount)
         }
     }
     
@@ -177,15 +177,17 @@ class GameChooserViewController: UITableViewController {
             cell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath)
             populate(cell: cell as? GameViewCell, for: indexPath)
         default:
-            let team = teams?[indexPath.row]
-            
-            if (team?.players?.count ?? 1) == 1 {
-                cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath)
+            if teamsCount == 0 {
+                cell = tableView.dequeueReusableCell(withIdentifier: "addPlayersCell", for: indexPath)
             } else {
-                cell = tableView.dequeueReusableCell(withIdentifier: "teamCell", for: indexPath)
+                let team = teams?[indexPath.row]
+                if (team?.players?.count ?? 1) == 1 {
+                    cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath)
+                } else {
+                    cell = tableView.dequeueReusableCell(withIdentifier: "teamCell", for: indexPath)
+                }
+                populate(cell: cell as? TeamViewCell, for: indexPath)
             }
-            
-            populate(cell: cell as? TeamViewCell, for: indexPath)
         }
         
         return cell
@@ -225,7 +227,8 @@ class GameChooserViewController: UITableViewController {
         guard let cell = cell else { return }
         guard let team = teams?[indexPath.row] else { return }
         
-        cell.nameLabel.text = team.name
+        cell.team = team
+        cell.nameLabel.text = team.teamName
         
         if (team.players?.count ?? 0) == 1 {
             cell.playersLabel?.text = nil
@@ -287,7 +290,26 @@ class TeamViewCell: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var iconView: TeamIconView!
     @IBOutlet weak var playersLabel: UILabel?
+    
+    var team: Team? {
+        didSet {
+            iconView?.count = team?.players?.count ?? 0
+        }
+    }
+    
+    override func setHighlighted(_ highlighted: Bool, animated: Bool) {
+        super.setHighlighted(highlighted, animated: animated)
+        
+        containerView.backgroundColor = UIColor.board.withAlphaComponent(highlighted ? 0.4 : 0.2)
+    }
+    
+}
+
+class AddPlayersCell: UITableViewCell {
+    
+    @IBOutlet weak var containerView: UIView!
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)

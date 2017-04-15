@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="VHH-SU-Xj7">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="QMD-jE-PWC">
     <device id="ipad12_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -7,22 +7,59 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Game View Controller-->
-        <scene sceneID="Iqw-gp-gUx">
+        <scene sceneID="jzT-at-dYa">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" pageSpacing="20" navigationOrientation="horizontal" spineLocation="none" id="VHH-SU-Xj7" customClass="GameViewController" customModule="Dart_Scorer" customModuleProvider="target" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <toolbarItems/>
+                <viewController id="QMD-jE-PWC" customClass="GameViewController" customModule="Dart_Scorer" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vNg-yw-ATV"/>
+                        <viewControllerLayoutGuide type="bottom" id="ggg-ib-Rho"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ALr-u2-Vki">
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qMg-bN-p1s">
+                                <rect key="frame" x="0.0" y="64" width="1024" height="1302"/>
+                                <connections>
+                                    <segue destination="VHH-SU-Xj7" kind="embed" identifier="page" id="k52-bb-TNu"/>
+                                </connections>
+                            </containerView>
+                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="wnk-Kj-uB6">
+                                <rect key="frame" x="412" y="1329" width="200" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="aPu-C2-dfn"/>
+                                </constraints>
+                                <color key="pageIndicatorTintColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="currentPageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="didPageControlChangedWithSender:" destination="QMD-jE-PWC" eventType="valueChanged" id="WyW-ja-u8t"/>
+                                </connections>
+                            </pageControl>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ggg-ib-Rho" firstAttribute="top" secondItem="wnk-Kj-uB6" secondAttribute="bottom" id="Agw-P7-j1j"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="wnk-Kj-uB6" secondAttribute="trailing" constant="20" id="BdE-be-nzW"/>
+                            <constraint firstItem="wnk-Kj-uB6" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ALr-u2-Vki" secondAttribute="leadingMargin" constant="20" id="SeT-pJ-ydc"/>
+                            <constraint firstItem="qMg-bN-p1s" firstAttribute="top" secondItem="vNg-yw-ATV" secondAttribute="bottom" id="W8v-9w-W1P"/>
+                            <constraint firstItem="ggg-ib-Rho" firstAttribute="top" secondItem="qMg-bN-p1s" secondAttribute="bottom" id="beG-F1-mZC"/>
+                            <constraint firstItem="wnk-Kj-uB6" firstAttribute="centerX" secondItem="ALr-u2-Vki" secondAttribute="centerX" id="eej-Rd-JVl"/>
+                            <constraint firstAttribute="trailing" secondItem="qMg-bN-p1s" secondAttribute="trailing" id="uzH-bf-Vfl"/>
+                            <constraint firstItem="qMg-bN-p1s" firstAttribute="leading" secondItem="ALr-u2-Vki" secondAttribute="leading" id="vGg-yt-EkP"/>
+                        </constraints>
+                    </view>
                     <navigationItem key="navigationItem" id="W3x-9n-RaL">
                         <rightBarButtonItems>
                             <barButtonItem style="done" systemItem="done" id="3K9-h0-e8I">
                                 <connections>
-                                    <action selector="didTapDoneGameWithSender:" destination="VHH-SU-Xj7" id="ele-W0-sah"/>
+                                    <action selector="didTapDoneGameWithSender:" destination="QMD-jE-PWC" id="EHm-fG-UjW"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem title="Stats" id="Fha-Qg-GeI">
@@ -34,13 +71,24 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="doneBarButtonItem" destination="3K9-h0-e8I" id="Iei-Fx-LDE"/>
-                        <outlet property="statsBarButtonItem" destination="Fha-Qg-GeI" id="DnK-gM-i9t"/>
+                        <outlet property="doneBarButtonItem" destination="3K9-h0-e8I" id="WRJ-o6-YfM"/>
+                        <outlet property="pageControl" destination="wnk-Kj-uB6" id="FKL-tE-SSd"/>
+                        <outlet property="statsBarButtonItem" destination="Fha-Qg-GeI" id="bIO-WB-1Qa"/>
                     </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RZk-YH-3cj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1148" y="121"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="Iqw-gp-gUx">
+            <objects>
+                <pageViewController transitionStyle="scroll" pageSpacing="20" navigationOrientation="horizontal" spineLocation="none" id="VHH-SU-Xj7" sceneMemberID="viewController">
+                    <toolbarItems/>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xhW-eT-fWP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-396" y="113"/>
+            <point key="canvasLocation" x="-394" y="121"/>
         </scene>
         <!--Player View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -306,7 +354,7 @@
                 <viewControllerPlaceholder storyboardName="Score" referencedIdentifier="score" id="qqK-Q1-X2g" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAs-To-rk1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="49" y="113"/>
+            <point key="canvasLocation" x="-1147" y="529"/>
         </scene>
         <!--Round-->
         <scene sceneID="x2T-wD-cnN">

@@ -123,17 +123,17 @@
                                     <segue destination="oG5-xs-zI3" kind="presentation" identifier="gameOptions" trigger="accessoryAction" modalPresentationStyle="formSheet" id="hJV-7C-GtF"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="playerCell" id="NSI-QD-042" customClass="TeamViewCell" customModule="Dart_Scorer" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="addPlayersCell" id="dSd-BI-jmm" customClass="AddPlayersCell" customModule="Dart_Scorer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="255.33333333333334" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NSI-QD-042" id="yGW-F2-uBm">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dSd-BI-jmm" id="4QZ-3R-6AT">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qdv-qu-sOc">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Odb-bZ-myb">
                                             <rect key="frame" x="20" y="0.0" width="374" height="89.666666666666671"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nY6-WO-M1x">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Players" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhB-Bs-LWr">
                                                     <rect key="frame" x="20" y="27.999999999999996" width="334" height="33.666666666666657"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -142,11 +142,61 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstItem="bhB-Bs-LWr" firstAttribute="width" secondItem="Odb-bZ-myb" secondAttribute="width" constant="-40" id="YEs-Bg-aAb"/>
+                                                <constraint firstAttribute="trailing" secondItem="bhB-Bs-LWr" secondAttribute="trailing" constant="20" id="bPN-XK-vUp"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="bhB-Bs-LWr" secondAttribute="bottom" constant="20" id="kIp-JQ-zYC"/>
+                                                <constraint firstItem="bhB-Bs-LWr" firstAttribute="leading" secondItem="Odb-bZ-myb" secondAttribute="leading" constant="20" id="qMj-X1-uwA"/>
+                                                <constraint firstItem="bhB-Bs-LWr" firstAttribute="top" secondItem="Odb-bZ-myb" secondAttribute="topMargin" constant="20" id="xGo-qu-jxd"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="Odb-bZ-myb" firstAttribute="top" secondItem="4QZ-3R-6AT" secondAttribute="top" id="0ii-EG-V7O"/>
+                                        <constraint firstItem="Odb-bZ-myb" firstAttribute="leading" secondItem="4QZ-3R-6AT" secondAttribute="leading" constant="20" id="5j0-xJ-5UU"/>
+                                        <constraint firstAttribute="trailing" secondItem="Odb-bZ-myb" secondAttribute="trailing" constant="20" id="Fpu-XG-zrY"/>
+                                        <constraint firstAttribute="bottom" secondItem="Odb-bZ-myb" secondAttribute="bottom" id="jsR-bj-wdx"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="containerView" destination="Odb-bZ-myb" id="HeA-WO-Zpk"/>
+                                    <segue destination="Bn2-Vm-hzI" kind="presentation" identifier="players" modalPresentationStyle="formSheet" id="0c2-64-s5x"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="playerCell" id="NSI-QD-042" customClass="TeamViewCell" customModule="Dart_Scorer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="345.33333333333337" width="414" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NSI-QD-042" id="yGW-F2-uBm">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="89.666666666666671"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qdv-qu-sOc">
+                                            <rect key="frame" x="20" y="0.0" width="374" height="89.666666666666671"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yye-PI-J0m" customClass="TeamIconView" customModule="Dart_Scorer" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="10" width="69.666666666666671" height="69.666666666666671"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Yye-PI-J0m" secondAttribute="height" multiplier="1:1" id="Zah-Te-xNM"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nY6-WO-M1x">
+                                                    <rect key="frame" x="94.666666666666657" y="27.999999999999996" width="259.33333333333337" height="33.666666666666657"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="Yye-PI-J0m" secondAttribute="bottom" constant="10" id="1a7-4g-RYI"/>
                                                 <constraint firstAttribute="trailing" secondItem="nY6-WO-M1x" secondAttribute="trailing" constant="20" id="2AU-kg-M9w"/>
                                                 <constraint firstItem="nY6-WO-M1x" firstAttribute="top" secondItem="Qdv-qu-sOc" secondAttribute="topMargin" constant="20" id="IXz-Km-ogQ"/>
-                                                <constraint firstItem="nY6-WO-M1x" firstAttribute="leading" secondItem="Qdv-qu-sOc" secondAttribute="leading" constant="20" id="Kta-AK-2Ac"/>
+                                                <constraint firstItem="Yye-PI-J0m" firstAttribute="leading" secondItem="Qdv-qu-sOc" secondAttribute="leading" constant="10" id="N8u-mp-wkh"/>
+                                                <constraint firstItem="nY6-WO-M1x" firstAttribute="leading" secondItem="Yye-PI-J0m" secondAttribute="trailing" constant="15" id="U76-Vd-59Y"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="nY6-WO-M1x" secondAttribute="bottom" constant="20" id="aEK-n2-e9K"/>
-                                                <constraint firstItem="nY6-WO-M1x" firstAttribute="width" secondItem="Qdv-qu-sOc" secondAttribute="width" constant="-40" id="f8H-Nq-Hdo"/>
+                                                <constraint firstItem="Yye-PI-J0m" firstAttribute="top" secondItem="Qdv-qu-sOc" secondAttribute="top" constant="10" id="d2U-1J-31a"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -161,12 +211,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="containerView" destination="Qdv-qu-sOc" id="irR-Rx-pPg"/>
+                                    <outlet property="iconView" destination="Yye-PI-J0m" id="hpp-Uu-pUg"/>
                                     <outlet property="nameLabel" destination="nY6-WO-M1x" id="iSO-SO-dJT"/>
                                     <segue destination="Bn2-Vm-hzI" kind="presentation" identifier="players" modalPresentationStyle="formSheet" id="JlC-9g-w7S"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="teamCell" rowHeight="84" id="IrY-I4-Lb2" customClass="TeamViewCell" customModule="Dart_Scorer" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="345.33333333333337" width="414" height="84"/>
+                                <rect key="frame" x="0.0" y="435.33333333333337" width="414" height="84"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="IrY-I4-Lb2" id="g07-yS-Vmd">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="83.666666666666671"/>
@@ -175,14 +226,21 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ig8-1p-89n">
                                             <rect key="frame" x="20" y="0.0" width="374" height="83.666666666666671"/>
                                             <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m6S-Mv-Pjj" customClass="TeamIconView" customModule="Dart_Scorer" customModuleProvider="target">
+                                                    <rect key="frame" x="10" y="10" width="63.666666666666671" height="63.666666666666671"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="m6S-Mv-Pjj" secondAttribute="height" multiplier="1:1" id="NCm-j3-viE"/>
+                                                    </constraints>
+                                                </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fkc-kJ-TzC">
-                                                    <rect key="frame" x="20" y="16" width="334" height="29"/>
+                                                    <rect key="frame" x="88.666666666666657" y="16" width="265.33333333333337" height="29"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aa3-WQ-dwz">
-                                                    <rect key="frame" x="20" y="45" width="334" height="20"/>
+                                                    <rect key="frame" x="88.666666666666657" y="45" width="265.33333333333337" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
@@ -191,12 +249,15 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstItem="fkc-kJ-TzC" firstAttribute="top" secondItem="Ig8-1p-89n" secondAttribute="topMargin" constant="8" id="0lU-nP-evG"/>
+                                                <constraint firstItem="m6S-Mv-Pjj" firstAttribute="top" secondItem="Ig8-1p-89n" secondAttribute="top" constant="10" id="0la-Pe-Jdg"/>
                                                 <constraint firstItem="aa3-WQ-dwz" firstAttribute="top" secondItem="fkc-kJ-TzC" secondAttribute="bottom" id="1MI-iP-YxI"/>
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aa3-WQ-dwz" secondAttribute="bottom" id="1lJ-wo-02o"/>
                                                 <constraint firstItem="aa3-WQ-dwz" firstAttribute="trailing" secondItem="fkc-kJ-TzC" secondAttribute="trailing" id="FJy-7B-Syk"/>
-                                                <constraint firstItem="fkc-kJ-TzC" firstAttribute="leading" secondItem="Ig8-1p-89n" secondAttribute="leading" constant="20" id="K4A-uN-HGC"/>
+                                                <constraint firstAttribute="bottom" secondItem="m6S-Mv-Pjj" secondAttribute="bottom" constant="10" id="Xuz-uY-INY"/>
+                                                <constraint firstItem="m6S-Mv-Pjj" firstAttribute="leading" secondItem="Ig8-1p-89n" secondAttribute="leading" constant="10" id="YNj-6y-1dd"/>
                                                 <constraint firstAttribute="trailing" secondItem="fkc-kJ-TzC" secondAttribute="trailing" constant="20" id="mv4-b6-m1H"/>
                                                 <constraint firstItem="aa3-WQ-dwz" firstAttribute="leading" secondItem="fkc-kJ-TzC" secondAttribute="leading" id="vrQ-8g-3tr"/>
+                                                <constraint firstItem="fkc-kJ-TzC" firstAttribute="leading" secondItem="m6S-Mv-Pjj" secondAttribute="trailing" constant="15" id="zSK-wh-ErP"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -211,6 +272,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="containerView" destination="Ig8-1p-89n" id="7pL-wq-LKg"/>
+                                    <outlet property="iconView" destination="m6S-Mv-Pjj" id="mdh-EC-GWT"/>
                                     <outlet property="nameLabel" destination="fkc-kJ-TzC" id="45c-OP-szY"/>
                                     <outlet property="playersLabel" destination="aa3-WQ-dwz" id="RbN-hl-9Pd"/>
                                     <segue destination="Bn2-Vm-hzI" kind="presentation" identifier="players" modalPresentationStyle="formSheet" id="q2z-TS-P5l"/>

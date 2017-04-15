@@ -77,10 +77,7 @@ class GamePlayer {
 extension Team {
     
     var teamName: String? {
-        if (players?.count ?? 0) == 1 {
-            return (players?.firstObject as? Player)?.name
-        }
-        return self.name
+        return self.name ?? (players?.firstObject as? Player)?.name
     }
     
 }

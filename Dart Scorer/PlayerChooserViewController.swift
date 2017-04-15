@@ -86,17 +86,29 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     
     @IBAction func didTapNewTeam(sender: UIBarButtonItem) {
         if let players = selectedBench() {
-            askForName(title: "Create Team") {
+            if players.count > 1 {
+                askForName(title: "Create Team") {
+                    self.isEditing = false
+                    
+                    if let name = $0, !name.isEmpty {
+                        let teamPersistence = TeamPersistence(storage: self.storage)
+                        if let team = teamPersistence.createTeam(name: name, players: players) {
+                            let position = self.teams?.count ?? 0
+                            self.teams?.append(team)
+                            self.collectionView?.insertItems(at: [IndexPath(item: position, section: 0)])
+                            self.editBarButtonItem?.isEnabled = true
+                        }
+                    }
+                }
+            } else {
                 self.isEditing = false
                 
-                if let name = $0, !name.isEmpty {
-                    let teamPersistence = TeamPersistence(storage: self.storage)
-                    if let team = teamPersistence.createTeam(name: name, players: players) {
-                        let position = self.teams?.count ?? 0
-                        self.teams?.append(team)
-                        self.collectionView?.insertItems(at: [IndexPath(item: position, section: 0)])
-                        self.editBarButtonItem?.isEnabled = true
-                    }
+                let teamPersistence = TeamPersistence(storage: self.storage)
+                if let team = teamPersistence.createTeam(players: players) {
+                    let position = self.teams?.count ?? 0
+                    self.teams?.append(team)
+                    self.collectionView?.insertItems(at: [IndexPath(item: position, section: 0)])
+                    self.editBarButtonItem?.isEnabled = true
                 }
             }
         }
