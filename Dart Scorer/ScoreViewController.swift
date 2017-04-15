@@ -23,14 +23,16 @@ class ScoreViewController: UIViewController, ScoreView {
     var game: CoreGame?
     
     var count: Int {
-        return game?.players.count ?? 0
+        return players?.count ?? 0
     }
     
     var round: Int = 0 {
         didSet {
-            tableView?.reloadData()
+            update()
         }
     }
+    
+    fileprivate var players: [GamePlayer]?
     
     // MARK: IBOutlets
     
@@ -59,12 +61,13 @@ class ScoreViewController: UIViewController, ScoreView {
     
     fileprivate func populate(cell: ScoreCellView?, indexPath: IndexPath) {
         guard let cell = cell else { return }
-        guard let player = game?.players[indexPath.row] else { return }
+        guard let player = players?[indexPath.row] else { return }
         
         let score = game?.score(forPlayer: player)
         
         cell.nameLabel.text = player.name
         cell.scoreLabel.text = "\(score ?? 0)"
+        cell.rankImageView.isHidden = indexPath.row > 0 || player.totalHits == 0
         
         if (player.team.players?.count ?? 0) > 1 {
             let playerNames = player.team.players?.map({ (item) -> String in
@@ -75,6 +78,12 @@ class ScoreViewController: UIViewController, ScoreView {
         } else {
             cell.playersLabel?.text = nil
         }
+    }
+    
+    fileprivate func update() {
+        players = game?.rankedPlayers()
+        
+        tableView?.reloadData()
     }
     
 }
@@ -100,7 +109,7 @@ extension ScoreViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
         
-        let player = game?.players[indexPath.row]
+        let player = players?[indexPath.row]
         
         if (player?.team.players?.count ?? 1) == 1 {
             cell = tableView.dequeueReusableCell(withIdentifier: "playerScoreCell", for: indexPath)
@@ -120,7 +129,7 @@ extension ScoreViewController: UITableViewDataSource {
 extension ScoreViewController: PageViewControllerPage {
     
     func willBecomeActive(in pageViewController: GameViewController) {
-        tableView?.reloadData()
+        update()
     }
     
     func didBecomeActive(in pageViewController: GameViewController) {
@@ -132,6 +141,7 @@ extension ScoreViewController: PageViewControllerPage {
 class ScoreCellView: UITableViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var rankImageView: UIImageView!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var playersLabel: UILabel?
     

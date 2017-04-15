@@ -65,8 +65,12 @@ class CoreGame {
         return game.isWinning(player: player)
     }
     
+    func rankedPlayers() -> [GamePlayer] {
+        return game.rank(players: players)
+    }
+    
     func winner() -> GamePlayer? {
-        guard let player = game.rank(players: players).first else { return nil }
+        guard let player = rankedPlayers().first else { return nil }
         
         won(player: player)
         
