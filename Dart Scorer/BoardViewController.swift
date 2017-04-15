@@ -66,11 +66,6 @@ class BoardViewController: UIViewController {
         boardView?.setNeedsDisplay()
     }
     
-    func didGameFinish(sender: Notification) {
-        boardView?.enabled = false
-        targetSelectionView?.isUserInteractionEnabled = false
-    }
-    
     // MARK: Lifecycle
     
     override func viewDidLoad() {
@@ -82,11 +77,6 @@ class BoardViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didOpenTarget(sender:)), name: Notification.Name("TargetOpen"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didCloseTarget(sender:)), name: Notification.Name("TargetClose"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didGameFinish(sender:)), name: Notification.Name("GameFinished"), object: nil)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        view.setNeedsLayout()
     }
     
     private func update(for game: CoreGame?) {
@@ -129,13 +119,19 @@ class BoardViewController: UIViewController {
         }
     }
     
-    private func update() {
+    fileprivate func update() {
         guard let game = game else { return }
         guard let player = player else { return }
         
-        let score = player.score(for: round)
+        var enabled: Bool
         
-        let enabled = !(score?.bust ?? false) && (score?.hits ?? 0) < game.throwsPerTurn
+        if let _ = game.winner {
+            enabled = false
+        } else {
+            let score = player.score(for: round)
+            
+            enabled = !(score?.bust ?? false) && (score?.hits ?? 0) < game.throwsPerTurn
+        }
         
         targetSelectionView?.isUserInteractionEnabled = enabled
         boardView?.enabled = enabled
@@ -182,7 +178,7 @@ extension BoardViewController: TargetSelectionViewDelegate {
 extension BoardViewController: PageViewControllerPage {
     
     func willBecomeActive(in pageViewController: GameViewController) {
-        boardView?.setNeedsDisplay()
+        update()
     }
     
     func didBecomeActive(in pageViewController: GameViewController) {

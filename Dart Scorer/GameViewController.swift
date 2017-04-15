@@ -8,12 +8,6 @@
 
 import UIKit
 
-fileprivate enum DoneType {
-    case done
-    case stats
-    case none
-}
-
 class GameViewController: UIViewController {
     
     // MARK: Variables
@@ -22,8 +16,6 @@ class GameViewController: UIViewController {
     
     weak var pagingDelegate: PageViewControllerDelegate?
     weak var pagingViewController: UIPageViewController?
-    
-    private var doneType: DoneType = .none
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         var viewControllers: [UIViewController] = []
@@ -44,9 +36,6 @@ class GameViewController: UIViewController {
     
     // MARK: IBOutlets
     
-    @IBOutlet var nextRoundBarButtonItem: UIBarButtonItem! // explicit strong reference
-    @IBOutlet var doneBarButtonItem: UIBarButtonItem! // explicit strong reference
-    @IBOutlet var statsBarButtonItem: UIBarButtonItem! // explicit strong reference
     @IBOutlet weak var pageControl: UIPageControl!
     
     // MARK: IBActions
@@ -55,22 +44,10 @@ class GameViewController: UIViewController {
         scrollToViewController(index: sender.currentPage)
     }
     
-    @IBAction func didTapDoneGame(sender: UIBarButtonItem) {
-        let _ = game?.winner()
-    }
-    
     // MARK: Events
     
-    func didGameFinish(sender: Notification) {
-        doneType = .stats
-        
-        updateRound()
-    }
-    
     func didUnhitTarget(sender: Notification) {
-        doneType = .none
         
-        updateRound()
     }
     
     // MARK: Lifecycle
@@ -88,16 +65,7 @@ class GameViewController: UIViewController {
         
         pagingDelegate?.pageViewController(self, didUpdatePageCount: orderedViewControllers.count)
         
-        updateRound()
-        
         NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didGameFinish(sender:)), name: Notification.Name("GameFinished"), object: nil)
-    }
-    
-    deinit {
-        nextRoundBarButtonItem = nil
-        doneBarButtonItem = nil
-        statsBarButtonItem = nil
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -123,23 +91,6 @@ class GameViewController: UIViewController {
         }
         
         return viewController
-    }
-    
-    private func updateRound() {
-        let round = (pagingViewController?.viewControllers?.first as? ScoreView)?.round ?? 0
-        
-        if doneType == .none, let rounds = game?.rounds, round == rounds - 1 {
-            doneType = .done
-        }
-        
-        switch doneType {
-        case .done:
-            navigationItem.rightBarButtonItems = [ doneBarButtonItem ]
-        case .stats:
-            navigationItem.rightBarButtonItems = [ statsBarButtonItem ]
-        case .none:
-            navigationItem.rightBarButtonItems = nil
-        }
     }
     
     private func bound(round: Int) -> Int {
@@ -241,6 +192,10 @@ extension GameViewController: UIPageViewControllerDataSource {
         guard orderedViewControllers.count != nextIndex else {
             if let rounds = game.rounds {
                 guard round < rounds - 1 else {
+                    return nil
+                }
+            } else if let winner = game.winner {
+                guard round < winner.round else {
                     return nil
                 }
             }

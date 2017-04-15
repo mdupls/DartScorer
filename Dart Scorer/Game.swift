@@ -23,6 +23,12 @@ class CoreGame {
     
     private let config: Config
     
+    private var _winner: (player: GamePlayer, round: Int)?
+    
+    var winner: (player: GamePlayer, round: Int)? {
+        return _winner
+    }
+    
     var throwsPerTurn: Int {
         return config.throwsPerTurn
     }
@@ -69,16 +75,8 @@ class CoreGame {
         return game.rank(players: players)
     }
     
-    func winner() -> GamePlayer? {
-        guard let player = rankedPlayers().first else { return nil }
-        
-        won(player: player)
-        
-        return player
-    }
-    
-    func won(player: GamePlayer) {
-        NotificationCenter.default.post(name: Notification.Name("GameFinished"), object: player, userInfo: nil)
+    func won(player: GamePlayer, round: Int) {
+        _winner = (player: player, round: round)
     }
     
     func score(player: GamePlayer, target: Target, round: Int) {
@@ -97,20 +95,17 @@ class CoreGame {
                 score.bust = true
             }
             
+            if result == .won {
+                won(player: player, round: round)
+            }
+            
             // Notify.
             NotificationCenter.default.post(name: Notification.Name("TargetHit"), object: player, userInfo: ["score": score])
             
-            switch result {
-            case .ok:
-                Void()
-            case .open:
+            if result == .open {
                 NotificationCenter.default.post(name: Notification.Name("TargetOpen"), object: player, userInfo: nil)
-            case .close:
+            } else if result == .close {
                 NotificationCenter.default.post(name: Notification.Name("TargetClose"), object: player, userInfo: nil)
-            case .bust:
-                print("bust")
-            case .won:
-                won(player: player)
             }
         }
     }
@@ -123,6 +118,11 @@ class CoreGame {
         if let result = game.game(self, undoHit: target, player: player, round: round) {
             if result != .bust {
                 score.bust = false
+            }
+            
+            if result != .won && player === _winner?.player {
+                // The player is not the winner anymore since they removed a score and the result is not 'won'.
+                _winner = nil
             }
             
             // Notify

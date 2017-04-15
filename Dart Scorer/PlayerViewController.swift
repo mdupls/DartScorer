@@ -12,8 +12,9 @@ enum StatusMessage {
     case bust
     case won
     case lost
+    case none
     
-    var message: String {
+    var message: String? {
         switch self {
         case .bust:
             return "Bust!"
@@ -21,6 +22,8 @@ enum StatusMessage {
             return "You Won!"
         case .lost:
             return "You lost"
+        default:
+            return nil
         }
     }
 }
@@ -60,33 +63,13 @@ class PlayerViewController: UIViewController, ScoreView {
     func didHitTarget(sender: Notification) {
         guard player === sender.object as? GamePlayer else { return }
         
-        let bust = (sender.userInfo?["score"] as? Score)?.bust ?? false
-        
-        if bust {
-            displayStatus(status: .bust)
-        } else {
-            removeStatus()
-        }
+        updateStatus()
     }
     
     func didUnhitTarget(sender: Notification) {
         guard player === sender.object as? GamePlayer else { return }
         
-        let bust = (sender.userInfo?["score"] as? Score)?.bust ?? false
-        
-        if bust {
-            displayStatus(status: .bust)
-        } else {
-            removeStatus()
-        }
-    }
-    
-    func didGameFinish(sender: Notification) {
-        if player === sender.object as? GamePlayer {
-            displayStatus(status: .won)
-        } else {
-            displayStatus(status: .lost)
-        }
+        updateStatus()
     }
     
     // MARK: Lifecycle
@@ -102,7 +85,6 @@ class PlayerViewController: UIViewController, ScoreView {
         
         NotificationCenter.default.addObserver(self, selector: #selector(didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didGameFinish(sender:)), name: Notification.Name("GameFinished"), object: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -128,11 +110,23 @@ class PlayerViewController: UIViewController, ScoreView {
     
     private func displayStatus(status: StatusMessage) {
         statusLabel?.text = status.message
-        statusLabel?.isHidden = false
+        statusLabel?.isHidden = status == .none
     }
     
-    private func removeStatus() {
-        statusLabel?.isHidden = true
+    fileprivate func updateStatus() {
+        var status: StatusMessage
+        if let winner = game?.winner {
+            if player === winner.player {
+                status = .won
+            } else {
+                status = .lost
+            }
+        } else {
+            let bust = player?.score(for: round)?.bust ?? false
+            
+            status = bust ? .bust : .none
+        }
+        displayStatus(status: status)
     }
     
 }
@@ -140,6 +134,8 @@ class PlayerViewController: UIViewController, ScoreView {
 extension PlayerViewController: PageViewControllerPage {
     
     func willBecomeActive(in pageViewController: GameViewController) {
+        updateStatus()
+        
         scoreViewController?.willBecomeActive(in: pageViewController)
         boardViewController?.willBecomeActive(in: pageViewController)
     }
