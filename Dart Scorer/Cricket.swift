@@ -167,7 +167,7 @@ extension CricketGame: Game {
                 score.hit(target: target)
                 calculateScores()
                 
-                result = hasWon(player: player) ?? target.result(in: game) ?? target.result(for: player) ?? .ok
+                result = hasWon(player: player) ?? target.result(in: game, upTo: round) ?? target.result(for: player, upTo: round) ?? .ok
             }
         }
         return result
@@ -187,11 +187,11 @@ extension CricketGame: Game {
             return .closed
         }
         
-        guard !target.isClosed(in: game) else {
+        guard !target.isClosed(in: game, upTo: round) else {
             return .closed
         }
         
-        guard !target.isOpen(for: player) else {
+        guard !target.isOpen(for: player, upTo: round) else {
             return .open
         }
         
@@ -213,7 +213,7 @@ extension CricketGame: Game {
         return "\(total)"
     }
     
-    func score(forPlayer player: GamePlayer, forRound round: Int? = nil) -> Int {
+    func score(forPlayer player: GamePlayer) -> Int {
         let name = player.name
         
         return points.reduce(0) { (result, item: (key: Int, value: [String : Int])) -> Int in
@@ -275,25 +275,25 @@ fileprivate extension Target {
         return game.targets[value] ?? false
     }
     
-    func isClosed(in game: CoreGame) -> Bool {
+    func isClosed(in game: CoreGame, upTo round: Int) -> Bool {
         for player in game.players {
-            if player.score().totalHits(for: value) < 3 {
+            if player.score(upTo: round).totalHits(for: value) < 3 {
                 return false
             }
         }
         return true
     }
     
-    func isOpen(for player: GamePlayer) -> Bool {
-        return player.score().totalHits(for: value) >= 3
+    func isOpen(for player: GamePlayer, upTo round: Int) -> Bool {
+        return player.score(upTo: round).totalHits(for: value) >= 3
     }
     
-    func result(in game: CoreGame) -> ScoreResult? {
-        return isClosed(in: game) ? .close : nil
+    func result(in game: CoreGame, upTo round: Int) -> ScoreResult? {
+        return isClosed(in: game, upTo: round) ? .close : nil
     }
     
-    func result(for player: GamePlayer) -> ScoreResult? {
-        return isOpen(for: player) ? .open : nil
+    func result(for player: GamePlayer, upTo round: Int) -> ScoreResult? {
+        return isOpen(for: player, upTo: round) ? .open : nil
     }
     
 }

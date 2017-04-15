@@ -139,6 +139,11 @@ class PlayerViewController: UIViewController, ScoreView {
 
 extension PlayerViewController: PageViewControllerPage {
     
+    func willBecomeActive(in pageViewController: GameViewController) {
+        scoreViewController?.willBecomeActive(in: pageViewController)
+        boardViewController?.willBecomeActive(in: pageViewController)
+    }
+    
     func didBecomeActive(in pageViewController: GameViewController) {
         scoreViewController?.didBecomeActive(in: pageViewController)
         boardViewController?.didBecomeActive(in: pageViewController)

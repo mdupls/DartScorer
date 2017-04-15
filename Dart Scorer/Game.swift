@@ -133,8 +133,8 @@ class CoreGame {
         return game.scoreTitle(forPlayer: player, forRound: round)
     }
     
-    func score(forPlayer player: GamePlayer, round: Int? = nil) -> Int? {
-        return game.score(forPlayer: player, forRound: round)
+    func score(forPlayer player: GamePlayer) -> Int? {
+        return game.score(forPlayer: player)
     }
     
     func state(for targetValue: Int, player: GamePlayer, round: Int) -> TargetState {
@@ -158,7 +158,7 @@ protocol Game {
     
     func scoreTitle(forPlayer player: GamePlayer, forRound round: Int?) -> String?
     
-    func score(forPlayer player: GamePlayer, forRound round: Int?) -> Int
+    func score(forPlayer player: GamePlayer) -> Int
     
     func rank(players: [GamePlayer]) -> [GamePlayer]
     

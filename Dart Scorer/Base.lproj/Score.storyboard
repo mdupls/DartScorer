@@ -218,7 +218,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WQf-sP-puN">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="onePlayerHeaderCell" rowHeight="75" id="Dq6-rX-PEy" customClass="CricketHeaderCellView" customModule="Dart_Scorer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="768" height="75"/>
@@ -939,7 +939,7 @@
                                         <rect key="frame" x="0.0" y="403" width="768" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AZC-VT-Edb" id="8gN-wG-B9q">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="74"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XGV-RI-oUB">

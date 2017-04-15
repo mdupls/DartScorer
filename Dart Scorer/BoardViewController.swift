@@ -181,6 +181,10 @@ extension BoardViewController: TargetSelectionViewDelegate {
 
 extension BoardViewController: PageViewControllerPage {
     
+    func willBecomeActive(in pageViewController: GameViewController) {
+        boardView?.setNeedsDisplay()
+    }
+    
     func didBecomeActive(in pageViewController: GameViewController) {
         
     }

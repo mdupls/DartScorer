@@ -119,8 +119,12 @@ extension ScoreViewController: UITableViewDataSource {
 
 extension ScoreViewController: PageViewControllerPage {
     
-    func didBecomeActive(in pageViewController: GameViewController) {
+    func willBecomeActive(in pageViewController: GameViewController) {
         tableView?.reloadData()
+    }
+    
+    func didBecomeActive(in pageViewController: GameViewController) {
+        
     }
     
 }

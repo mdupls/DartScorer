@@ -136,10 +136,7 @@ extension ShanghaiGame: Game {
         return "\(total)"
     }
     
-    func score(forPlayer player: GamePlayer, forRound round: Int? = nil) -> Int {
-        if let round = round {
-            return player.score(for: round)?.sum() ?? 0
-        }
+    func score(forPlayer player: GamePlayer) -> Int {
         return player.score().sum()
     }
     

@@ -198,7 +198,7 @@ class GameViewController: UIViewController {
     fileprivate func notifyTutorialDelegateOfNewIndex() {
         if let firstViewController = pagingViewController?.viewControllers?.first,
             let index = orderedViewControllers.index(of: firstViewController) {
-            pageControl.currentPage = index
+            pageControl?.currentPage = index
             pagingDelegate?.pageViewController(self, didUpdatePageIndex: index)
         }
     }
@@ -261,25 +261,15 @@ extension GameViewController: UIPageViewControllerDataSource {
 extension GameViewController: UIPageViewControllerDelegate {
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        
+        pendingViewControllers.forEach {
+            ($0 as? PageViewControllerPage)?.willBecomeActive(in: self)
+        }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         notifyTutorialDelegateOfNewIndex()
         
         (pagingViewController?.viewControllers?.first as? PageViewControllerPage)?.didBecomeActive(in: self)
-    }
-    
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        if let firstViewController = pagingViewController?.viewControllers?.first,
-            let index = orderedViewControllers.index(of: firstViewController){
-            return index
-        }
-        return 0
-    }
-    
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return orderedViewControllers.count
     }
     
 }
@@ -295,5 +285,7 @@ protocol PageViewControllerDelegate: class {
 protocol PageViewControllerPage: class {
     
     func didBecomeActive(in pageViewController: GameViewController)
+    
+    func willBecomeActive(in pageViewController: GameViewController)
     
 }

@@ -73,8 +73,12 @@ class ActiveScoreViewController: UIViewController {
 
 extension ActiveScoreViewController: PageViewControllerPage {
     
-    func didBecomeActive(in pageViewController: GameViewController) {
+    func willBecomeActive(in pageViewController: GameViewController) {
         update()
+    }
+    
+    func didBecomeActive(in pageViewController: GameViewController) {
+        
     }
     
 }

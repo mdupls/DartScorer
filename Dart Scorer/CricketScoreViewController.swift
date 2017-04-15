@@ -39,6 +39,11 @@ class CricketScoreViewController: UIViewController, ScoreView {
         super.viewDidLoad()
         
         tableView.hideEmptyRows()
+        
+        let image = UIImage(named: "wood3")
+        let imageView = UIImageView(image: image)
+        imageView.contentMode = .scaleAspectFill
+        tableView.backgroundView = imageView
     }
     
     // MARK: Private
@@ -48,81 +53,7 @@ class CricketScoreViewController: UIViewController, ScoreView {
         guard let game = game else { return }
         guard let target = config?.targets[indexPath.row] else { return }
         
-        let count = game.players.count
-        var overallState: TargetState = .closed
-        
-        if count >= 1 {
-            let player = game.players[0]
-            let hits = player.hits(for: target)
-            let state = game.state(for: target, player: player, round: round)
-            
-            cell.player1View.hits = hits
-            state.apply(view: cell.player1View)
-            
-            if state != .closed {
-                overallState = .initial
-            }
-        }
-        if count >= 2 {
-            let player = game.players[1]
-            let hits = player.hits(for: target)
-            let state = game.state(for: target, player: player, round: round)
-            
-            cell.player2View?.hits = hits
-            state.apply(view: cell.player2View)
-            
-            if state != .closed {
-                overallState = .initial
-            }
-        }
-        if count >= 3 {
-            let player = game.players[2]
-            let hits = player.hits(for: target)
-            let state = game.state(for: target, player: player, round: round)
-            
-            cell.player3View?.hits = hits
-            state.apply(view: cell.player3View)
-            
-            if state != .closed {
-                overallState = .initial
-            }
-        }
-        if count >= 4 {
-            let player = game.players[3]
-            let hits = player.hits(for: target)
-            let state = game.state(for: target, player: player, round: round)
-            
-            cell.player4View?.hits = hits
-            state.apply(view: cell.player4View)
-            
-            if state != .closed {
-                overallState = .initial
-            }
-        }
-        if count >= 5 {
-            let player = game.players[4]
-            let hits = player.hits(for: target)
-            let state = game.state(for: target, player: player, round: round)
-            
-            cell.player5View?.hits = hits
-            state.apply(view: cell.player5View)
-            
-            if state != .closed {
-                overallState = .initial
-            }
-        }
-        if count >= 6 {
-            let player = game.players[5]
-            let hits = player.hits(for: target)
-            let state = game.state(for: target, player: player, round: round)
-            
-            cell.player6View?.hits = hits
-            state.apply(view: cell.player6View)
-            
-            if state != .closed {
-                overallState = .initial
-            }
-        }
+        let overallState = cell.populate(with: game.players, game: game, target: target, round: round)
         
         cell.targetLabel.text = target == 25 ? "B" : "\(target)"
         overallState.apply(view: cell.targetView)
@@ -133,46 +64,8 @@ class CricketScoreViewController: UIViewController, ScoreView {
         guard let header = header else { return }
         guard let game = game else { return }
         
-        let count = game.players.count
-        
         header.targetScoreLabel.text = "\(round + 1)"
-        
-        if count >= 1 {
-            let player = game.players[0]
-            let score = game.score(forPlayer: player) ?? 0
-            header.player1ScoreLabel.text = "\(score)"
-            header.player1Label.text = player.name
-        }
-        if count >= 2 {
-            let player = game.players[1]
-            let score = game.score(forPlayer: player) ?? 0
-            header.player2ScoreLabel?.text = "\(score)"
-            header.player2Label?.text = player.name
-        }
-        if count >= 3 {
-            let player = game.players[2]
-            let score = game.score(forPlayer: player) ?? 0
-            header.player3ScoreLabel?.text = "\(score)"
-            header.player3Label?.text = player.name
-        }
-        if count >= 4 {
-            let player = game.players[3]
-            let score = game.score(forPlayer: player) ?? 0
-            header.player4ScoreLabel?.text = "\(score)"
-            header.player4Label?.text = player.name
-        }
-        if count >= 5 {
-            let player = game.players[4]
-            let score = game.score(forPlayer: player) ?? 0
-            header.player5ScoreLabel?.text = "\(score)"
-            header.player5Label?.text = player.name
-        }
-        if count >= 6 {
-            let player = game.players[5]
-            let score = game.score(forPlayer: player) ?? 0
-            header.player6ScoreLabel?.text = "\(score)"
-            header.player6Label?.text = player.name
-        }
+        header.populate(with: game.players, game: game)
     }
     
 }
@@ -251,8 +144,12 @@ extension CricketScoreViewController: UITableViewDataSource {
 
 extension CricketScoreViewController: PageViewControllerPage {
     
-    func didBecomeActive(in pageViewController: GameViewController) {
+    func willBecomeActive(in pageViewController: GameViewController) {
         tableView?.reloadData()
+    }
+    
+    func didBecomeActive(in pageViewController: GameViewController) {
+        
     }
     
 }
@@ -268,6 +165,56 @@ class CricketScoreCellView: UITableViewCell {
     @IBOutlet weak var player4View: CricketHitView?
     @IBOutlet weak var player5View: CricketHitView?
     @IBOutlet weak var player6View: CricketHitView?
+    
+}
+
+extension CricketScoreCellView {
+    
+    var playerViews: [CricketHitView] {
+        var views: [CricketHitView] = [player1View]
+        
+        if let view = player2View {
+            views.append(view)
+            
+            if let view = player3View {
+                views.append(view)
+                
+                if let view = player4View {
+                    views.append(view)
+                    
+                    if let view = player5View {
+                        views.append(view)
+                        
+                        if let view = player6View {
+                            views.append(view)
+                        }
+                    }
+                }
+            }
+        }
+        
+        return views
+    }
+    
+    func populate(with players: [GamePlayer], game: CoreGame, target: Int, round: Int) -> TargetState {
+        var overallState: TargetState = .closed
+        let views = playerViews
+        
+        for (index, player) in players.enumerated() {
+            let hits = player.hits(for: target, upTo: round)
+            let state = game.state(for: target, player: player, round: round)
+            
+            let view = views[index]
+            view.hits = hits
+            state.apply(view: view)
+            
+            if state != .closed {
+                overallState = .initial
+            }
+        }
+        
+        return overallState
+    }
     
 }
 
@@ -288,6 +235,48 @@ class CricketHeaderCellView: UITableViewCell {
     @IBOutlet weak var player4ScoreLabel: UILabel?
     @IBOutlet weak var player5ScoreLabel: UILabel?
     @IBOutlet weak var player6ScoreLabel: UILabel?
+    
+}
+
+extension CricketHeaderCellView {
+    
+    var labels: [(name: UILabel, score: UILabel)] {
+        var views: [(name: UILabel, score: UILabel)] = [(name: player1Label, score: player1ScoreLabel)]
+        
+        if let view = player2Label {
+            views.append((name: view, score: player2ScoreLabel!))
+            
+            if let view = player3Label {
+                views.append((name: view, score: player3ScoreLabel!))
+                
+                if let view = player4Label {
+                    views.append((name: view, score: player4ScoreLabel!))
+                    
+                    if let view = player5Label {
+                        views.append((name: view, score: player5ScoreLabel!))
+                        
+                        if let view = player6Label {
+                            views.append((name: view, score: player6ScoreLabel!))
+                        }
+                    }
+                }
+            }
+        }
+        
+        return views
+    }
+    
+    func populate(with players: [GamePlayer], game: CoreGame) {
+        let views = labels
+        
+        for (index, player) in players.enumerated() {
+            let view = views[index]
+            
+            let score = game.score(forPlayer: player) ?? 0
+            view.score.text = "\(score)"
+            view.name.text = player.name
+        }
+    }
     
 }
 

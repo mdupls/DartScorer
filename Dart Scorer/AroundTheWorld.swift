@@ -136,7 +136,7 @@ extension AroundTheWorldGame: Game {
         return "Target: \(target(forPlayer: player))"
     }
     
-    func score(forPlayer player: GamePlayer, forRound round: Int? = nil) -> Int {
+    func score(forPlayer player: GamePlayer) -> Int {
         return target(forPlayer: player)
     }
     

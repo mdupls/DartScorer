@@ -98,7 +98,7 @@ extension X01Game: Game {
         return "\(total)"
     }
     
-    func score(forPlayer player: GamePlayer, forRound round: Int? = nil) -> Int {
+    func score(forPlayer player: GamePlayer) -> Int {
         return startingScore - player.score().sum()
     }
     
