@@ -361,7 +361,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gxy-ss-5PW">
-                                <rect key="frame" x="462.5" y="0.0" width="100" height="52"/>
+                                <rect key="frame" x="462.5" y="12" width="100" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="Ejp-cs-wR3"/>
                                 </constraints>
@@ -370,7 +370,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gold_medal" translatesAutoresizingMaskIntoConstraints="NO" id="ZNX-x8-Kyv">
-                                <rect key="frame" x="978" y="12" width="36" height="36"/>
+                                <rect key="frame" x="572.5" y="15" width="30" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ZNX-x8-Kyv" secondAttribute="height" multiplier="1:1" id="GpE-jB-0FV"/>
                                 </constraints>
@@ -379,14 +379,15 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ZNX-x8-Kyv" firstAttribute="centerY" secondItem="Zfh-pr-WXP" secondAttribute="centerY" id="4pK-hP-5Yi"/>
-                            <constraint firstItem="fW0-zZ-eGu" firstAttribute="top" secondItem="gxy-ss-5PW" secondAttribute="bottom" constant="8" id="IkJ-pg-jVA"/>
-                            <constraint firstItem="gxy-ss-5PW" firstAttribute="top" secondItem="J6i-J5-1lh" secondAttribute="bottom" id="VFH-gg-uny"/>
+                            <constraint firstItem="fW0-zZ-eGu" firstAttribute="top" relation="greaterThanOrEqual" secondItem="gxy-ss-5PW" secondAttribute="bottom" id="IkJ-pg-jVA"/>
+                            <constraint firstItem="gxy-ss-5PW" firstAttribute="centerY" secondItem="Zfh-pr-WXP" secondAttribute="centerY" id="PK1-dN-hjI"/>
+                            <constraint firstItem="gxy-ss-5PW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="J6i-J5-1lh" secondAttribute="bottom" id="VFH-gg-uny"/>
                             <constraint firstItem="ZNX-x8-Kyv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Zfh-pr-WXP" secondAttribute="top" id="ag1-kx-gch"/>
-                            <constraint firstAttribute="trailing" secondItem="ZNX-x8-Kyv" secondAttribute="trailing" constant="10" id="cpJ-9n-xHl"/>
-                            <constraint firstItem="ZNX-x8-Kyv" firstAttribute="height" secondItem="Zfh-pr-WXP" secondAttribute="height" multiplier="0.6" id="ele-Xf-unr"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ZNX-x8-Kyv" secondAttribute="trailing" constant="10" id="cpJ-9n-xHl"/>
+                            <constraint firstItem="ZNX-x8-Kyv" firstAttribute="height" secondItem="Zfh-pr-WXP" secondAttribute="height" multiplier="0.5" id="ele-Xf-unr"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZNX-x8-Kyv" secondAttribute="bottom" id="evD-As-lv6"/>
                             <constraint firstItem="gxy-ss-5PW" firstAttribute="centerX" secondItem="Zfh-pr-WXP" secondAttribute="centerX" priority="750" id="hQx-od-r0s"/>
-                            <constraint firstItem="ZNX-x8-Kyv" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gxy-ss-5PW" secondAttribute="trailing" constant="20" id="wGn-Tf-X3g"/>
+                            <constraint firstItem="ZNX-x8-Kyv" firstAttribute="leading" secondItem="gxy-ss-5PW" secondAttribute="trailing" constant="10" id="wGn-Tf-X3g"/>
                         </constraints>
                     </view>
                     <connections>
