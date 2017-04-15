@@ -370,7 +370,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gold_medal" translatesAutoresizingMaskIntoConstraints="NO" id="ZNX-x8-Kyv">
-                                <rect key="frame" x="978" y="0.0" width="36" height="36"/>
+                                <rect key="frame" x="978" y="12" width="36" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ZNX-x8-Kyv" secondAttribute="height" multiplier="1:1" id="GpE-jB-0FV"/>
                                 </constraints>
@@ -378,9 +378,10 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ZNX-x8-Kyv" firstAttribute="centerY" secondItem="Zfh-pr-WXP" secondAttribute="centerY" id="4pK-hP-5Yi"/>
                             <constraint firstItem="fW0-zZ-eGu" firstAttribute="top" secondItem="gxy-ss-5PW" secondAttribute="bottom" constant="8" id="IkJ-pg-jVA"/>
                             <constraint firstItem="gxy-ss-5PW" firstAttribute="top" secondItem="J6i-J5-1lh" secondAttribute="bottom" id="VFH-gg-uny"/>
-                            <constraint firstItem="ZNX-x8-Kyv" firstAttribute="top" secondItem="Zfh-pr-WXP" secondAttribute="top" id="ag1-kx-gch"/>
+                            <constraint firstItem="ZNX-x8-Kyv" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Zfh-pr-WXP" secondAttribute="top" id="ag1-kx-gch"/>
                             <constraint firstAttribute="trailing" secondItem="ZNX-x8-Kyv" secondAttribute="trailing" constant="10" id="cpJ-9n-xHl"/>
                             <constraint firstItem="ZNX-x8-Kyv" firstAttribute="height" secondItem="Zfh-pr-WXP" secondAttribute="height" multiplier="0.6" id="ele-Xf-unr"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ZNX-x8-Kyv" secondAttribute="bottom" id="evD-As-lv6"/>
@@ -399,7 +400,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gold_medal" width="512" height="512"/>
+        <image name="gold_medal" width="300" height="300"/>
         <image name="wood4" width="3000" height="2000"/>
     </resources>
 </document>
