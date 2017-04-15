@@ -1,14 +1,14 @@
 //
-//  RoundView.swift
+//  LeaderView.swift
 //  Dart Scorer
 //
-//  Created by Michael Du Plessis on 2017-04-03.
+//  Created by Michael Du Plessis on 2017-04-15.
 //  Copyright © 2017 Michael Du Plessis. All rights reserved.
 //
 
 import UIKit
 
-class RoundView: UIView {
+class LeaderView: UIView {
     
     var layout: BoardLayout? {
         didSet {
@@ -16,10 +16,11 @@ class RoundView: UIView {
         }
     }
     
-    var round: Int = 0 {
-        didSet {
-            setNeedsDisplay()
-        }
+    var game: CoreGame?
+    var player: GamePlayer?
+    
+    var leader: GamePlayer? {
+        return game?.leader
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,14 +31,17 @@ class RoundView: UIView {
         super.draw(rect)
         
         guard let layout = layout else { return }
+        guard let game = game else { return }
         
-        let angle = CGFloat.pi / 4
-        let sweep = CGFloat.pi / 4
-        let height = layout.diameter / 15
-        let textHeight = height * 0.5
-        
-        drawBackground(rect: rect, angle: angle, sweep: sweep, height: height)
-        drawRound(rect: rect, radius: layout.radius + (height - textHeight), angle: angle, height: textHeight, name: "Round \(round + 1)".localizedUppercase)
+        if let leader = leader, leader !== player {
+            let angle = (CGFloat.pi / 4) * 3
+            let sweep = CGFloat.pi / 4
+            let height = layout.diameter / 15
+            let textHeight = height * 0.5
+            
+            drawBackground(rect: rect, angle: angle, sweep: sweep, height: height)
+            drawRound(rect: rect, radius: layout.radius + (height - textHeight), angle: angle, height: textHeight, name: "Leader at \(game.score(forPlayer: leader) ?? 0)".localizedUppercase)
+        }
     }
     
     // MARK: Private

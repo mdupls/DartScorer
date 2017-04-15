@@ -29,6 +29,10 @@ class CoreGame {
         return _winner
     }
     
+    var leader: GamePlayer? {
+        return game.rank(players: players).first
+    }
+    
     var throwsPerTurn: Int {
         return config.throwsPerTurn
     }

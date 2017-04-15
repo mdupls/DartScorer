@@ -275,6 +275,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="05S-Xq-LMU" customClass="LeaderView" customModule="Dart_Scorer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1024"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQn-Zh-ymd" customClass="RoundView" customModule="Dart_Scorer" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="1024"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -303,20 +307,25 @@
                             <constraint firstItem="8Ku-4f-ay4" firstAttribute="leading" secondItem="web-7W-gN9" secondAttribute="leading" id="C2t-gh-BgU"/>
                             <constraint firstItem="TQn-Zh-ymd" firstAttribute="top" secondItem="8Ku-4f-ay4" secondAttribute="top" id="FL8-5e-wSL"/>
                             <constraint firstItem="TQn-Zh-ymd" firstAttribute="leading" secondItem="8Ku-4f-ay4" secondAttribute="leading" id="Kyl-4B-Igm"/>
+                            <constraint firstItem="05S-Xq-LMU" firstAttribute="leading" secondItem="8Ku-4f-ay4" secondAttribute="leading" id="LsL-ck-bjp"/>
                             <constraint firstItem="TQn-Zh-ymd" firstAttribute="trailing" secondItem="8Ku-4f-ay4" secondAttribute="trailing" id="Psk-cF-47h"/>
                             <constraint firstItem="zmh-tX-W1F" firstAttribute="trailing" secondItem="8Ku-4f-ay4" secondAttribute="trailing" id="TPJ-Qg-hli"/>
                             <constraint firstItem="TQn-Zh-ymd" firstAttribute="bottom" secondItem="8Ku-4f-ay4" secondAttribute="bottom" id="UTH-rP-WUB"/>
                             <constraint firstItem="4Jv-DE-1Gy" firstAttribute="bottom" secondItem="8Ku-4f-ay4" secondAttribute="bottom" id="WmF-PK-5hk"/>
                             <constraint firstItem="4Jv-DE-1Gy" firstAttribute="top" secondItem="8Ku-4f-ay4" secondAttribute="top" id="Y6W-S5-4se"/>
+                            <constraint firstItem="05S-Xq-LMU" firstAttribute="trailing" secondItem="8Ku-4f-ay4" secondAttribute="trailing" id="cau-SN-dei"/>
                             <constraint firstAttribute="trailing" secondItem="8Ku-4f-ay4" secondAttribute="trailing" id="erj-o9-ylY"/>
+                            <constraint firstItem="05S-Xq-LMU" firstAttribute="top" secondItem="8Ku-4f-ay4" secondAttribute="top" id="f76-kx-ggk"/>
                             <constraint firstItem="8Ku-4f-ay4" firstAttribute="top" secondItem="TzG-F2-E6S" secondAttribute="bottom" id="iRa-eB-LR6"/>
                             <constraint firstItem="4Jv-DE-1Gy" firstAttribute="trailing" secondItem="8Ku-4f-ay4" secondAttribute="trailing" id="qbJ-RY-7jC"/>
                             <constraint firstItem="zmh-tX-W1F" firstAttribute="leading" secondItem="8Ku-4f-ay4" secondAttribute="leading" id="qiH-or-cJl"/>
+                            <constraint firstItem="05S-Xq-LMU" firstAttribute="bottom" secondItem="8Ku-4f-ay4" secondAttribute="bottom" id="sCy-tR-uLg"/>
                             <constraint firstItem="zmh-tX-W1F" firstAttribute="top" secondItem="8Ku-4f-ay4" secondAttribute="top" id="um7-TB-LiE"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="boardView" destination="8Ku-4f-ay4" id="vlo-ez-MM3"/>
+                        <outlet property="leaderView" destination="05S-Xq-LMU" id="iPe-JA-CLM"/>
                         <outlet property="markerView" destination="4Jv-DE-1Gy" id="f4T-q3-dk7"/>
                         <outlet property="roundView" destination="TQn-Zh-ymd" id="S5D-Cd-VmR"/>
                         <outlet property="targetSelectionView" destination="zmh-tX-W1F" id="zUS-UR-IuC"/>

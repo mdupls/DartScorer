@@ -41,6 +41,7 @@
 		1979DF881E7B313300A667FC /* Cricket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF871E7B313300A667FC /* Cricket.swift */; };
 		1979DF8A1E7B313F00A667FC /* Shanghai.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF891E7B313F00A667FC /* Shanghai.swift */; };
 		1979DF8E1E7B31DE00A667FC /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF8D1E7B31DE00A667FC /* Target.swift */; };
+		198DD1691EA28181006DD801 /* LeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198DD1681EA28181006DD801 /* LeaderView.swift */; };
 		198EE4631E92F5A400CEA09B /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198EE4621E92F5A400CEA09B /* RoundView.swift */; };
 		198EE4661E9319E200CEA09B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 198EE4641E9319E200CEA09B /* Model.xcdatamodeld */; };
 		198EE4691E931A9100CEA09B /* PlayerPersitence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198EE4681E931A9100CEA09B /* PlayerPersitence.swift */; };
@@ -134,6 +135,7 @@
 		1979DF871E7B313300A667FC /* Cricket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cricket.swift; sourceTree = "<group>"; };
 		1979DF891E7B313F00A667FC /* Shanghai.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shanghai.swift; sourceTree = "<group>"; };
 		1979DF8D1E7B31DE00A667FC /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
+		198DD1681EA28181006DD801 /* LeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderView.swift; sourceTree = "<group>"; };
 		198EE4621E92F5A400CEA09B /* RoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		198EE4651E9319E200CEA09B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		198EE4681E931A9100CEA09B /* PlayerPersitence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPersitence.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				19C32B811E8F13380039EE23 /* TargetSelectionView.swift */,
 				19C32B7D1E8DEFDD0039EE23 /* NameView.swift */,
 				198EE4621E92F5A400CEA09B /* RoundView.swift */,
+				198DD1681EA28181006DD801 /* LeaderView.swift */,
 				195A3D321E7D703100CE1215 /* BoardView.swift */,
 				195A3D341E7D8AE200CE1215 /* MarkerView.swift */,
 				1933178A1E9AA17F001C84BB /* CricketHitView.swift */,
@@ -588,6 +591,7 @@
 				19A3F2C21E79ADF200D660B5 /* CGMutablePath+Extensions.swift in Sources */,
 				19EA7F0B1E9563A7002AECC7 /* UITableView+Extensions.swift in Sources */,
 				19460B541E947C4700FBFAE0 /* AroundTheWorld.swift in Sources */,
+				198DD1691EA28181006DD801 /* LeaderView.swift in Sources */,
 				195A3D371E7F6C6700CE1215 /* GameViewController.swift in Sources */,
 				1972CA261E79B42400A257D9 /* String+Extensions.swift in Sources */,
 				1972CA401E7A1FE500A257D9 /* Player.swift in Sources */,

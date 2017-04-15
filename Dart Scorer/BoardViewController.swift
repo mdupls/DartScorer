@@ -12,16 +12,8 @@ class BoardViewController: UIViewController {
     
     // MARK: Variables
     
-    var player: GamePlayer? {
-        didSet {
-            markerView?.setNeedsDisplay()
-        }
-    }
-    var game: CoreGame? {
-        didSet {
-            update(for: game)
-        }
-    }
+    var game: CoreGame?
+    var player: GamePlayer?
     var round: Int = 0 {
         didSet {
             roundView?.round = round
@@ -39,6 +31,7 @@ class BoardViewController: UIViewController {
     
     @IBOutlet weak var boardView: BoardView!
     @IBOutlet weak var roundView: RoundView!
+    @IBOutlet weak var leaderView: LeaderView!
     @IBOutlet weak var markerView: MarkerView!
     @IBOutlet weak var targetSelectionView: TargetSelectionView!
     
@@ -70,6 +63,9 @@ class BoardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        leaderView.game = game
+        leaderView.player = player
         
         update(for: game)
         
@@ -108,6 +104,10 @@ class BoardViewController: UIViewController {
             roundView.round = round
         }
         
+        if let leaderView = leaderView {
+            leaderView.layout = layout
+        }
+        
         if let markerView = markerView {
             markerView.layout = layout
             
@@ -136,6 +136,7 @@ class BoardViewController: UIViewController {
         targetSelectionView?.isUserInteractionEnabled = enabled
         boardView?.enabled = enabled
         
+        leaderView?.setNeedsDisplay()
         markerView?.setNeedsDisplay()
     }
     
