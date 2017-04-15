@@ -2042,7 +2042,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="gold_medal" width="512" height="512"/>
+        <image name="gold_medal" width="300" height="300"/>
         <image name="wood3" width="5472" height="3648"/>
     </resources>
 </document>

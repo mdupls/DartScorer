@@ -30,7 +30,11 @@ class CoreGame {
     }
     
     var leader: GamePlayer? {
-        return game.rank(players: players).first
+        let leader = game.rank(players: players).first
+        if (leader?.totalHits ?? 0) > 0 {
+            return leader
+        }
+        return nil
     }
     
     var throwsPerTurn: Int {
