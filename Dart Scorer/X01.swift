@@ -84,16 +84,24 @@ extension X01Game: Game {
     }
     
     func scoreTitle(forPlayer player: GamePlayer, forRound round: Int?) -> String? {
+        var bust: Bool = false
         var roundTotal: Int
         if let round = round {
-            roundTotal = player.score(for: round)?.sum() ?? 0
+            let score = player.score(for: round)
+            bust = score?.bust ?? false
+            
+            roundTotal = score?.sum() ?? 0
         } else {
             roundTotal = 0
         }
         
         let total = score(forPlayer: player)
         if roundTotal > 0 {
-            return "\((total + roundTotal)) - \(roundTotal) = \(total)"
+            if bust {
+                return "\(total) - \(roundTotal) = \(total - roundTotal)"
+            } else {
+                return "\(total + roundTotal) - \(roundTotal) = \(total)"
+            }
         }
         return "\(total)"
     }
