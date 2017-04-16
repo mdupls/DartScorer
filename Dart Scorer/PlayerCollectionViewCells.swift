@@ -92,7 +92,13 @@ class TeamCollectionViewCell: UICollectionViewCell {
 
 class TeamIconView: UIView {
     
-    var count: Int = 0
+    var count: Int = 0 {
+        didSet {
+            if count != oldValue {
+                setNeedsDisplay()
+            }
+        }
+    }
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="ipad9_7" orientation="portrait">
+    <device id="ipad12_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -20,41 +20,42 @@
                         <viewControllerLayoutGuide type="bottom" id="YNM-gi-aJx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hHj-yc-DPE">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wood3" translatesAutoresizingMaskIntoConstraints="NO" id="uki-BI-2oW">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="P60-IH-ecR">
-                                <rect key="frame" x="60" y="212" width="648" height="600"/>
+                                <rect key="frame" x="212" y="383" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="1eK-Bm-Fsi"/>
+                                    <constraint firstAttribute="width" priority="750" constant="600" id="6nt-LU-yal"/>
                                     <constraint firstAttribute="height" priority="999" constant="600" id="an6-mi-UIA"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="playerScoreCell" id="Gbn-t3-JwS" customClass="ScoreCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="648" height="80"/>
+                                        <rect key="frame" x="0.0" y="28" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gbn-t3-JwS" id="Isk-QA-vZA">
-                                            <rect key="frame" x="0.0" y="0.0" width="648" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pkh-7Y-dD9">
-                                                    <rect key="frame" x="20" y="8" width="509" height="63.5"/>
+                                                    <rect key="frame" x="20" y="8" width="461" height="63.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="cvE-QK-Dnh">
-                                                    <rect key="frame" x="589" y="8" width="39" height="63.5"/>
+                                                    <rect key="frame" x="541" y="8" width="39" height="63.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gold_medal" translatesAutoresizingMaskIntoConstraints="NO" id="cZT-56-6lr">
-                                                    <rect key="frame" x="549" y="25" width="30" height="30"/>
+                                                    <rect key="frame" x="501" y="25" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="cZT-56-6lr" secondAttribute="height" multiplier="1:1" id="XTa-uT-HQl"/>
                                                         <constraint firstAttribute="height" constant="30" id="fos-Hc-d9S"/>
@@ -83,23 +84,23 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="teamScoreCell" id="fMn-J5-KjG" customClass="ScoreCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="108" width="648" height="80"/>
+                                        <rect key="frame" x="0.0" y="108" width="600" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fMn-J5-KjG" id="pOB-fE-VJ3">
-                                            <rect key="frame" x="0.0" y="0.0" width="648" height="79.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CPz-6H-Ytq">
-                                                    <rect key="frame" x="20" y="8" width="509.5" height="57"/>
+                                                    <rect key="frame" x="20" y="8" width="461.5" height="57"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Team" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOI-rH-iNd">
-                                                            <rect key="frame" x="0.0" y="8" width="509.5" height="29"/>
+                                                            <rect key="frame" x="0.0" y="8" width="461.5" height="29"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Players" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFg-R2-snl">
-                                                            <rect key="frame" x="0.0" y="37" width="509.5" height="20"/>
+                                                            <rect key="frame" x="0.0" y="37" width="461.5" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
@@ -117,14 +118,14 @@
                                                     </constraints>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="gold_medal" translatesAutoresizingMaskIntoConstraints="NO" id="8Ao-tv-1LQ">
-                                                    <rect key="frame" x="549.5" y="24" width="30" height="30"/>
+                                                    <rect key="frame" x="501.5" y="24" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="8Ao-tv-1LQ" secondAttribute="height" multiplier="1:1" id="sez-7H-zjs"/>
                                                         <constraint firstAttribute="height" constant="30" id="tfi-pm-6Jf"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000149011612" translatesAutoresizingMaskIntoConstraints="NO" id="P4E-J4-2bs">
-                                                    <rect key="frame" x="589.5" y="8" width="38.5" height="63.5"/>
+                                                    <rect key="frame" x="541.5" y="8" width="38.5" height="63.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -155,17 +156,11 @@
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="1eK-Bm-Fsi"/>
-                                        <exclude reference="an6-mi-UIA"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=regular">
                                     <mask key="constraints">
                                         <exclude reference="1eK-Bm-Fsi"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular">
-                                    <mask key="constraints">
-                                        <include reference="an6-mi-UIA"/>
                                     </mask>
                                 </variation>
                                 <connections>
@@ -180,7 +175,6 @@
                             <constraint firstItem="uki-BI-2oW" firstAttribute="leading" secondItem="hHj-yc-DPE" secondAttribute="leading" id="JPi-ST-h3T"/>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="P60-IH-ecR" secondAttribute="trailing" constant="40" id="LTw-7o-nek"/>
                             <constraint firstAttribute="trailing" secondItem="uki-BI-2oW" secondAttribute="trailing" id="NIf-4C-Kh3"/>
-                            <constraint firstItem="P60-IH-ecR" firstAttribute="width" secondItem="hHj-yc-DPE" secondAttribute="width" priority="750" id="d2J-PL-rjt"/>
                             <constraint firstItem="YNM-gi-aJx" firstAttribute="top" relation="greaterThanOrEqual" secondItem="P60-IH-ecR" secondAttribute="bottom" constant="40" id="dua-R2-jIp"/>
                             <constraint firstAttribute="trailing" secondItem="P60-IH-ecR" secondAttribute="trailing" id="hod-2N-ojJ">
                                 <variation key="widthClass=compact" constant="40"/>
@@ -237,18 +231,18 @@
                         <viewControllerLayoutGuide type="bottom" id="RVY-ac-7a7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="O49-cw-Hb2">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WQf-sP-puN">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="onePlayerHeaderCell" rowHeight="75" id="Dq6-rX-PEy" customClass="CricketHeaderCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="768" height="75"/>
+                                        <rect key="frame" x="0.0" y="28" width="1024" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dq6-rX-PEy" id="hEa-dW-62J">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Veb-FS-B6P">
@@ -279,16 +273,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r6O-3S-spL">
-                                                    <rect key="frame" x="50" y="5" width="718" height="64"/>
+                                                    <rect key="frame" x="50" y="5" width="974" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="giS-cf-CWu">
-                                                            <rect key="frame" x="3" y="40" width="712" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="968" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sii-ui-fiO">
-                                                            <rect key="frame" x="3" y="3" width="712" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="968" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -324,23 +318,23 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="twoPlayerHeaderCell" rowHeight="75" id="17n-AZ-jLO" customClass="CricketHeaderCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="103" width="768" height="75"/>
+                                        <rect key="frame" x="0.0" y="103" width="1024" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="17n-AZ-jLO" id="sD3-5e-6fs">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xs2-8l-nxt">
-                                                    <rect key="frame" x="0.0" y="5" width="359" height="64"/>
+                                                    <rect key="frame" x="0.0" y="5" width="487" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SQm-QA-XXi">
-                                                            <rect key="frame" x="3" y="40" width="353" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="481" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CY7-6f-cQf">
-                                                            <rect key="frame" x="3" y="3" width="353" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="481" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -357,7 +351,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dA9-1h-H8l">
-                                                    <rect key="frame" x="359" y="5" width="50" height="64"/>
+                                                    <rect key="frame" x="487" y="5" width="50" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tor-gu-T0J">
                                                             <rect key="frame" x="3" y="3" width="44" height="0.0"/>
@@ -384,16 +378,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="me9-Hh-sUF">
-                                                    <rect key="frame" x="409" y="5" width="359" height="64"/>
+                                                    <rect key="frame" x="537" y="5" width="487" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2Q-Xv-Ev6">
-                                                            <rect key="frame" x="3" y="3" width="353" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="481" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SMb-wl-BHR">
-                                                            <rect key="frame" x="3" y="40" width="353" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="481" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -435,10 +429,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="threePlayerHeaderCell" rowHeight="75" id="y3J-df-Yw3" customClass="CricketHeaderCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="178" width="768" height="75"/>
+                                        <rect key="frame" x="0.0" y="178" width="1024" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="y3J-df-Yw3" id="fal-Od-eMk">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gpU-P5-3gs">
@@ -469,16 +463,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="emY-8n-dWZ">
-                                                    <rect key="frame" x="50" y="5" width="239.5" height="64"/>
+                                                    <rect key="frame" x="50" y="5" width="324.5" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SiX-Bz-zy0">
-                                                            <rect key="frame" x="3" y="40" width="233.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="318.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PZY-Nn-ueJ">
-                                                            <rect key="frame" x="3" y="3" width="233.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="318.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -495,16 +489,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLg-lh-NXR">
-                                                    <rect key="frame" x="289.5" y="5" width="239" height="64"/>
+                                                    <rect key="frame" x="374.5" y="5" width="325" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQy-Qf-1Bn">
-                                                            <rect key="frame" x="3" y="3" width="233" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="319" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7X5-X9-8gm">
-                                                            <rect key="frame" x="3.5" y="40" width="233" height="21"/>
+                                                            <rect key="frame" x="3.5" y="40" width="319" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -521,16 +515,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6IT-ev-qmd">
-                                                    <rect key="frame" x="528.5" y="5" width="239.5" height="64"/>
+                                                    <rect key="frame" x="699.5" y="5" width="324.5" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9x-TE-yuk">
-                                                            <rect key="frame" x="3" y="3" width="233.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="318.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Xb-af-7ab">
-                                                            <rect key="frame" x="3" y="40" width="233.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="318.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -578,23 +572,23 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fourPlayerHeaderCell" rowHeight="75" id="oin-ol-Jwu" customClass="CricketHeaderCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="253" width="768" height="75"/>
+                                        <rect key="frame" x="0.0" y="253" width="1024" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oin-ol-Jwu" id="yAO-iS-YdX">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mJE-TZ-dwc">
-                                                    <rect key="frame" x="0.0" y="5" width="179.5" height="64"/>
+                                                    <rect key="frame" x="0.0" y="5" width="243.5" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgn-zG-9UP">
-                                                            <rect key="frame" x="3" y="40" width="173.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="237.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ykY-hN-O7U">
-                                                            <rect key="frame" x="3" y="3" width="173.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="237.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -611,16 +605,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wan-Wh-WXG">
-                                                    <rect key="frame" x="179.5" y="5" width="179.5" height="64"/>
+                                                    <rect key="frame" x="243.5" y="5" width="243.5" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FvD-Iv-Yc3">
-                                                            <rect key="frame" x="3" y="3" width="173.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="237.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ui-LV-HjS">
-                                                            <rect key="frame" x="3" y="40" width="173.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="237.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -637,7 +631,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kvp-sQ-1I4">
-                                                    <rect key="frame" x="359" y="5" width="50" height="64"/>
+                                                    <rect key="frame" x="487" y="5" width="50" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yow-NG-pdS">
                                                             <rect key="frame" x="3" y="3" width="44" height="0.0"/>
@@ -664,16 +658,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wso-cm-xKM">
-                                                    <rect key="frame" x="409" y="5" width="179.5" height="64"/>
+                                                    <rect key="frame" x="537" y="5" width="243.5" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y5l-5q-UgS">
-                                                            <rect key="frame" x="3" y="3" width="173.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="237.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="als-Ao-5eD">
-                                                            <rect key="frame" x="3" y="40" width="173.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="237.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -690,16 +684,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EKE-CG-IrL">
-                                                    <rect key="frame" x="588.5" y="5" width="179.5" height="64"/>
+                                                    <rect key="frame" x="780.5" y="5" width="243.5" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXM-de-EVz">
-                                                            <rect key="frame" x="3" y="3" width="173.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="237.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LWu-cX-vaX">
-                                                            <rect key="frame" x="3" y="40" width="173.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="237.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -753,23 +747,23 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fivePlayerHeaderCell" rowHeight="75" id="CpS-GB-m1A" customClass="CricketHeaderCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="328" width="768" height="75"/>
+                                        <rect key="frame" x="0.0" y="328" width="1024" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CpS-GB-m1A" id="fnP-vb-qfe">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wut-ht-dHq">
-                                                    <rect key="frame" x="0.0" y="5" width="143.5" height="64"/>
+                                                    <rect key="frame" x="0.0" y="5" width="195" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ced-Vq-QzC">
-                                                            <rect key="frame" x="3" y="40" width="137.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="189" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wiy-0P-PDw">
-                                                            <rect key="frame" x="3" y="3" width="137.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="189" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -786,16 +780,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="55j-Wm-LVl">
-                                                    <rect key="frame" x="143.5" y="5" width="143.5" height="64"/>
+                                                    <rect key="frame" x="195" y="5" width="194.5" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mk9-s1-15E">
-                                                            <rect key="frame" x="3" y="3" width="137.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="188.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfg-Ut-H4S">
-                                                            <rect key="frame" x="3" y="40" width="137.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="188.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -812,7 +806,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zeE-8r-iA2">
-                                                    <rect key="frame" x="287" y="5" width="50" height="64"/>
+                                                    <rect key="frame" x="389.5" y="5" width="50" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nyy-z2-nWl">
                                                             <rect key="frame" x="3" y="3" width="44" height="0.0"/>
@@ -839,16 +833,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bxc-3i-M8d">
-                                                    <rect key="frame" x="337" y="5" width="144" height="64"/>
+                                                    <rect key="frame" x="439.5" y="5" width="195" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2jA-nc-E4H">
-                                                            <rect key="frame" x="3" y="3" width="138" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="189" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7p1-is-4eA">
-                                                            <rect key="frame" x="3" y="40" width="138" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="189" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -865,16 +859,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Dk-1c-AGC">
-                                                    <rect key="frame" x="481" y="5" width="143.5" height="64"/>
+                                                    <rect key="frame" x="634.5" y="5" width="195" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Az1-JL-fZe">
-                                                            <rect key="frame" x="3" y="3" width="137.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="189" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdg-24-Q0k">
-                                                            <rect key="frame" x="3" y="40" width="137.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="189" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -891,16 +885,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R0p-QQ-WWH">
-                                                    <rect key="frame" x="624.5" y="5" width="143.5" height="64"/>
+                                                    <rect key="frame" x="829.5" y="5" width="194.5" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAQ-9P-UUT">
-                                                            <rect key="frame" x="3" y="3" width="137.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="188.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY6-vf-dkq">
-                                                            <rect key="frame" x="3" y="40" width="137.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="188.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -960,23 +954,23 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sixPlayerHeaderCell" rowHeight="75" id="AZC-VT-Edb" customClass="CricketHeaderCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="403" width="768" height="75"/>
+                                        <rect key="frame" x="0.0" y="403" width="1024" height="75"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AZC-VT-Edb" id="8gN-wG-B9q">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="74.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="74.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XGV-RI-oUB">
-                                                    <rect key="frame" x="0.0" y="5" width="119.5" height="64"/>
+                                                    <rect key="frame" x="0.0" y="5" width="162" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldv-Tx-pXK">
-                                                            <rect key="frame" x="3" y="40" width="113.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="156" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccy-Zd-TfE">
-                                                            <rect key="frame" x="3" y="3" width="113.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="156" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -993,16 +987,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fsY-i8-vr8">
-                                                    <rect key="frame" x="119.5" y="5" width="120" height="64"/>
+                                                    <rect key="frame" x="162" y="5" width="162.5" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KN0-va-P5g">
-                                                            <rect key="frame" x="3" y="3" width="114" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="156.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3XI-HT-Gf8">
-                                                            <rect key="frame" x="3" y="40" width="114" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="156.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1019,16 +1013,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evx-DU-voj">
-                                                    <rect key="frame" x="239.5" y="5" width="120" height="64"/>
+                                                    <rect key="frame" x="324.5" y="5" width="162.5" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ggd-T9-bzn">
-                                                            <rect key="frame" x="3" y="3" width="114" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="156.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="INk-qt-dnc">
-                                                            <rect key="frame" x="3" y="40" width="114" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="156.5" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1045,7 +1039,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBf-P1-sm1">
-                                                    <rect key="frame" x="359.5" y="5" width="50" height="64"/>
+                                                    <rect key="frame" x="487" y="5" width="50" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Njc-OZ-qQD">
                                                             <rect key="frame" x="3" y="3" width="44" height="0.0"/>
@@ -1072,16 +1066,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oCh-nN-cAE">
-                                                    <rect key="frame" x="409.5" y="5" width="119.5" height="64"/>
+                                                    <rect key="frame" x="537" y="5" width="162" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QTC-PE-Nc3">
-                                                            <rect key="frame" x="3" y="3" width="113.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="156" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zF2-s1-GbB">
-                                                            <rect key="frame" x="3" y="40" width="113.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="156" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1098,16 +1092,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oQ1-aD-Dl1">
-                                                    <rect key="frame" x="529" y="5" width="119.5" height="64"/>
+                                                    <rect key="frame" x="699" y="5" width="163" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xz7-N8-WtH">
-                                                            <rect key="frame" x="3" y="3" width="113.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="157" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vnG-54-R8b">
-                                                            <rect key="frame" x="3" y="40" width="113.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="157" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1124,16 +1118,16 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VUj-Sw-LEL">
-                                                    <rect key="frame" x="648.5" y="5" width="119.5" height="64"/>
+                                                    <rect key="frame" x="862" y="5" width="162" height="64"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Player" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mK5-nO-iMJ">
-                                                            <rect key="frame" x="3" y="3" width="113.5" height="21"/>
+                                                            <rect key="frame" x="3" y="3" width="156" height="21"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26N-su-eOJ">
-                                                            <rect key="frame" x="3" y="40" width="113.5" height="21"/>
+                                                            <rect key="frame" x="3" y="40" width="156" height="21"/>
                                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -1200,10 +1194,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="onePlayerScoreCell" id="msU-h6-qdI" customClass="CricketScoreCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="478" width="768" height="44"/>
+                                        <rect key="frame" x="0.0" y="478" width="1024" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="msU-h6-qdI" id="P1N-IS-Oee">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9sU-BK-kGL">
@@ -1226,10 +1220,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7P0-ho-pev">
-                                                    <rect key="frame" x="50" y="0.0" width="718" height="43"/>
+                                                    <rect key="frame" x="50" y="0.0" width="974" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A6g-lA-9BM" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="338" y="1" width="42" height="42"/>
+                                                            <rect key="frame" x="466" y="1" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="A6g-lA-9BM" secondAttribute="height" multiplier="1:1" id="ggd-Sh-26M"/>
@@ -1266,17 +1260,17 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="twoPlayerScoreCell" id="Lyh-B1-4H5" customClass="CricketScoreCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="522" width="768" height="44"/>
+                                        <rect key="frame" x="0.0" y="522" width="1024" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lyh-B1-4H5" id="mVy-Ut-tU7">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kA4-rG-A2S">
-                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="487" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5JA-05-dOi" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="158" y="0.0" width="43" height="43"/>
+                                                            <rect key="frame" x="222" y="0.0" width="43" height="43"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="5JA-05-dOi" secondAttribute="height" multiplier="1:1" id="idx-MU-Z22"/>
@@ -1296,7 +1290,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NQm-35-pWm">
-                                                    <rect key="frame" x="359" y="0.0" width="50" height="43"/>
+                                                    <rect key="frame" x="487" y="0.0" width="50" height="43"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LYc-NG-TW8">
                                                             <rect key="frame" x="3" y="3" width="44" height="37"/>
@@ -1315,10 +1309,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uv3-rN-Uhk">
-                                                    <rect key="frame" x="409" y="0.0" width="359" height="43"/>
+                                                    <rect key="frame" x="537" y="0.0" width="487" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XKt-x9-0gS" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="159" y="0.0" width="42" height="42"/>
+                                                            <rect key="frame" x="223" y="0.0" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="XKt-x9-0gS" secondAttribute="height" multiplier="1:1" id="Wim-1v-7zi"/>
@@ -1360,10 +1354,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="threePlayerScoreCell" id="o7o-EX-UZo" customClass="CricketScoreCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="566" width="768" height="44"/>
+                                        <rect key="frame" x="0.0" y="566" width="1024" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o7o-EX-UZo" id="h9z-12-rMj">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IJ7-97-eSb">
@@ -1386,10 +1380,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IlZ-br-JmI">
-                                                    <rect key="frame" x="50" y="0.0" width="239.5" height="43"/>
+                                                    <rect key="frame" x="50" y="0.0" width="324.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k1R-pY-WLs" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="99" y="1" width="42" height="42"/>
+                                                            <rect key="frame" x="141.5" y="1" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="k1R-pY-WLs" secondAttribute="height" multiplier="1:1" id="YvE-3G-dJ0"/>
@@ -1409,10 +1403,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cgI-D6-bfb">
-                                                    <rect key="frame" x="289.5" y="0.0" width="239" height="43"/>
+                                                    <rect key="frame" x="374.5" y="0.0" width="325" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3J-HB-xSj" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="98.5" y="1" width="42" height="42"/>
+                                                            <rect key="frame" x="141.5" y="1" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="b3J-HB-xSj" secondAttribute="height" multiplier="1:1" id="qRA-dr-uaK"/>
@@ -1432,10 +1426,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Inl-JY-PxG">
-                                                    <rect key="frame" x="528.5" y="0.0" width="239.5" height="43"/>
+                                                    <rect key="frame" x="699.5" y="0.0" width="324.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RkJ-N8-WVK" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="98.5" y="0.0" width="42" height="42"/>
+                                                            <rect key="frame" x="141" y="0.0" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="RkJ-N8-WVK" secondAttribute="height" multiplier="1:1" id="8YY-8E-TtN"/>
@@ -1484,17 +1478,17 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fourPlayerScoreCell" id="Hzq-s7-cwu" customClass="CricketScoreCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="610" width="768" height="44"/>
+                                        <rect key="frame" x="0.0" y="610" width="1024" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hzq-s7-cwu" id="cMW-b6-1Wg">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="feG-LY-NTE">
-                                                    <rect key="frame" x="0.0" y="0.0" width="179.5" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="243.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f4K-rk-wQj" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="68" y="0.0" width="43" height="43"/>
+                                                            <rect key="frame" x="100.5" y="0.0" width="43" height="43"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="f4K-rk-wQj" secondAttribute="height" multiplier="1:1" id="LQh-o5-C9B"/>
@@ -1514,10 +1508,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MP1-rY-3fL">
-                                                    <rect key="frame" x="179.5" y="0.0" width="179.5" height="43"/>
+                                                    <rect key="frame" x="243.5" y="0.0" width="243.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pSB-TY-MKd" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="68.5" y="0.0" width="43" height="43"/>
+                                                            <rect key="frame" x="101" y="0.0" width="43" height="43"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="pSB-TY-MKd" secondAttribute="height" multiplier="1:1" id="A5M-3B-JLD"/>
@@ -1537,7 +1531,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZkN-KM-ruY">
-                                                    <rect key="frame" x="359" y="0.0" width="50" height="43"/>
+                                                    <rect key="frame" x="487" y="0.0" width="50" height="43"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ydh-7B-fvg">
                                                             <rect key="frame" x="3" y="3" width="44" height="37"/>
@@ -1556,10 +1550,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j2T-Ix-H6G">
-                                                    <rect key="frame" x="409" y="0.0" width="179.5" height="43"/>
+                                                    <rect key="frame" x="537" y="0.0" width="243.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C1X-of-aHN" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="69" y="0.0" width="42" height="42"/>
+                                                            <rect key="frame" x="101.5" y="0.0" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="C1X-of-aHN" secondAttribute="height" multiplier="1:1" id="Tho-h1-m2D"/>
@@ -1579,10 +1573,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o3c-Zi-RtC">
-                                                    <rect key="frame" x="588.5" y="0.0" width="179.5" height="43"/>
+                                                    <rect key="frame" x="780.5" y="0.0" width="243.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ew0-yU-coX" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="69.5" y="0.0" width="42" height="42"/>
+                                                            <rect key="frame" x="101" y="0.0" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="ew0-yU-coX" secondAttribute="height" multiplier="1:1" id="eHS-p3-KIY"/>
@@ -1634,17 +1628,17 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="fivePlayerScoreCell" id="fqP-8G-koS" customClass="CricketScoreCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="654" width="768" height="44"/>
+                                        <rect key="frame" x="0.0" y="654" width="1024" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fqP-8G-koS" id="q0U-8N-m5r">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hw-B6-PF0">
-                                                    <rect key="frame" x="0.0" y="0.0" width="143.5" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="195" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ijb-tr-ER8" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="50" y="0.0" width="43" height="43"/>
+                                                            <rect key="frame" x="75.5" y="0.0" width="43" height="43"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="Ijb-tr-ER8" secondAttribute="height" multiplier="1:1" id="sT3-Wp-Fw0"/>
@@ -1664,10 +1658,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ji-HV-Nat">
-                                                    <rect key="frame" x="143.5" y="0.0" width="143.5" height="43"/>
+                                                    <rect key="frame" x="195" y="0.0" width="194.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHn-Ia-FeB" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="50.5" y="0.0" width="43" height="43"/>
+                                                            <rect key="frame" x="76" y="0.0" width="43" height="43"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="dHn-Ia-FeB" secondAttribute="height" multiplier="1:1" id="vFL-7V-Lxa"/>
@@ -1687,7 +1681,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fWk-8m-iJl">
-                                                    <rect key="frame" x="287" y="0.0" width="50" height="43"/>
+                                                    <rect key="frame" x="389.5" y="0.0" width="50" height="43"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mv7-RM-DWQ">
                                                             <rect key="frame" x="3" y="3" width="44" height="37"/>
@@ -1706,10 +1700,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zlY-ye-AMu">
-                                                    <rect key="frame" x="337" y="0.0" width="144" height="43"/>
+                                                    <rect key="frame" x="439.5" y="0.0" width="195" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5ah-K3-Phb" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="51.5" y="0.0" width="42" height="42"/>
+                                                            <rect key="frame" x="77" y="0.0" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="5ah-K3-Phb" secondAttribute="height" multiplier="1:1" id="MJP-lm-MBZ"/>
@@ -1729,10 +1723,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5gy-ew-fym">
-                                                    <rect key="frame" x="624.5" y="0.0" width="143.5" height="43"/>
+                                                    <rect key="frame" x="829.5" y="0.0" width="194.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F4i-YU-xpd" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="51.5" y="0.0" width="42" height="42"/>
+                                                            <rect key="frame" x="77" y="0.0" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="F4i-YU-xpd" secondAttribute="height" multiplier="1:1" id="cJx-gg-Rb3"/>
@@ -1752,10 +1746,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dwF-UL-zNT">
-                                                    <rect key="frame" x="481" y="0.0" width="143.5" height="43"/>
+                                                    <rect key="frame" x="634.5" y="0.0" width="195" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TC-Vj-JI0" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="50.5" y="0.0" width="43" height="43"/>
+                                                            <rect key="frame" x="76.5" y="0.0" width="43" height="43"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="0TC-Vj-JI0" secondAttribute="height" multiplier="1:1" id="BeL-Xj-Gma"/>
@@ -1812,17 +1806,17 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sixPlayerScoreCell" id="PQl-Gm-N8W" customClass="CricketScoreCellView" customModule="Dart_Scorer" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="698" width="768" height="44"/>
+                                        <rect key="frame" x="0.0" y="698" width="1024" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PQl-Gm-N8W" id="0H5-K5-pJa">
-                                            <rect key="frame" x="0.0" y="0.0" width="768" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1024" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KsP-AL-Zjk">
-                                                    <rect key="frame" x="0.0" y="0.0" width="119.5" height="43"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="162" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HSP-e7-HEi" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="38.5" y="0.5" width="42" height="42"/>
+                                                            <rect key="frame" x="60" y="0.5" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="HSP-e7-HEi" secondAttribute="height" multiplier="1:1" id="BIP-0N-52k"/>
@@ -1842,10 +1836,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wuQ-od-aPT">
-                                                    <rect key="frame" x="119.5" y="0.0" width="120" height="43"/>
+                                                    <rect key="frame" x="162" y="0.0" width="162.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sMq-Qh-QQp" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="38.5" y="0.0" width="43" height="43"/>
+                                                            <rect key="frame" x="60.5" y="0.0" width="43" height="43"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="sMq-Qh-QQp" secondAttribute="height" multiplier="1:1" id="3Fg-wk-Znj"/>
@@ -1865,10 +1859,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dmz-89-UDj">
-                                                    <rect key="frame" x="239.5" y="0.0" width="120" height="43"/>
+                                                    <rect key="frame" x="324.5" y="0.0" width="162.5" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="olg-PK-1DA" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="39" y="0.0" width="42" height="42"/>
+                                                            <rect key="frame" x="60" y="0.0" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="olg-PK-1DA" secondAttribute="height" multiplier="1:1" id="FQl-bg-xFd"/>
@@ -1888,7 +1882,7 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sXh-xX-TZW">
-                                                    <rect key="frame" x="359.5" y="0.0" width="50" height="43"/>
+                                                    <rect key="frame" x="487" y="0.0" width="50" height="43"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REO-zA-IQh">
                                                             <rect key="frame" x="3" y="3" width="44" height="37"/>
@@ -1907,10 +1901,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VPe-3L-ZR0">
-                                                    <rect key="frame" x="409.5" y="0.0" width="119.5" height="43"/>
+                                                    <rect key="frame" x="537" y="0.0" width="162" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fM1-CU-s3P" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="39" y="0.0" width="42" height="42"/>
+                                                            <rect key="frame" x="60.5" y="0.0" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="fM1-CU-s3P" secondAttribute="height" multiplier="1:1" id="rce-PH-0Ow"/>
@@ -1930,10 +1924,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P96-ap-gCe">
-                                                    <rect key="frame" x="529" y="0.0" width="119.5" height="43"/>
+                                                    <rect key="frame" x="699" y="0.0" width="163" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rtf-NJ-hGT" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="39" y="0.0" width="42" height="42"/>
+                                                            <rect key="frame" x="61.5" y="0.0" width="42" height="42"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="rtf-NJ-hGT" secondAttribute="height" multiplier="1:1" id="jfT-gA-HlE"/>
@@ -1953,10 +1947,10 @@
                                                     </constraints>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBC-3o-XYg">
-                                                    <rect key="frame" x="648.5" y="0.0" width="119.5" height="43"/>
+                                                    <rect key="frame" x="862" y="0.0" width="162" height="43"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tZW-IH-889" customClass="CricketHitView" customModule="Dart_Scorer" customModuleProvider="target">
-                                                            <rect key="frame" x="40" y="0.5" width="41" height="41"/>
+                                                            <rect key="frame" x="61" y="0.5" width="41" height="41"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" secondItem="tZW-IH-889" secondAttribute="height" multiplier="1:1" id="Tcu-SQ-yqh"/>

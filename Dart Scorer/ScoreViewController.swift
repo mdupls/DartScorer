@@ -54,7 +54,7 @@ class ScoreViewController: UIViewController, ScoreView {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        tableViewHeightConstraint.constant = 150
+        tableViewHeightConstraint.constant = tableView.contentSize.height
     }
     
     // MARK: Private
