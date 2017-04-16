@@ -117,20 +117,20 @@ class TeamIconView: UIView {
     }
     
     private func drawCells(rect: CGRect) {
-        let columns = Int(ceil(sqrt(Double(count))))
-        let rows = count > columns ? columns : 1
+        let circleFrame = self.circleFrame(rect: rect)
         
-        let diameter = rect.width / CGFloat(columns)
+        let columns = Int(ceil(sqrt(CGFloat(count))))
+        let rows = count > columns ? Int(ceil(CGFloat(count) / CGFloat(columns))) : 1
+        let circleDiameter = circleFrame.width / CGFloat(columns)
+        let offsetY = (circleFrame.height - CGFloat(rows) * circleDiameter) / 2
         
         var cursor: Int = 0
         
-        let offsetY = (rect.height - CGFloat(rows) * diameter) / 2
-        
         for row in 0 ..< rows {
-            let y = diameter * CGFloat(row) + offsetY
+            let y = circleFrame.minY + circleDiameter * CGFloat(row) + offsetY
             
             for column in 0 ..< columns {
-                let cellRect = CGRect(x: diameter * CGFloat(column), y: y, width: diameter, height: diameter)
+                let cellRect = CGRect(x: circleFrame.minX + circleDiameter * CGFloat(column), y: y, width: circleDiameter, height: circleDiameter)
                 
                 drawCell(rect: cellRect)
                 
@@ -150,6 +150,15 @@ class TeamIconView: UIView {
         context.setAlpha(0.7)
         context.addEllipse(in: rect)
         context.fillPath()
+    }
+    
+    private func circleFrame(rect: CGRect) -> CGRect {
+        let diameter = rect.width
+        let hypotenuse = sqrt(diameter * diameter + diameter * diameter)
+        let outsideHypotenuse = (hypotenuse - diameter) / 2
+        let outsideAdjacent = sqrt((outsideHypotenuse * outsideHypotenuse) / 2)
+        
+        return CGRect(x: rect.minX + outsideAdjacent, y: rect.minY + outsideAdjacent, width: rect.width - outsideAdjacent * 2, height: rect.height - outsideAdjacent * 2)
     }
     
 }
