@@ -16,6 +16,12 @@ class NextPlayerView: UIView {
         }
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        contentMode = .redraw
+    }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
