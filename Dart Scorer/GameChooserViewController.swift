@@ -48,9 +48,6 @@ class GameChooserViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let image = UIImage(named: "concrete2")
-//        let imageView = UIImageView(image: image)
-//        tableView.backgroundView = imageView
         tableView.separatorStyle = .none
         tableView.hideEmptyRows()
         config = GamesConfig()
@@ -180,12 +177,7 @@ class GameChooserViewController: UITableViewController {
             if teamsCount == 0 {
                 cell = tableView.dequeueReusableCell(withIdentifier: "addPlayersCell", for: indexPath)
             } else {
-                let team = teams?[indexPath.row]
-                if (team?.players?.count ?? 1) == 1 {
-                    cell = tableView.dequeueReusableCell(withIdentifier: "playerCell", for: indexPath)
-                } else {
-                    cell = tableView.dequeueReusableCell(withIdentifier: "teamCell", for: indexPath)
-                }
+                cell = tableView.dequeueReusableCell(withIdentifier: "teamCell", for: indexPath)
                 populate(cell: cell as? TeamViewCell, for: indexPath)
             }
         }
@@ -228,17 +220,7 @@ class GameChooserViewController: UITableViewController {
         guard let team = teams?[indexPath.row] else { return }
         
         cell.team = team
-        cell.nameLabel.text = team.teamName
-        
-        if (team.players?.count ?? 0) == 1 {
-            cell.playersLabel?.text = nil
-        } else {
-            let playerNames = team.players?.map({ (item) -> String in
-                return (item as? Player)?.name ?? ""
-            })
-            
-            cell.playersLabel?.text = playerNames?.joined(separator: ", ")
-        }
+        cell.nameLabel.text = team.playerNames
     }
     
     private func retrieveItems() {
@@ -291,7 +273,6 @@ class TeamViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var iconView: TeamIconView!
-    @IBOutlet weak var playersLabel: UILabel?
     
     var team: Team? {
         didSet {
