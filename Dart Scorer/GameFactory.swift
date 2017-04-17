@@ -22,19 +22,13 @@ class GameFactory {
         
         let wrappedConfig = Config(config: config)
         
-        var players = self.teams.map {
+        let players = self.teams.map {
             return GamePlayer(team: $0)
         }
         
         // TODO: Swift 3 reflection APIs seem to be lacking. For now, just hard-code a mapping.
         switch config.name {
         case "Cricket":
-            // Cap the opponents for cricket.
-            let maxPlayers = 6
-            if players.count > maxPlayers {
-                players = Array(players.prefix(maxPlayers))
-            }
-            
             game = CricketGame(config: wrappedConfig, players: players)
         case "x01":
             game = X01Game(config: wrappedConfig, players: players)

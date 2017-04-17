@@ -99,13 +99,6 @@ class GameChooserViewController: UITableViewController {
             guard let game = GameFactory(teams: teams).createGame(config: config) else {
                 return false
             }
-//            guard (cutOpponentsIfNecessary ?? false) || game.players.count == teams.count else {
-//                display(title: "Do you want to continue?", message: "Only \(game.players.count) opponents can play \(game.name) at a time.") {
-//                    self.cutOpponentsIfNecessary = true
-//                    self.performSegue(withIdentifier: "playGame", sender: nil)
-//                }
-//                return false
-//            }
             
             gameForSegue = game
         }
