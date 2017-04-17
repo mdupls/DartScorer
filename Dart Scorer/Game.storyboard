@@ -464,14 +464,6 @@
             </objects>
             <point key="canvasLocation" x="1296" y="447"/>
         </scene>
-        <!--score-->
-        <scene sceneID="8Wx-Kp-Htj">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Score" referencedIdentifier="score" id="qqK-Q1-X2g" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="EAs-To-rk1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1147" y="529"/>
-        </scene>
         <!--Round-->
         <scene sceneID="x2T-wD-cnN">
             <objects>

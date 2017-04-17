@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     
     var teams: [Team]? {
         didSet {
-            opponentsViewController?.teams = teams
             gameChooserViewController?.teams = teams
         }
     }
@@ -23,7 +22,6 @@ class ViewController: UIViewController {
         return ((UIApplication.shared.delegate as? AppDelegate)?.storage)!
     }
     
-    weak var opponentsViewController: OpponentsViewController?
     weak var gameChooserViewController: GameChooserViewController?
     
     // MARK: Unwind Segues
@@ -57,9 +55,7 @@ class ViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "embedPlayers" {
-            opponentsViewController = segue.destination as? OpponentsViewController
-        } else if segue.identifier == "embedGameChooser" {
+        if segue.identifier == "embedGameChooser" {
             gameChooserViewController = segue.destination as? GameChooserViewController
         }
     }

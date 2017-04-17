@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1914970E1E9DA811003C5060 /* TeamPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1914970D1E9DA811003C5060 /* TeamPersistence.swift */; };
-		19203A691E93223600158AC1 /* OpponentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19203A681E93223600158AC1 /* OpponentsViewController.swift */; };
 		19203A6D1E93275100158AC1 /* PlayerCollectionViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19203A6C1E93275100158AC1 /* PlayerCollectionViewCells.swift */; };
 		19203A701E932DFB00158AC1 /* PlayerChooserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19203A6F1E932DFB00158AC1 /* PlayerChooserViewController.swift */; };
 		19203A721E932FEA00158AC1 /* Players.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19203A711E932FEA00158AC1 /* Players.storyboard */; };
@@ -104,7 +103,6 @@
 
 /* Begin PBXFileReference section */
 		1914970D1E9DA811003C5060 /* TeamPersistence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamPersistence.swift; sourceTree = "<group>"; };
-		19203A681E93223600158AC1 /* OpponentsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpponentsViewController.swift; sourceTree = "<group>"; };
 		19203A6C1E93275100158AC1 /* PlayerCollectionViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerCollectionViewCells.swift; sourceTree = "<group>"; };
 		19203A6F1E932DFB00158AC1 /* PlayerChooserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerChooserViewController.swift; sourceTree = "<group>"; };
 		19203A711E932FEA00158AC1 /* Players.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Players.storyboard; sourceTree = "<group>"; };
@@ -232,7 +230,6 @@
 			children = (
 				19203A6E1E93275500158AC1 /* Views */,
 				19B18AB41E84A36300923D8A /* GameChooserViewController.swift */,
-				19203A681E93223600158AC1 /* OpponentsViewController.swift */,
 				19203A6F1E932DFB00158AC1 /* PlayerChooserViewController.swift */,
 				19EA7F101E95D27F002AECC7 /* Properties */,
 			);
@@ -627,7 +624,6 @@
 				1955ACDA1E909C3B0069FA8F /* ActiveScoreViewController.swift in Sources */,
 				195A3D351E7D8AE200CE1215 /* MarkerView.swift in Sources */,
 				19EA7F0D1E95998B002AECC7 /* PropertiesViewController.swift in Sources */,
-				19203A691E93223600158AC1 /* OpponentsViewController.swift in Sources */,
 				1933178B1E9AA17F001C84BB /* CricketHitView.swift in Sources */,
 				198DD16D1EA3F254006DD801 /* HitScoreViewController.swift in Sources */,
 				19C32B841E9022CB0039EE23 /* ScoreGestureRecognizer.swift in Sources */,
