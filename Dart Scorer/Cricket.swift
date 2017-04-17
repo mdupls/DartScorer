@@ -244,9 +244,9 @@ extension CricketGame: Game {
     }
     
     func scoreViewController() -> UIViewController? {
-        let viewController = UIStoryboard(name: "Score", bundle: nil).instantiateViewController(withIdentifier: "cricketScore")
+        let viewController = UIStoryboard(name: "Score", bundle: nil).instantiateViewController(withIdentifier: "hitScore")
         
-        (viewController as? CricketScoreViewController)?.config = config
+        (viewController as? HitScoreViewController)?.config = config
         
         return viewController
     }

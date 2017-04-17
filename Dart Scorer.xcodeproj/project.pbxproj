@@ -42,6 +42,8 @@
 		1979DF8A1E7B313F00A667FC /* Shanghai.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF891E7B313F00A667FC /* Shanghai.swift */; };
 		1979DF8E1E7B31DE00A667FC /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1979DF8D1E7B31DE00A667FC /* Target.swift */; };
 		198DD1691EA28181006DD801 /* LeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198DD1681EA28181006DD801 /* LeaderView.swift */; };
+		198DD16B1EA3CD8B006DD801 /* NextPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198DD16A1EA3CD8B006DD801 /* NextPlayerView.swift */; };
+		198DD16D1EA3F254006DD801 /* HitScoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198DD16C1EA3F254006DD801 /* HitScoreViewController.swift */; };
 		198EE4631E92F5A400CEA09B /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198EE4621E92F5A400CEA09B /* RoundView.swift */; };
 		198EE4661E9319E200CEA09B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 198EE4641E9319E200CEA09B /* Model.xcdatamodeld */; };
 		198EE4691E931A9100CEA09B /* PlayerPersitence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198EE4681E931A9100CEA09B /* PlayerPersitence.swift */; };
@@ -136,6 +138,8 @@
 		1979DF891E7B313F00A667FC /* Shanghai.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shanghai.swift; sourceTree = "<group>"; };
 		1979DF8D1E7B31DE00A667FC /* Target.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		198DD1681EA28181006DD801 /* LeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderView.swift; sourceTree = "<group>"; };
+		198DD16A1EA3CD8B006DD801 /* NextPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextPlayerView.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		198DD16C1EA3F254006DD801 /* HitScoreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitScoreViewController.swift; sourceTree = "<group>"; };
 		198EE4621E92F5A400CEA09B /* RoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		198EE4651E9319E200CEA09B /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		198EE4681E931A9100CEA09B /* PlayerPersitence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerPersitence.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 				1955ACD91E909C3B0069FA8F /* ActiveScoreViewController.swift */,
 				195A3D381E7F726500CE1215 /* ScoreViewController.swift */,
 				193317881E99DC48001C84BB /* CricketScoreViewController.swift */,
+				198DD16C1EA3F254006DD801 /* HitScoreViewController.swift */,
 				1971206C1E834BC70024259C /* RoundViewController.swift */,
 			);
 			name = ViewControllers;
@@ -246,6 +251,7 @@
 				1933178A1E9AA17F001C84BB /* CricketHitView.swift */,
 				19C32B7F1E8EDF8B0039EE23 /* HitCellView.swift */,
 				19B423491EA10DA800C1ED1E /* GradientView.swift */,
+				198DD16A1EA3CD8B006DD801 /* NextPlayerView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -580,6 +586,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				198DD16B1EA3CD8B006DD801 /* NextPlayerView.swift in Sources */,
 				19EA7F0F1E95D1B4002AECC7 /* PropertyViewController.swift in Sources */,
 				1979DF861E7B2A8C00A667FC /* Stats.swift in Sources */,
 				195A3D391E7F726500CE1215 /* ScoreViewController.swift in Sources */,
@@ -622,6 +629,7 @@
 				19EA7F0D1E95998B002AECC7 /* PropertiesViewController.swift in Sources */,
 				19203A691E93223600158AC1 /* OpponentsViewController.swift in Sources */,
 				1933178B1E9AA17F001C84BB /* CricketHitView.swift in Sources */,
+				198DD16D1EA3F254006DD801 /* HitScoreViewController.swift in Sources */,
 				19C32B841E9022CB0039EE23 /* ScoreGestureRecognizer.swift in Sources */,
 				193317891E99DC48001C84BB /* CricketScoreViewController.swift in Sources */,
 				19B18AB91E84A7AE00923D8A /* GamesConfig.swift in Sources */,

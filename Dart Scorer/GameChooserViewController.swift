@@ -48,9 +48,9 @@ class GameChooserViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let image = UIImage(named: "concrete2")
-        let imageView = UIImageView(image: image)
-        tableView.backgroundView = imageView
+//        let image = UIImage(named: "concrete2")
+//        let imageView = UIImageView(image: image)
+//        tableView.backgroundView = imageView
         tableView.separatorStyle = .none
         tableView.hideEmptyRows()
         config = GamesConfig()

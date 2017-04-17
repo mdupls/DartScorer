@@ -20,8 +20,8 @@ class GameViewController: UIViewController {
     private(set) lazy var orderedViewControllers: [UIViewController] = {
         var viewControllers: [UIViewController] = []
         
-        for player in self.game.players {
-            viewControllers.append(self.newViewController(withIdentifier: "player", player: player))
+        for (index, player) in self.game.players.enumerated() {
+            viewControllers.append(self.newViewController(withIdentifier: "player", player: player, position: index))
         }
         
         let viewController = self.game.game.scoreViewController() ?? UIStoryboard(name: "Score", bundle: nil).instantiateViewController(withIdentifier: "score")
@@ -41,7 +41,7 @@ class GameViewController: UIViewController {
     // MARK: IBActions
     
     @IBAction func didPageControlChanged(sender: UIPageControl) {
-        scrollToViewController(index: sender.currentPage)
+        let _ = scrollToViewController(index: sender.currentPage)
     }
     
     // MARK: Events
@@ -82,12 +82,14 @@ class GameViewController: UIViewController {
     
     // MARK: Private
     
-    private func newViewController(withIdentifier identifier: String, player: GamePlayer) -> UIViewController {
+    private func newViewController(withIdentifier identifier: String, player: GamePlayer, position: Int) -> UIViewController {
         let viewController = UIStoryboard(name: "Game", bundle: nil).instantiateViewController(withIdentifier: identifier)
         
         if let playerViewController = viewController as? PlayerViewController {
+            playerViewController.gameViewController = self
             playerViewController.player = player
             playerViewController.game = game
+            playerViewController.position = position
         }
         
         return viewController
@@ -103,7 +105,32 @@ class GameViewController: UIViewController {
         return boundedRound
     }
     
-    // MARK: ALKJFSLKDJFKJSD
+    // MARK: Scroll
+    
+    func scrollToNextPlayer() {
+        if let index = currentIndex {
+            var position: Int = index + 1
+            if currentIndex == (game?.players.count ?? 0) - 1 {
+                position = 0
+            }
+            
+            if position != index {
+                let currentViewController = pagingViewController?.viewControllers?.first as? PlayerViewController
+                
+                if let viewController = scrollToViewController(index: position) as? PlayerViewController {
+                    // The paging view delegate methods will not be called automatically to update the round variables.
+                    // Manually calculate the correct round.
+                    if let currentViewController = currentViewController {
+                        if position == 0 {
+                            viewController.round = currentViewController.round + 1
+                        } else {
+                            viewController.round = currentViewController.round
+                        }
+                    }
+                }
+            }
+        }
+    }
     
     /**
      Scrolls to the next view controller.
@@ -122,13 +149,15 @@ class GameViewController: UIViewController {
      
      - parameter newIndex: the new index to scroll to
      */
-    func scrollToViewController(index newIndex: Int) {
-        if let firstViewController = pagingViewController?.viewControllers?.first,
-            let currentIndex = orderedViewControllers.index(of: firstViewController) {
-            let direction: UIPageViewControllerNavigationDirection = newIndex >= currentIndex ? .forward : .reverse
+    func scrollToViewController(index newIndex: Int) -> UIViewController? {
+        if let index = currentIndex {
+            let direction: UIPageViewControllerNavigationDirection = newIndex >= index ? .forward : .reverse
             let nextViewController = orderedViewControllers[newIndex]
             scrollTo(viewController: nextViewController, direction: direction)
+            
+            return nextViewController
         }
+        return nil
     }
     
     /**
@@ -139,19 +168,25 @@ class GameViewController: UIViewController {
     private func scrollTo(viewController: UIViewController,
                                         direction: UIPageViewControllerNavigationDirection = .forward) {
         pagingViewController?.setViewControllers([viewController], direction: direction, animated: true, completion: { (finished) -> Void in
-            self.notifyTutorialDelegateOfNewIndex()
+            if let index = self.currentIndex {
+                self.notifyTutorialDelegateOfNewIndex(index: index)
+            }
         })
     }
     
     /**
      Notifies '_tutorialDelegate' that the current page index was updated.
      */
-    fileprivate func notifyTutorialDelegateOfNewIndex() {
-        if let firstViewController = pagingViewController?.viewControllers?.first,
-            let index = orderedViewControllers.index(of: firstViewController) {
-            pageControl?.currentPage = index
-            pagingDelegate?.pageViewController(self, didUpdatePageIndex: index)
+    fileprivate func notifyTutorialDelegateOfNewIndex(index: Int) {
+        pageControl?.currentPage = index
+        pagingDelegate?.pageViewController(self, didUpdatePageIndex: index)
+    }
+    
+    fileprivate var currentIndex: Int? {
+        if let firstViewController = pagingViewController?.viewControllers?.first {
+            return orderedViewControllers.index(of: firstViewController)
         }
+        return nil
     }
     
 }
@@ -222,7 +257,9 @@ extension GameViewController: UIPageViewControllerDelegate {
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        notifyTutorialDelegateOfNewIndex()
+        if let index = currentIndex {
+            notifyTutorialDelegateOfNewIndex(index: index)
+        }
         
         (pagingViewController?.viewControllers?.first as? PageViewControllerPage)?.didBecomeActive(in: self)
     }

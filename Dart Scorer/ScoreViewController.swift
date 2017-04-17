@@ -65,19 +65,9 @@ class ScoreViewController: UIViewController, ScoreView {
         
         let score = game?.score(forPlayer: player)
         
-        cell.nameLabel.text = player.name
+        cell.nameLabel.text = player.team.playerNames
         cell.scoreLabel.text = "\(score ?? 0)"
         cell.rankImageView.isHidden = indexPath.row > 0 || player.totalHits == 0
-        
-        if (player.team.players?.count ?? 0) > 1 {
-            let playerNames = player.team.players?.map({ (item) -> String in
-                return (item as? Player)?.name ?? ""
-            })
-            
-            cell.playersLabel?.text = playerNames?.joined(separator: ", ")
-        } else {
-            cell.playersLabel?.text = nil
-        }
     }
     
     fileprivate func update() {
@@ -107,15 +97,7 @@ extension ScoreViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell
-        
-        let player = players?[indexPath.row]
-        
-        if (player?.team.players?.count ?? 1) == 1 {
-            cell = tableView.dequeueReusableCell(withIdentifier: "playerScoreCell", for: indexPath)
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "teamScoreCell", for: indexPath)
-        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "teamScoreCell", for: indexPath)
         
         populate(cell: cell as? ScoreCellView, indexPath: indexPath)
         
@@ -143,6 +125,5 @@ class ScoreCellView: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var rankImageView: UIImageView!
     @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var playersLabel: UILabel?
     
 }

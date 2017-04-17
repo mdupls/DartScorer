@@ -33,10 +33,13 @@ class PlayerViewController: UIViewController, ScoreView {
     // MARK: Variables
     
     var player: GamePlayer?
+    var position: Int = 0
     var game: CoreGame?
     var round: Int = 0 {
         didSet {
-            let bust = player?.score(for: round)?.bust ?? false
+            guard let player = player else { return }
+            
+            let bust = player.score(for: round)?.bust ?? false
             
             statusLabel?.isHidden = !bust
             
@@ -44,10 +47,26 @@ class PlayerViewController: UIViewController, ScoreView {
             roundViewController?.round = round
             scoreViewController?.round = round
             
-            playerName?.name = player?.player(for: round)?.name
+            updatePlayer()
         }
     }
     
+    private func updatePlayer() {
+        guard let game = game else { return }
+        
+        playerName?.round = round
+        playerName?.player = player
+        
+        var name: String?
+        if position == game.players.count - 1 {
+            name = game.players[0].player(for: round + 1)?.name
+        } else {
+            name = game.players[position + 1].player(for: round)?.name
+        }
+        nextPlayerView?.text = name
+    }
+    
+    weak var gameViewController: GameViewController?
     weak var boardViewController: BoardViewController?
     weak var roundViewController: RoundViewController?
     weak var scoreViewController: ActiveScoreViewController?
@@ -57,6 +76,13 @@ class PlayerViewController: UIViewController, ScoreView {
     @IBOutlet weak var playerName: NameView!
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var gradientBackgroundView: GradientView!
+    @IBOutlet weak var nextPlayerView: NextPlayerView!
+    
+    // MARK: IBAction
+    
+    @IBAction func didTapNextPlayer(gesture: UIGestureRecognizer) {
+        gameViewController?.scrollToNextPlayer()
+    }
     
     // MARK: Events
     
@@ -77,11 +103,12 @@ class PlayerViewController: UIViewController, ScoreView {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        updatePlayer()
+        
         gradientBackgroundView.startColor = UIColor.board.withAlphaComponent(0.5)
         gradientBackgroundView.endColor = UIColor.clear
         
         statusLabel.isHidden = true
-        playerName.name = player?.player(for: round)?.name
         
         NotificationCenter.default.addObserver(self, selector: #selector(didHitTarget(sender:)), name: Notification.Name("TargetHit"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didUnhitTarget(sender:)), name: Notification.Name("TargetUnhit"), object: nil)

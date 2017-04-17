@@ -77,16 +77,12 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        update(with: traitCollection)
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
         super.willTransition(to: newCollection, with: coordinator)
         
         collectionViewTraitCollection = newCollection
-        
-        update(with: newCollection)
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -143,10 +139,6 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
         collectionView?.collectionViewLayout.invalidateLayout()
     }
     
-    private func update(with traitCollection: UITraitCollection) {
-        
-    }
-    
     private func populate(cell: HitCellView?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         guard let targets = targets else { return }
@@ -166,7 +158,7 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     private func size() -> CGSize {
         let throwsPerTurn = CGFloat(game?.throwsPerTurn ?? 0)
         let width = view.frame.width / (throwsPerTurn + 1)
-        let dimension = min(width, view.frame.height)
+        let dimension = min(width, view.frame.height * 0.75)
         
         return CGSize(width: dimension, height: view.frame.height)
     }

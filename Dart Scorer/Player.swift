@@ -80,4 +80,12 @@ extension Team {
         return self.name ?? (players?.firstObject as? Player)?.name
     }
     
+    var playerNames: String? {
+        let playerNames = players?.map({ (item) -> String in
+            return (item as? Player)?.name ?? ""
+        })
+        
+        return playerNames?.joined(separator: ", ")
+    }
+    
 }

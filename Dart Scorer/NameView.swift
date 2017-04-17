@@ -10,10 +10,26 @@ import UIKit
 
 class NameView: UIView {
     
-    var name: String? {
+    var round: Int?
+    
+    var player: GamePlayer? {
         didSet {
             setNeedsDisplay()
         }
+    }
+    
+    fileprivate var name: String? {
+        if let round = round {
+            return player?.player(for: round)?.name
+        }
+        return nil
+    }
+    
+    fileprivate var team: String? {
+        if let team = player?.team, (team.players?.count ?? 0) > 1, let playerNames = team.playerNames {
+            return playerNames
+        }
+        return nil
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,15 +41,31 @@ class NameView: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
+        var accumulatedHeight: CGFloat?
+        
         if let name = name {
-            drawName(rect: rect, name: name)
+            let height = rect.height / 13
+            let radius = rect.height / 2 - height / 2
+            let font = UIFont(name: "HelveticaNeue", size: height)!
+            drawName(rect: rect, radius: radius, height: height, name: name, font: font)
+            
+            accumulatedHeight = height
+        }
+        
+        if let team = team {
+            let height = rect.height / 35
+            let radius = rect.height / 2 - (accumulatedHeight ?? 0) - height / 2
+            let font = UIFont(name: "HelveticaNeue", size: height)!
+            drawName(rect: rect, radius: radius, height: height, name: team, font: font)
         }
     }
     
     // MARK: Private
     
-    private func drawName(rect: CGRect, name: String) {
+    private func drawName(rect: CGRect, radius: CGFloat, height: CGFloat, name: String, font: UIFont) {
         guard let context = UIGraphicsGetCurrentContext() else { return }
+        
+        context.saveGState()
         
         // *******************************************************************
         // Scale & translate the context to have 0,0
@@ -43,10 +75,9 @@ class NameView: UIView {
         context.translateBy (x: rect.midX, y: rect.midY)
         context.scaleBy (x: 1, y: -1)
         
-        let height = rect.height / 13
-        let font = UIFont(name: "HelveticaNeue", size: height)!
+        centreArcPerpendicular(text: name, context: context, radius: radius, angle: CGFloat.pi / 2, colour: UIColor.white, font: font, clockwise: true)
         
-        centreArcPerpendicular(text: name, context: context, radius: rect.height / 2 - (height * 3) / 4, angle: CGFloat.pi / 2, colour: UIColor.white, font: font, clockwise: true)
+        context.restoreGState()
     }
     
     private func centreArcPerpendicular(text str: String, context: CGContext, radius r: CGFloat, angle theta: CGFloat, colour c: UIColor, font: UIFont, clockwise: Bool){

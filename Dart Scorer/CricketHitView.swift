@@ -38,7 +38,7 @@ class CricketHitView: UIView {
     private func drawHit(rect: CGRect, hits: Int) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
-        ctx.setStrokeColor(UIColor.black.cgColor)
+        ctx.setStrokeColor(UIColor.white.cgColor)
         
         let path = CGMutablePath()
         
