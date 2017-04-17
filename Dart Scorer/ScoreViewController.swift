@@ -28,6 +28,8 @@ class ScoreViewController: UIViewController, ScoreView {
     
     var round: Int = 0 {
         didSet {
+            guard isViewLoaded else { return }
+            
             update()
         }
     }

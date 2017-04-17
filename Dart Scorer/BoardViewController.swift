@@ -16,6 +16,8 @@ class BoardViewController: UIViewController {
     var player: GamePlayer?
     var round: Int = 0 {
         didSet {
+            guard isViewLoaded else { return }
+            
             roundView?.round = round
             targetSelectionView?.round = round
             dataSource?.round = round

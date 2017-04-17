@@ -37,6 +37,7 @@ class PlayerViewController: UIViewController, ScoreView {
     var game: CoreGame?
     var round: Int = 0 {
         didSet {
+            guard isViewLoaded else { return }
             guard let player = player else { return }
             
             let bust = player.score(for: round)?.bust ?? false
@@ -49,21 +50,6 @@ class PlayerViewController: UIViewController, ScoreView {
             
             updatePlayer()
         }
-    }
-    
-    private func updatePlayer() {
-        guard let game = game else { return }
-        
-        playerName?.round = round
-        playerName?.player = player
-        
-        var name: String?
-        if position == game.players.count - 1 {
-            name = game.players[0].player(for: round + 1)?.name
-        } else {
-            name = game.players[position + 1].player(for: round)?.name
-        }
-        nextPlayerView?.text = name
     }
     
     weak var gameViewController: GameViewController?
@@ -154,6 +140,31 @@ class PlayerViewController: UIViewController, ScoreView {
             status = bust ? .bust : .none
         }
         displayStatus(status: status)
+    }
+    
+    private func updatePlayer() {
+        guard let game = game else { return }
+        
+        playerName?.round = round
+        playerName?.player = player
+        
+        var hideNextPlayerView = false
+        if let rounds = game.rounds, round == rounds - 1, position == game.players.count - 1 {
+            // Disable the next player view if this is the last round and the last player.
+            hideNextPlayerView = true
+        }
+        
+        nextPlayerView?.isHidden = hideNextPlayerView
+        
+        if !hideNextPlayerView {
+            var name: String?
+            if position == game.players.count - 1 {
+                name = game.players[0].player(for: round + 1)?.name
+            } else {
+                name = game.players[position + 1].player(for: round)?.name
+            }
+            nextPlayerView?.text = name
+        }
     }
     
 }

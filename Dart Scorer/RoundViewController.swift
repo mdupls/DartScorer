@@ -17,6 +17,8 @@ class RoundViewController: UICollectionViewController, UICollectionViewDelegateF
     
     var round: Int? {
         didSet {
+            guard isViewLoaded else { return }
+            
             update()
         }
     }

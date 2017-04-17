@@ -16,6 +16,8 @@ class ActiveScoreViewController: UIViewController {
     var player: GamePlayer?
     var round: Int = 0 {
         didSet {
+            guard isViewLoaded else { return }
+            
             update()
         }
     }
