@@ -153,7 +153,7 @@ class GameChooserViewController: UITableViewController {
         case 1:
             return gamesCount
         default:
-            return max(1, teamsCount)
+            return 1 + teamsCount
         }
     }
     
@@ -167,7 +167,7 @@ class GameChooserViewController: UITableViewController {
             cell = tableView.dequeueReusableCell(withIdentifier: "gameCell", for: indexPath)
             populate(cell: cell as? GameViewCell, for: indexPath)
         default:
-            if teamsCount == 0 {
+            if indexPath.row == 0 {
                 cell = tableView.dequeueReusableCell(withIdentifier: "addPlayersCell", for: indexPath)
             } else {
                 cell = tableView.dequeueReusableCell(withIdentifier: "teamCell", for: indexPath)
@@ -210,7 +210,7 @@ class GameChooserViewController: UITableViewController {
     
     private func populate(cell: TeamViewCell?, for indexPath: IndexPath) {
         guard let cell = cell else { return }
-        guard let team = teams?[indexPath.row] else { return }
+        guard let team = teams?[indexPath.row - 1] else { return }
         
         cell.team = team
         cell.nameLabel.text = team.playerNames

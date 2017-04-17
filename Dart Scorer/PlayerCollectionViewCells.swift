@@ -35,24 +35,10 @@ class AddPlayerCollectionViewCell: UICollectionViewCell {
 class PlayerCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var iconView: TeamIconView!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        imageView.backgroundColor = UIColor.lightGray
-        imageView.layer.borderColor = UIColor.gray.cgColor
-        imageView.layer.borderWidth = 1
-    }
-    
-    override func draw(_ rect: CGRect) {
-        imageView.layer.cornerRadius = imageView.bounds.size.width / 2
-        
-        super.draw(rect)
     }
     
     override var isSelected: Bool {
@@ -76,10 +62,6 @@ class TeamCollectionViewCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
     }
     
     override var isSelected: Bool {

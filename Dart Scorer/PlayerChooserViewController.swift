@@ -86,30 +86,14 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     
     @IBAction func didTapNewTeam(sender: UIBarButtonItem) {
         if let players = selectedBench() {
-            if players.count > 1 {
-                askForName(title: "Create Team") {
-                    self.isEditing = false
-                    
-                    if let name = $0, !name.isEmpty {
-                        let teamPersistence = TeamPersistence(storage: self.storage)
-                        if let team = teamPersistence.createTeam(name: name, players: players) {
-                            let position = self.teams?.count ?? 0
-                            self.teams?.append(team)
-                            self.collectionView?.insertItems(at: [IndexPath(item: position, section: 0)])
-                            self.editBarButtonItem?.isEnabled = true
-                        }
-                    }
-                }
-            } else {
-                self.isEditing = false
-                
-                let teamPersistence = TeamPersistence(storage: self.storage)
-                if let team = teamPersistence.createTeam(players: players) {
-                    let position = self.teams?.count ?? 0
-                    self.teams?.append(team)
-                    self.collectionView?.insertItems(at: [IndexPath(item: position, section: 0)])
-                    self.editBarButtonItem?.isEnabled = true
-                }
+            self.isEditing = false
+            
+            let teamPersistence = TeamPersistence(storage: self.storage)
+            if let team = teamPersistence.createTeam(players: players) {
+                let position = self.teams?.count ?? 0
+                self.teams?.append(team)
+                self.collectionView?.insertItems(at: [IndexPath(item: position, section: 0)])
+                self.editBarButtonItem?.isEnabled = true
             }
         }
     }
@@ -208,28 +192,16 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        var cell: UICollectionViewCell
-        
-        var hasMultiplePlayers: Bool = false
-        var onlyTeamPlayer: Player?
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath)
         
         if indexPath.section == 0 {
-            // A team cell should have more than one player.
-            hasMultiplePlayers = (teams?[indexPath.row].players?.count ?? 0) > 1
+            let team = teams?[indexPath.row]
             
-            if !hasMultiplePlayers {
-                onlyTeamPlayer = teams?[indexPath.row].players?.firstObject as? Player
-            }
-        }
-        
-        if hasMultiplePlayers {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath)
-            populate(cell: cell as? TeamCollectionViewCell, indexPath: indexPath)
+            populate(cell: cell as? TeamCollectionViewCell, team: team, indexPath: indexPath)
         } else {
-            let player = onlyTeamPlayer ?? bench?[indexPath.row]
+            let player = bench?[indexPath.row]
             
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "playerCell", for: indexPath)
-            populate(cell: cell as? PlayerCollectionViewCell, player: player, indexPath: indexPath)
+            populate(cell: cell as? TeamCollectionViewCell, player: player, indexPath: indexPath)
         }
         
         return cell
@@ -273,10 +245,18 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
         collectionView?.collectionViewLayout.invalidateLayout()
     }
     
+    private func width(for columns: Int) -> CGFloat {
+        let width = (view.frame.width - spacing() * CGFloat(columns - 1)) / CGFloat(columns)
+        if width < 120 {
+            return self.width(for: columns - 1)
+        }
+        return width
+    }
+    
     private func size() -> CGSize {
-        let dimension = 100
+        let width = self.width(for: 4)
         
-        return CGSize(width: dimension, height: dimension)
+        return CGSize(width: width, height: 200)
     }
     
     private func inset() -> UIEdgeInsets {
@@ -291,21 +271,20 @@ class PlayerChooserViewController: UICollectionViewController, UICollectionViewD
     }
     
     private func spacing() -> CGFloat {
-        return 20
+        return 5
     }
     
-    private func populate(cell: TeamCollectionViewCell?, indexPath: IndexPath) {
+    private func populate(cell: TeamCollectionViewCell?, team: Team?, indexPath: IndexPath) {
         guard let cell = cell else { return }
-        
-        let team = teams?[indexPath.row]
         
         cell.team = team
-        cell.nameLabel.text = team?.teamName
+        cell.nameLabel.text = team?.playerNames
     }
     
-    private func populate(cell: PlayerCollectionViewCell?, player: Player?, indexPath: IndexPath) {
+    private func populate(cell: TeamCollectionViewCell?, player: Player?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         
+        cell.team = nil
         cell.nameLabel.text = player?.name
     }
     
