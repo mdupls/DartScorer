@@ -36,7 +36,7 @@ class HitScoreViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     var targetIndex: Int {
-        return Int(columns / 2)
+        return Int(numberOfPlayers / 2)
     }
     
     var targets: [Int] {
@@ -59,9 +59,6 @@ class HitScoreViewController: UICollectionViewController, UICollectionViewDelega
         let image = UIImage(named: "wood3")
         let imageView = UIImageView(image: image)
         collectionView?.backgroundView = imageView
-        
-        collectionView?.layer.cornerRadius = 100
-        collectionView?.layer.masksToBounds = true
         
         (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionHeadersPinToVisibleBounds = true
         (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionFootersPinToVisibleBounds = true
@@ -92,21 +89,53 @@ class HitScoreViewController: UICollectionViewController, UICollectionViewDelega
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: UICollectionViewCell
         
-        if row(for: indexPath) == 0 {
-            if column(for: indexPath) == targetIndex {
+        let row = self.row(for: indexPath)
+        let column = self.column(for: indexPath)
+        
+        if row == 0 {
+            if column == targetIndex {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "targetCell", for: indexPath)
                 populate(cell: cell as? TargetScoreCellView, indexPath: indexPath)
             } else {
                 cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath)
                 populate(cell: cell as? TeamHitScoreCellView, indexPath: indexPath)
             }
-        } else if column(for: indexPath) == targetIndex {
+        } else if column == targetIndex {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "targetCell", for: indexPath)
             populate(cell: cell as? TargetScoreCellView, indexPath: indexPath)
         } else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
             populate(cell: cell as? HitScoreCellView, indexPath: indexPath)
         }
+        
+        var corners: UIRectCorner?
+        
+        if column == 0 {
+            if row == 0 {
+                corners = corners?.union(.topLeft) ?? .topLeft
+            } else if row == rows - 1 {
+                corners = corners?.union(.bottomLeft) ?? .bottomLeft
+            }
+        }
+        if column == columns - 1 {
+            if row == 0 {
+                corners = corners?.union(.topRight) ?? .topRight
+            }
+            if row == rows - 1 {
+                corners = corners?.union(.bottomRight) ?? .bottomRight
+            }
+        }
+        
+        var mask: CAShapeLayer?
+        if let corners = corners {
+            let path = UIBezierPath(roundedRect: cell.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: 10, height: 10))
+            
+            mask = CAShapeLayer()
+            mask?.path = path.cgPath
+        }
+        
+        cell.layer.mask = mask
+        cell.layer.masksToBounds = mask != nil
         
         return cell
     }
@@ -266,13 +295,7 @@ extension HitScoreCellView {
         let state = game.state(for: target, player: player, round: round)
         
         hitView.hits = hits
-        state.apply(view: self)
-        
-//        if state != .closed {
-//            overallState = .initial
-//        }
-//        
-//        return overallState
+        state.apply(view: hitView)
     }
     
 }
@@ -329,20 +352,23 @@ class HitScoreHeaderView: UICollectionReusableView {
 
 fileprivate extension TargetState {
     
-    func apply(view: UIView?) {
+    func apply(view: CricketHitView?) {
         guard let view = view else { return }
         
         switch self {
         case .closed:
+            view.lineColor = UIColor.lightGray
             view.alpha = 0.2
         case .initial:
+            view.lineColor = UIColor.board
             view.alpha = 1
         case .open:
+            view.lineColor = UIColor.open
             view.alpha = 1
         }
     }
     
-    func apply(view: UITableViewCell) {
+    func apply(view: UICollectionViewCell) {
         switch self {
         case .closed:
             view.backgroundColor = UIColor.lightGray

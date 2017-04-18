@@ -16,6 +16,12 @@ class CricketHitView: UIView {
         }
     }
     
+    var lineColor: UIColor? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -38,7 +44,7 @@ class CricketHitView: UIView {
     private func drawHit(rect: CGRect, hits: Int) {
         guard let ctx = UIGraphicsGetCurrentContext() else { return }
         
-        ctx.setStrokeColor(UIColor.board.cgColor)
+        ctx.setStrokeColor(lineColor?.cgColor ?? UIColor.board.cgColor)
         ctx.setLineWidth(6)
         
         let path = CGMutablePath()
