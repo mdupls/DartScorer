@@ -28,11 +28,15 @@ class HitScoreViewController: UICollectionViewController, UICollectionViewDelega
     }
     
     var rows: Int {
-        return numberOfPlayers
+        return 1 + numberOfTargets
     }
     
     var columns: Int {
-        return 1 + numberOfTargets
+        return 1 + numberOfPlayers
+    }
+    
+    var targetIndex: Int {
+        return Int(columns / 2)
     }
     
     var targets: [Int] {
@@ -54,8 +58,10 @@ class HitScoreViewController: UICollectionViewController, UICollectionViewDelega
         
         let image = UIImage(named: "wood3")
         let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFill
         collectionView?.backgroundView = imageView
+        
+        collectionView?.layer.cornerRadius = 100
+        collectionView?.layer.masksToBounds = true
         
         (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionHeadersPinToVisibleBounds = true
         (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.sectionFootersPinToVisibleBounds = true
@@ -86,9 +92,17 @@ class HitScoreViewController: UICollectionViewController, UICollectionViewDelega
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         var cell: UICollectionViewCell
         
-        if indexPath.row % columns == 0 {
-            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath)
-            populate(cell: cell as? TeamHitScoreCellView, indexPath: indexPath)
+        if row(for: indexPath) == 0 {
+            if column(for: indexPath) == targetIndex {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "targetCell", for: indexPath)
+                populate(cell: cell as? TargetScoreCellView, indexPath: indexPath)
+            } else {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "teamCell", for: indexPath)
+                populate(cell: cell as? TeamHitScoreCellView, indexPath: indexPath)
+            }
+        } else if column(for: indexPath) == targetIndex {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "targetCell", for: indexPath)
+            populate(cell: cell as? TargetScoreCellView, indexPath: indexPath)
         } else {
             cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
             populate(cell: cell as? HitScoreCellView, indexPath: indexPath)
@@ -121,6 +135,9 @@ class HitScoreViewController: UICollectionViewController, UICollectionViewDelega
     // MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if column(for: indexPath) == targetIndex {
+            return CGSize(width: 80, height: size().height)
+        }
         return size()
     }
     
@@ -140,39 +157,68 @@ class HitScoreViewController: UICollectionViewController, UICollectionViewDelega
     
     private func populate(cell: TeamHitScoreCellView?, indexPath: IndexPath) {
         guard let cell = cell else { return }
-        guard let game = game else { return }
         
-        let player = game.players[Int(CGFloat(indexPath.row) / CGFloat(columns))]
+        let player = self.player(for: indexPath)
         
         cell.label.text = player.team.playerNames
+    }
+    
+    private func populate(cell: TargetScoreCellView?, indexPath: IndexPath) {
+        guard let cell = cell else { return }
+        
+        if row(for: indexPath) == 0 {
+            cell.label.text = ""
+        } else {
+            let target = self.target(for: indexPath)
+            
+            cell.label.text = "\(target)"
+        }
     }
     
     private func populate(cell: HitScoreCellView?, indexPath: IndexPath) {
         guard let cell = cell else { return }
         guard let game = game else { return }
         
-        cell.backgroundColor = indexPath.row % 2 == 0 ? UIColor.board.withAlphaComponent(0.6) : UIColor.board.withAlphaComponent(0.8)
-        
-        let player = game.players[Int(CGFloat(indexPath.row) / CGFloat(columns))]
-        let target = targets[(indexPath.row % columns) - 1]
+        let player = self.player(for: indexPath)
+        let target = self.target(for: indexPath)
         
         cell.populate(with: player, game: game, target: target, round: round)
     }
     
+    private func player(for indexPath: IndexPath) -> GamePlayer {
+        var index = column(for: indexPath)
+        if index >= targetIndex {
+            index -= 1
+        }
+        return game!.players[index]
+    }
+    
+    private func target(for indexPath: IndexPath) -> Int {
+        return targets[row(for: indexPath) - 1]
+    }
+    
+    private func column(for indexPath: IndexPath) -> Int {
+        return Int(CGFloat(indexPath.row) / CGFloat(rows))
+    }
+    
+    private func row(for indexPath: IndexPath) -> Int {
+        return indexPath.row % rows
+    }
+    
     private func size() -> CGSize {
         let inset = self.inset()
-        let width = (view.frame.width - inset.left - inset.right) / CGFloat(columns)
+        let width = (view.frame.width - inset.left - inset.right - 80) / CGFloat(columns - 1)
         let height = (view.frame.height - inset.top - inset.bottom) / CGFloat(rows)
         
-        return CGSize(width: width, height: max(90, height))
+        return CGSize(width: max(90, width), height: height)
     }
     
     private func inset() -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 20, 0, 20)
+        return UIEdgeInsetsMake(20, 20, 40, 20)
     }
     
     private func lineSpacing() -> CGFloat {
-        return 1
+        return 0
     }
     
     private func spacing() -> CGFloat {
@@ -196,6 +242,12 @@ extension HitScoreViewController: PageViewControllerPage {
 }
 
 class TeamHitScoreCellView: UICollectionViewCell {
+    
+    @IBOutlet weak var label: UILabel!
+    
+}
+
+class TargetScoreCellView: UICollectionViewCell {
     
     @IBOutlet weak var label: UILabel!
     
@@ -232,17 +284,18 @@ class HitScoreHeaderView: UICollectionReusableView {
             subviews.forEach { $0.removeFromSuperview() }
             
             if let items = items, !items.isEmpty {
-                let leftInset = inset?.left ?? 0
-                let rightInset = inset?.right ?? 0
-                let width = (frame.width - leftInset - rightInset) / CGFloat(items.count)
-                let height = frame.height
+                let topInset = inset?.top ?? 0
+                let bottomInset = inset?.bottom ?? 0
+                let width = frame.width
+                let height = (frame.height - topInset - bottomInset) / CGFloat(items.count)
                 
                 let font = UIFont(name: "HelveticaNeue", size: 50)
                 
                 for (index, item) in items.enumerated() {
-                    let label = UILabel(frame: CGRect(x: leftInset + CGFloat(index) * width, y: 0, width: width, height: height))
+                    let label = UILabel(frame: CGRect(x: 0, y: topInset + CGFloat(index) * height, width: width, height: height))
                     
                     label.translatesAutoresizingMaskIntoConstraints = false
+                    label.backgroundColor = UIColor.board
                     label.textAlignment = .center
                     label.textColor = UIColor.white
                     label.font = font
@@ -250,20 +303,20 @@ class HitScoreHeaderView: UICollectionReusableView {
                     
                     addSubview(label)
                     
-                    label.topAnchor.constraint(equalTo: topAnchor).isActive = true
-                    label.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+                    label.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+                    label.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
                     
                     if index == 0 {
-                        label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: leftInset).isActive = true
+                        label.topAnchor.constraint(equalTo: topAnchor, constant: topInset).isActive = true
                     } else {
                         label.backgroundColor = index % 2 == 0 ? UIColor.black.withAlphaComponent(0.4) : UIColor.black.withAlphaComponent(0.6)
                         
-                        label.leadingAnchor.constraint(equalTo: subviews[index - 1].trailingAnchor).isActive = true
-                        label.widthAnchor.constraint(equalTo: subviews[index - 1].widthAnchor).isActive = true
+                        label.topAnchor.constraint(equalTo: subviews[index - 1].bottomAnchor).isActive = true
+                        label.heightAnchor.constraint(equalTo: subviews[index - 1].heightAnchor).isActive = true
                     }
                     
                     if index == items.count - 1 {
-                        label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -rightInset).isActive = true
+                        label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -bottomInset).isActive = true
                     }
                 }
             }
